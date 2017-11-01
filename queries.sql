@@ -1,3 +1,5 @@
+CREATE DATABASE Proyecto;
+USE DATABASE Proyecto;
 CREATE TABLE Horario (
 	Frequencia VARCHAR(100) NOT NULL,
 	PRIMARY KEY (Frequencia)
