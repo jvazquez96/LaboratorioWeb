@@ -50,3 +50,14 @@ CREATE TABLE Ensena (
 	FOREIGN KEY (Clave) REFERENCES Curso(Clave)
 );
 
+SELECT Clave, NumeroDeGrupo, Horario, Salon, Ingles, Honors
+FROM Ensena NATURAL JOIN Curso
+WHERE Nomina = idProfesor
+
+SELECT Clave, NumeroDeGrupo, Horario, Salon, Ingles, Honors
+FROM Curso, Materia
+Where Curso.Clave = Materia.Clave AND Curso.Clave = idMateria
+
+SELECT Numero, Capacidad, Administrador
+FROM Salon FULL OUTER JOIN Curso ON Salon.Numero = Curso.Salon
+WHERE Horario = horarioBuscado AND Clave = "" OR Clave = NULL 
