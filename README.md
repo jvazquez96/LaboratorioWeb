@@ -1,7 +1,7 @@
 Proyecto de la clase de desarollo de aplicaciones web
 ======
 
-- [ ] Inserts (Jorge)
+- [X] Inserts (Jorge)
 
 Queries por hacer
 - [ ] Listas de salones de CS dispnibles a dicha hora. (Santiago)

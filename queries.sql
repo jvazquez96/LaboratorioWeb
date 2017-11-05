@@ -1,3 +1,4 @@
+-- Si no tienen la base de datos creada corran descomenten las siguientes lineas.
 CREATE DATABASE Proyecto;
 USE Proyecto;
 CREATE TABLE Horario (
@@ -8,9 +9,8 @@ CREATE TABLE Horario (
 CREATE TABLE Materia (
 	Clave VARCHAR(100) NOT NULL,
 	Nombre VARCHAR(100),
-	HoraLaboratorio VARCHAR(100) NOT NULL,
-	PRIMARY KEY (Clave),
-	FOREIGN KEY (HoraLaboratorio) REFERENCES Horario(Frequencia)
+	HorasLaboratorio INT,
+	PRIMARY KEY (Clave)
 );
 
 CREATE TABLE Salon (
@@ -33,11 +33,12 @@ CREATE TABLE Curso (
 	Clave VARCHAR(100) NOT NULL,
 	NumeroDeGrupo INT NOT NULL,
 	Horario VARCHAR(100) NOT NULL,
-	HorarioLaboratorio VARCHAR(100) NOT NULL,
+	HorarioLaboratorio VARCHAR(100),
 	Salon VARCHAR(100) NOT NULL,
 	Ingles INT NOT NULL,
 	Honors INT NOT NULL,
-	PRIMARY KEY (Clave),
+	PRIMARY KEY (Clave, NumeroDeGrupo),
+	FOREIGN KEY (Clave) REFERENCES Materia (Clave),
 	FOREIGN KEY (Horario) REFERENCES Horario(Frequencia),
 	FOREIGN KEY (HorarioLaboratorio) REFERENCES Horario(Frequencia),
 	FOREIGN KEY (Salon) REFERENCES Salon(Numero)
@@ -46,11 +47,49 @@ CREATE TABLE Curso (
 CREATE TABLE Ensena (
 	Nomina VARCHAR(100) NOT NULL,
 	Clave VARCHAR(100) NOT NULL,
+	NumeroDeGrupo INT NOT NULL,
 	Responsabilidad INT NOT NULL,
-	PRIMARY KEY (Nomina, Clave),
+	PRIMARY KEY (Nomina, Clave, NumeroDeGrupo),
 	FOREIGN KEY (Nomina) REFERENCES Maestro(Nomina),
-	FOREIGN KEY (Clave) REFERENCES Curso(Clave)
+	FOREIGN KEY (Clave, NumeroDeGrupo) REFERENCES Curso(Clave, NumeroDeGrupo)
 );
+
+CREATE TRIGGER ActualizaNumeroDeCursos AFTER INSERT ON Ensena
+FOR EACH ROW
+	UPDATE Maestro
+	Set CursosProgramados = CursosProgramados + 1
+	WHERE Nomina = NEW.Nomina;
+
+INSERT INTO Maestro (Nomina, Nombre, Telefono, CorreoElectronico, CursosProgramados)
+VALUES ("L12345678", "Angela Aranda", 123997472, "angela@hotmail.com", 0);
+INSERT INTO Maestro (Nomina, Nombre, Telefono, CorreoElectronico, CursosProgramados)
+VALUES ("L98765432", "Julia Limon", 74682972, "julia@hotmail.com", 0);
+INSERT INTO Maestro (Nomina, Nombre, Telefono, CorreoElectronico, CursosProgramados)
+VALUES ("L57451829", "Juan Herrera", 23457289, "juan@hotmail.com", 0);
+INSERT INTO Horario (Frequencia)
+VALUES ("7/3 LuJu");
+INSERT INTO Horario (Frequencia)
+VALUES ("8+/3 MaVi");
+INSERT INTO Horario (Frequencia)
+VALUES ("10/3 MaVi");
+INSERT INTO Salon (Numero, Capacidad, Administrador)
+VALUES ("A3-301", 38, "Escolar");
+INSERT INTO Salon (Numero, Capacidad, Administrador)
+VALUES ("A3-302", 25, "Escolar");
+INSERT INTO Materia (Clave, Nombre, HorasLaboratorio)
+VALUES ("TC3001", "Intro a la programacion", 0);
+INSERT INTO Materia (Clave, Nombre, HorasLaboratorio)
+VALUES ("TC3002", "Seguridad informatica", 1);
+INSERT INTO Curso (Clave, NumeroDeGrupo, Horario, HorarioLaboratorio, Salon, Ingles, Honors)
+VALUES ("TC3001", 1, "7/3 LuJu", NULL, "A3-301", 1, 0);
+INSERT INTO Curso (Clave, NumeroDeGrupo, Horario, HorarioLaboratorio, Salon, Ingles, Honors)
+VALUES ("TC3002", 1, "8+/3 MaVi", "10/3 MaVi", "A3-302", 1, 1);
+INSERT INTO Ensena (Nomina, Clave, NumeroDeGrupo, Responsabilidad)
+VALUES ("L12345678", "TC3001", 1, 100);
+INSERT INTO Ensena (Nomina, Clave, NumeroDeGrupo, Responsabilidad)
+VALUES ("L98765432", "TC3002", 1, 50);
+INSERT INTO Ensena (Nomina, Clave, NumeroDeGrupo, Responsabilidad)
+VALUES ("L57451829", "TC3002", 1, 50);
 
 SELECT Clave, NumeroDeGrupo, Horario, Salon, Ingles, Honors
 FROM Ensena NATURAL JOIN Curso
