@@ -13,4 +13,4 @@ Queries por hacer
 - [ ] Lista de salones disponibles en un determinado horario oficial.
 - [ ] Lista de profesores que tienen clase en un determinado horario.
 - [ ] Lista de profesores que no tienen clase en un determinado horario.
-- [ ]Lista de cursos que se imparten un determinado dia en un determinado salon.
+- [ ] Lista de cursos que se imparten un determinado dia en un determinado salon.
