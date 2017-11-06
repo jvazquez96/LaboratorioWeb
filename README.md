@@ -7,7 +7,7 @@ Queries por hacer
 - [ ] Listas de salones de CS dispnibles a dicha hora. (Santiago)
 - [ ] Intercambiar los salones de 2 grupos programados. (Santiago)
 - [ ] Cambiar profesor de un determinado grupo.(Miguel)
-- [ ] Enviar correo electronico al profesor informado el cambio. (Jorge | Esto se directo en Java) 
+- [ ] Enviar correo electronico al profesor informado el cambio. (Jorge | Esto se hace directo en Java) 
 - [ ] Generar reportes con los cursos impartidos por un profesor. (Jorge)
 - [ ] Generar reportes con la lista de grupos de una materia. 
 - [ ] Lista de salones disponibles en un determinado horario oficial.(Miguel)
