@@ -1,6 +1,7 @@
 Proyecto de la clase de desarollo de aplicaciones web
 ======
 
+- [X] Crear esquema de la base de datos (Jorge)
 - [X] Inserts (Jorge)
 
 Queries por hacer
