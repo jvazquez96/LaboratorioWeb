@@ -1,3 +1,10 @@
+<%-- 
+    Document   : hello
+    Created on : Nov 6, 2017, 12:55:26 PM
+    Author     : jorgevazquez
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -15,7 +22,7 @@ and open the template in the editor.
         <form action="Login" method="post">
             <table cellspacing="5" boder="0">
                 <tr>
-                    <td align="right">Usuario <input type="text" name="usuario"> </td>
+                    <td align="right"> Usuario <input type="text" name="usuario"> </td>
                 </tr>
                 <tr>
                     <td align="right">Password <input type="password" name="password">
@@ -27,3 +34,4 @@ and open the template in the editor.
         </form>
     </body>
 </html>
+
