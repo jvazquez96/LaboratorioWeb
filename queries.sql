@@ -107,3 +107,8 @@ WHERE Horario = horarioBuscado AND Clave = "" OR Clave = NULL
 Select Maestro.Nomina, Maestro.Nombre, Curso.Clave, Curso.NumeroDeGrupo, Ensena.Responsabilidad
 FROM Maestro, Curso, Ensena
 WHERE (Ensena.Nomina = Maestro.Nomina) AND (Curso.Clave = Ensena.Clave) AND (Curso.NumeroDeGrupo = Ensena.NumeroDeGrupo);
+
+-- Lista de grupos de una materia
+Select Curso.Clave, Curso.NumeroDeGrupo, Curso.Horario, Curso.HorarioLaboratorio, Curso.Salon, Curso.Ingles, Curso.Honors
+FROM Curso, Materia
+WHERE Materia.Clave = Curso.Clave;

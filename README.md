@@ -9,7 +9,7 @@ Queries por hacer
 - [ ] Cambiar profesor de un determinado grupo.(Miguel)
 - [ ] Enviar correo electronico al profesor informado el cambio. (Jorge | Esto se hace directo en Java) 
 - [X] Generar reportes con los cursos impartidos por un profesor. (Jorge)
-- [ ] Generar reportes con la lista de grupos de una materia. 
+- [X] Generar reportes con la lista de grupos de una materia. (Jorge)
 - [ ] Lista de salones disponibles en un determinado horario oficial.(Miguel)
 - [ ] Lista de profesores que tienen clase en un determinado horario. (Santiago)
 - [ ] Lista de profesores que no tienen clase en un determinado horario.(Miguel)
