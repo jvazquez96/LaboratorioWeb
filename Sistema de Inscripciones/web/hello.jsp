@@ -22,7 +22,7 @@ and open the template in the editor.
         <form action="Login" method="post">
             <table cellspacing="5" boder="0">
                 <tr>
-                    <td align="right"> Usuario <input type="text" name="usuario"> </td>
+                    <td align="right">Usuario <input type="text" name="usuario"> </td>
                 </tr>
                 <tr>
                     <td align="right">Password <input type="password" name="password">

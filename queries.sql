@@ -54,11 +54,18 @@ CREATE TABLE Ensena (
 	FOREIGN KEY (Clave, NumeroDeGrupo) REFERENCES Curso(Clave, NumeroDeGrupo)
 );
 
+CREATE TABLE Administradores (
+	Usuario VARCHAR(100) NOT NULL,
+	Password VARCHAR(100) NOT NULL,
+	PRIMARY KEY (Usuario)
+);
+
 CREATE TRIGGER ActualizaNumeroDeCursos AFTER INSERT ON Ensena
 FOR EACH ROW
 	UPDATE Maestro
 	Set CursosProgramados = CursosProgramados + 1
 	WHERE Nomina = NEW.Nomina;
+
 
 INSERT INTO Maestro (Nomina, Nombre, Telefono, CorreoElectronico, CursosProgramados)
 VALUES ("L12345678", "Angela Aranda", 123997472, "angela@hotmail.com", 0);
@@ -90,6 +97,8 @@ INSERT INTO Ensena (Nomina, Clave, NumeroDeGrupo, Responsabilidad)
 VALUES ("L98765432", "TC3002", 1, 50);
 INSERT INTO Ensena (Nomina, Clave, NumeroDeGrupo, Responsabilidad)
 VALUES ("L57451829", "TC3002", 1, 50);
+INSERT INTO Administradores (Usuario, Password) 
+VALUES ("Jorge", "Vazquez");
 
 SELECT Clave, NumeroDeGrupo, Horario, Salon, Ingles, Honors
 FROM Ensena NATURAL JOIN Curso

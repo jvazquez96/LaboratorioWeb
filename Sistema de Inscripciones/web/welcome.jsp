@@ -4,14 +4,19 @@
     Author     : jorgevazquez
 --%>
 
+<%@page import="Data.Maestro"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Bienvenido!</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <% 
+            Maestro maestro = (Maestro) request.getAttribute("Maestro");
+        %>
+        <h1>Bienvenido(a) <%= maestro.getNombre()%></h1>
+        <a href="Menu"
     </body>
 </html>

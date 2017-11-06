@@ -6,7 +6,7 @@
 package Server;
 
 import DB.DatabaseConnection;
-import Data.Maestro;
+import Data.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -41,21 +41,18 @@ public class Login extends HttpServlet {
         
         Boolean isUserAuthorized = false;
         
-        String user = request.getParameter("usuario");
+        String usuario = request.getParameter("usuario");
         String password = request.getParameter("password");
-        Maestro possibleMaestro = new Maestro();
-        possibleMaestro.setNomina(password);
-        possibleMaestro.setNombre(user);
-        
+        User user = new User(usuario, password);
         try {
-            if (DatabaseConnection.isUserAuthorized(possibleMaestro)) {
+            if (DatabaseConnection.isUserAuthorized(user)) {
                 isUserAuthorized = true;
             }
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        request.setAttribute("Maestro", possibleMaestro);
+        request.setAttribute("Usuario", user);
         
         String url;
         if (isUserAuthorized) {
@@ -64,7 +61,6 @@ public class Login extends HttpServlet {
                     getServletContext().getRequestDispatcher(url);
             dispatcher.forward(request, response);
         } else {
-            System.out.println("User is not authorized");
             url  = "/hello.jsp";
             RequestDispatcher dispatcher =
                     getServletContext().getRequestDispatcher(url);

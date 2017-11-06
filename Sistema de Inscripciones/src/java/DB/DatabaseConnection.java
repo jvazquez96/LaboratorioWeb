@@ -5,7 +5,7 @@
  */
 package DB;
 
-import Data.Maestro;
+import Data.User;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -17,15 +17,15 @@ import java.sql.Statement;
  * @author jorgevazquez
  */
 public class DatabaseConnection {
-   public static boolean isUserAuthorized(Maestro maestro) throws SQLException {
+   public static boolean isUserAuthorized(User user) throws SQLException {
        String url = "jdbc:mysql://localhost:3306/Proyecto";
        Connection connection = DriverManager.getConnection(url, "root", "");
        Statement myStmt = connection.createStatement();
-       ResultSet myResult = myStmt.executeQuery("SELECT * FROM Maestro");
+       ResultSet myResult = myStmt.executeQuery("SELECT * FROM Administradores");
        while (myResult.next()) {
-           String nomina = myResult.getString("Nomina");
-           String nombre = myResult.getString("Nombre");
-           if (maestro.getNomina().equals(nomina) && maestro.getNombre().equals(nombre)) {
+           String usuario = myResult.getString("Usuario");
+           String password = myResult.getString("Password");
+           if (user.getUsername().equals(usuario) && user.getPassword().equals(password)) {
                return true;
            }
        }
