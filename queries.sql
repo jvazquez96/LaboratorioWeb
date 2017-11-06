@@ -102,3 +102,8 @@ Where Curso.Clave = Materia.Clave AND Curso.Clave = idMateria
 SELECT Numero, Capacidad, Administrador
 FROM Salon FULL OUTER JOIN Curso ON Salon.Numero = Curso.Salon
 WHERE Horario = horarioBuscado AND Clave = "" OR Clave = NULL 
+
+-- Cursos impartidos por un profesor
+Select Maestro.Nomina, Maestro.Nombre, Curso.Clave, Curso.NumeroDeGrupo, Ensena.Responsabilidad
+FROM Maestro, Curso, Ensena
+WHERE (Ensena.Nomina = Maestro.Nomina) AND (Curso.Clave = Ensena.Clave) AND (Curso.NumeroDeGrupo = Ensena.NumeroDeGrupo);
