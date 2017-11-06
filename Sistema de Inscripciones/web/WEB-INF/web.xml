@@ -15,7 +15,7 @@
     </servlet>
     <servlet>
         <servlet-name>MenuServlet</servlet-name>
-        <servlet-class>MenuServlet</servlet-class>
+        <servlet-class>Server.MenuServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>

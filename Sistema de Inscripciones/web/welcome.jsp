@@ -21,7 +21,6 @@
         <form action="MenuServlet" method="post">
             <input type="submit" name="action" value="Administrar Maestros">
             <input type="submit" name="action" value="Administrar Salones">
-            <input type="submit" name="action" value="Administrar Maestros">
             <input type="submit" name="action" value="Administrar Grupos">
             <input type="submit" name="action" value="Generar Reportes">
         </form>
