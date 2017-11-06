@@ -4,6 +4,7 @@
     Author     : jorgevazquez
 --%>
 
+<%@page import="Data.User"%>
 <%@page import="Data.Maestro"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,9 +15,15 @@
     </head>
     <body>
         <% 
-            Maestro maestro = (Maestro) request.getAttribute("Maestro");
+            User user = (User) request.getAttribute("Usuario");
         %>
-        <h1>Bienvenido(a) <%= maestro.getNombre()%></h1>
-        <a href="Menu"
+        <h1>Bienvenido(a) <%= user.getUsername()%></h1>
+        <form action="MenuServlet" method="post">
+            <input type="submit" name="action" value="Administrar Maestros">
+            <input type="submit" name="action" value="Administrar Salones">
+            <input type="submit" name="action" value="Administrar Maestros">
+            <input type="submit" name="action" value="Administrar Grupos">
+            <input type="submit" name="action" value="Generar Reportes">
+        </form>
     </body>
 </html>
