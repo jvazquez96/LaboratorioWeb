@@ -23,7 +23,7 @@ CREATE TABLE Salon (
 CREATE TABLE Maestro (
 	Nomina VARCHAR(100) NOT NULL,
 	Nombre VARCHAR(100) NOT NULL,
-	Telefono INT NOT NULL,
+	Telefono VARCHAR(100),
 	CorreoElectronico VARCHAR(100),
 	CursosProgramados INT NOT NULL,
 	PRIMARY KEY (Nomina)

@@ -9,9 +9,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Administrar Maestros</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Administrar Maestros</h1>
+        <form action="AdministrarMaestrosServlet" method="post">
+            <input type="submit" name="action" value="Alta">
+            <input type="submit" name="action" value="Modificar">
+            <input type="submit" name="action" value="Eliminar">
+        </form>
     </body>
 </html>

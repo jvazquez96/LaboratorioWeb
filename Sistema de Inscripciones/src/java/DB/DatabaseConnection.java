@@ -5,9 +5,11 @@
  */
 package DB;
 
+import Data.Maestro;
 import Data.User;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -30,5 +32,29 @@ public class DatabaseConnection {
            }
        }
        return false;
+   }
+   
+   public static boolean isTeacherAdded(Maestro maestro) throws SQLException {
+       String url = "jdbc:mysql://localhost:3306/Proyecto";
+       Connection connection = DriverManager.getConnection(url, "root", "");
+       Statement myStmt = connection.createStatement();
+       ResultSet myResult = myStmt.executeQuery("SELECT * FROM Maestro");
+       while (myResult.next()) {
+           String nomina = myResult.getString("Nomina");
+           if (maestro.getNomina().equals(nomina)) {
+               return false;
+           }
+       }
+       Statement insertionStatement = connection.createStatement();
+       String query = "INSERT INTO Maestro (Nomina, Nombre, Telefono, CorreoElectronico, CursosProgramados)"
+               + "VALUES (?, ?, ?, ?, ?)";
+       PreparedStatement preparedStatement = connection.prepareStatement(query);
+       preparedStatement.setString(1, maestro.getNomina());
+       preparedStatement.setString(2, maestro.getNombre());
+       preparedStatement.setString(3, maestro.getTelefono());
+       preparedStatement.setString(4, maestro.getCorreoElectronico());
+       preparedStatement.setString(5, String.valueOf(maestro.getCursosProgramados()));
+       preparedStatement.executeUpdate();
+       return true;
    }
 }
