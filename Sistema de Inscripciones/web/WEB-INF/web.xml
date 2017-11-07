@@ -12,6 +12,10 @@
         <servlet-name>ModificarServlet</servlet-name>
         <servlet-class>Server.ModificarServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ModificarMaestro</servlet-name>
+        <servlet-class>Server.ModificarMaestro</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MenuServlet</servlet-name>
         <url-pattern>/MenuServlet</url-pattern>
@@ -27,6 +31,10 @@
     <servlet-mapping>
         <servlet-name>ModificarServlet</servlet-name>
         <url-pattern>/ModificarServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModificarMaestro</servlet-name>
+        <url-pattern>/ModificarMaestro</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -48,4 +56,5 @@
     <welcome-file-list>
         <welcome-file>hello.jsp</welcome-file>
     </welcome-file-list>
+    <servlet-name/>
 </web-app>

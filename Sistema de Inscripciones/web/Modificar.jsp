@@ -23,10 +23,11 @@
                    (Boolean) request.getAttribute("groupes") == null ? false : true;
         if (isModifyingTeachers) { 
             out.write("<h1>Modificando maestros</h1>");
+            out.write("<h2>Lista de maestros disponibles para modificar</h2>");
             ArrayList<Maestro> maestros = (ArrayList<Maestro>)
                     request.getAttribute("teachers");
             for (Maestro maestro: maestros) {
-                out.write("<table cellspacing ='5' border='0'>"
+                out.write("<table cellspacing ='5' border='2'>"
                 + "<tr>"
                 + "<td align='left'>Nomina: " 
                 + maestro.getNomina()    
