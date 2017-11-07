@@ -118,7 +118,7 @@ SELECT DISTINCT Numero, Capacidad, Administrador
 FROM Salon LEFT JOIN Curso ON Salon.Numero = Curso.Salon
 WHERE Horario IS NULL OR Horario != '7/3 LuJu'; -- HORARIO_BUSCADO es el horario que recibe desde la pagina web
 
--- 
+-- Cambiar profesor de un determinado grupo
 UPDATE Ensena
 SET Nomina = "NOMINA" -- NOMINA del profesor nuevo, viene de la pagina web
 WHERE Clave = "CLAVE" -- CLAVE de materia a editar, viene de la pagina web
