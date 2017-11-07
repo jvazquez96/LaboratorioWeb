@@ -11,23 +11,23 @@ package Data;
  */
 public class Maestro {
     
-    String nomina, nombre, correoElectronico;
-    int telefono, cursosProgramados;
+    String nomina, nombre, correoElectronico, telefono;
+    int cursosProgramados;
         
     public Maestro() {
         this.nomina = null;
         this.nombre = null;
         this.correoElectronico = null;
-        this.telefono = 0;
+        this.telefono = null;
         this.cursosProgramados = 0;
     }    
 
-    public Maestro(String nomina, String nombre, String correoElectronico, int telefono, int cursosProgramados) {
+    public Maestro(String nomina, String nombre, String correoElectronico, String telefono) {
         this.nomina = nomina;
         this.nombre = nombre;
         this.correoElectronico = correoElectronico;
         this.telefono = telefono;
-        this.cursosProgramados = cursosProgramados;
+        this.cursosProgramados = 0;
     }
 
     public String getNomina() {
@@ -54,11 +54,11 @@ public class Maestro {
         this.correoElectronico = correoElectronico;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
