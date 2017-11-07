@@ -29,16 +29,16 @@
         <form action='AltaMaestro' method='post'>
         <table cellspacing ='5' border='0'>
         <tr>
-        <td align='left'>Nomina <input type='text' name='Nomina'> </td>
+        <td align='left'>Nomina <input type='text' name='Nomina' required> </td>
         </tr>
         <tr>
-        <td align='left'>Nombre <input type='text' name='Nombre'> </td>
+        <td align='left'>Nombre <input type='text' name='Nombre' required> </td>
         </tr>
         <tr>
         <td align='left'>Telefono <input type='text' name='Telefono'></td>
         </tr>
         <tr>
-        <td align='left'>Correo Electronico <input type='text' name='Correo Electronico'></td>
+        <td align='left'>Correo Electronico <input type='text' name='Correo Electronico' required></td>
         </tr>
         <tr>
         <td><br><input type='submit' value='submit'></td>
