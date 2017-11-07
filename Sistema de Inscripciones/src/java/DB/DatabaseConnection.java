@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -56,5 +57,23 @@ public class DatabaseConnection {
        preparedStatement.setString(5, String.valueOf(maestro.getCursosProgramados()));
        preparedStatement.executeUpdate();
        return true;
+   }
+   
+   public static ArrayList<Maestro> getAllTeachers() throws SQLException {
+       String url = "jdbc:mysql://localhost:3306/Proyecto";
+       Connection connection = DriverManager.getConnection(url, "root", "");
+       Statement myStmt = connection.createStatement();
+       ResultSet myResult = myStmt.executeQuery("SELECT * FROM Maestro");
+       ArrayList<Maestro> teachers = new ArrayList<>();
+       while(myResult.next()) {
+           String nomina = myResult.getString("Nomina");
+           String nombre = myResult.getString("Nombre");
+           String telefono = myResult.getString("telefono");
+           String correo = myResult.getString("CorreoElectronico");
+           int cursos = Integer.parseInt(myResult.getString("CursosProgramados"));
+           Maestro newTeacher = new Maestro(nomina, nombre, correo, telefono, cursos);;
+           teachers.add(newTeacher);
+       }
+       return teachers;
    }
 }

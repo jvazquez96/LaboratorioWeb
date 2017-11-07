@@ -29,6 +29,14 @@ public class Maestro {
         this.telefono = telefono;
         this.cursosProgramados = 0;
     }
+    
+    public Maestro(String nomina, String nombre, String correoElectronico, String telefono, int cursosProgramados) {
+        this.nomina = nomina;
+        this.nombre = nombre;
+        this.correoElectronico = correoElectronico;
+        this.telefono = telefono;
+        this.cursosProgramados = cursosProgramados;
+    }
 
     public String getNomina() {
         return nomina;
