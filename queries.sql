@@ -147,3 +147,4 @@ WHERE m.Nomina = e.Nomina AND c.Clave = e.Clave AND Horario = 'HORARIO';
 SELECT *
 FROM curso
 WHERE Horario = 'HORARIO' AND Salon = 'SALON';
+
