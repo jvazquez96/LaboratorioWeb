@@ -1,5 +1,5 @@
 -- Si no tienen la base de datos creada corran descomenten las siguientes lineas.
-CREATE DATABASE Proyecto;
+-- CREATE DATABASE Proyecto;
 USE Proyecto;
 CREATE TABLE Horario (
 	Frequencia VARCHAR(100) NOT NULL,
@@ -100,14 +100,33 @@ VALUES ("L57451829", "TC3002", 1, 50);
 INSERT INTO Administradores (Usuario, Password) 
 VALUES ("Jorge", "Vazquez");
 
+INSERT INTO Salon (Numero, Capacidad, Administrador)
+VALUES ("A3-303", 32, "Escolar");
+
+-- Cursos impartidos por un profesor 
 SELECT Clave, NumeroDeGrupo, Horario, Salon, Ingles, Honors
 FROM Ensena NATURAL JOIN Curso
-WHERE Nomina = idProfesor
+WHERE Nomina = "NOMINA_PROFESOR"; -- NOMINA_PROFESOR viene desde la pagina web
 
-SELECT Clave, NumeroDeGrupo, Horario, Salon, Ingles, Honors
+-- Lista de grupos de una materia
+SELECT Curso.Clave, NumeroDeGrupo, Horario, Salon, Ingles, Honors
 FROM Curso, Materia
-Where Curso.Clave = Materia.Clave AND Curso.Clave = idMateria
+Where Curso.Clave = Materia.Clave AND Curso.Clave = "CLAVE_CURSO"; -- CLAVE_CURSO viene desde la pagina web
 
+-- Lista de salones disponibles en un determinado horario oficial.
+SELECT DISTINCT Numero, Capacidad, Administrador
+FROM Salon LEFT JOIN Curso ON Salon.Numero = Curso.Salon
+WHERE Horario IS NULL OR Horario != '7/3 LuJu'; -- HORARIO_BUSCADO es el horario que recibe desde la pagina web
+
+-- 
+UPDATE Ensena
+SET Nomina = "NOMINA" -- NOMINA del profesor nuevo, viene de la pagina web
+WHERE Clave = "CLAVE" -- CLAVE de materia a editar, viene de la pagina web
+AND NumeroDeGrupo = 1; -- Numero de grupo lo obtiene de la pagina web
+
+
+<<<<<<< HEAD
+=======
 SELECT Numero, Capacidad, Administrador
 FROM Salon FULL OUTER JOIN Curso ON Salon.Numero = Curso.Salon
 WHERE Horario = horarioBuscado AND Clave = "" OR Clave = NULL 
@@ -121,3 +140,4 @@ WHERE (Ensena.Nomina = Maestro.Nomina) AND (Curso.Clave = Ensena.Clave) AND (Cur
 Select Curso.Clave, Curso.NumeroDeGrupo, Curso.Horario, Curso.HorarioLaboratorio, Curso.Salon, Curso.Ingles, Curso.Honors
 FROM Curso, Materia
 WHERE Materia.Clave = Curso.Clave;
+>>>>>>> f745d5e0a150bbb645f8b4ae945545204ca1816a
