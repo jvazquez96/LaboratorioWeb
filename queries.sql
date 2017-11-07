@@ -54,11 +54,18 @@ CREATE TABLE Ensena (
 	FOREIGN KEY (Clave, NumeroDeGrupo) REFERENCES Curso(Clave, NumeroDeGrupo)
 );
 
+CREATE TABLE Administradores (
+	Usuario VARCHAR(100) NOT NULL,
+	Password VARCHAR(100) NOT NULL,
+	PRIMARY KEY (Usuario)
+);
+
 CREATE TRIGGER ActualizaNumeroDeCursos AFTER INSERT ON Ensena
 FOR EACH ROW
 	UPDATE Maestro
 	Set CursosProgramados = CursosProgramados + 1
 	WHERE Nomina = NEW.Nomina;
+
 
 INSERT INTO Maestro (Nomina, Nombre, Telefono, CorreoElectronico, CursosProgramados)
 VALUES ("L12345678", "Angela Aranda", 123997472, "angela@hotmail.com", 0);
@@ -90,6 +97,8 @@ INSERT INTO Ensena (Nomina, Clave, NumeroDeGrupo, Responsabilidad)
 VALUES ("L98765432", "TC3002", 1, 50);
 INSERT INTO Ensena (Nomina, Clave, NumeroDeGrupo, Responsabilidad)
 VALUES ("L57451829", "TC3002", 1, 50);
+INSERT INTO Administradores (Usuario, Password) 
+VALUES ("Jorge", "Vazquez");
 
 INSERT INTO Salon (Numero, Capacidad, Administrador)
 VALUES ("A3-303", 32, "Escolar");
@@ -116,3 +125,19 @@ WHERE Clave = "CLAVE" -- CLAVE de materia a editar, viene de la pagina web
 AND NumeroDeGrupo = 1; -- Numero de grupo lo obtiene de la pagina web
 
 
+<<<<<<< HEAD
+=======
+SELECT Numero, Capacidad, Administrador
+FROM Salon FULL OUTER JOIN Curso ON Salon.Numero = Curso.Salon
+WHERE Horario = horarioBuscado AND Clave = "" OR Clave = NULL 
+
+-- Cursos impartidos por un profesor
+Select Maestro.Nomina, Maestro.Nombre, Curso.Clave, Curso.NumeroDeGrupo, Ensena.Responsabilidad
+FROM Maestro, Curso, Ensena
+WHERE (Ensena.Nomina = Maestro.Nomina) AND (Curso.Clave = Ensena.Clave) AND (Curso.NumeroDeGrupo = Ensena.NumeroDeGrupo);
+
+-- Lista de grupos de una materia
+Select Curso.Clave, Curso.NumeroDeGrupo, Curso.Horario, Curso.HorarioLaboratorio, Curso.Salon, Curso.Ingles, Curso.Honors
+FROM Curso, Materia
+WHERE Materia.Clave = Curso.Clave;
+>>>>>>> f745d5e0a150bbb645f8b4ae945545204ca1816a
