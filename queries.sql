@@ -123,3 +123,28 @@ UPDATE Ensena
 SET Nomina = "NOMINA" -- NOMINA del profesor nuevo, viene de la pagina web
 WHERE Clave = "CLAVE" -- CLAVE de materia a editar, viene de la pagina web
 AND NumeroDeGrupo = 1; -- Numero de grupo lo obtiene de la pagina web
+
+-- Salones de CS disponibles en cierto horario
+SELECT *
+FROM salon s
+WHERE Numero NOT IN( -- Obtiene todos los salones ocupados a cierta hora --
+	SELECT Numero
+	FROM salon s, curso c
+	WHERE s.Numero = c.Salon AND Horario = 'HORARIO'
+	) AND Administrador = 'CS'; -- La condición es que no esté ocupado y sea administrado por CS --
+
+-- Cambiar el salon de un curso -- (Para cambiar dos salones ejecutarlo dos veces)
+UPDATE curso
+SET Salon = 'SALON'
+WHERE Clave = 'CLAVE';
+
+-- Maestros que tienen clase en determinado horario --
+SELECT *
+FROM maestro m, ensena e, curso c
+WHERE m.Nomina = e.Nomina AND c.Clave = e.Clave AND Horario = 'HORARIO';
+
+-- Obtiene los cursos que se imparten en determinado día y determinado salón --
+SELECT *
+FROM curso
+WHERE Horario = 'HORARIO' AND Salon = 'SALON';
+
