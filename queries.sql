@@ -123,21 +123,3 @@ UPDATE Ensena
 SET Nomina = "NOMINA" -- NOMINA del profesor nuevo, viene de la pagina web
 WHERE Clave = "CLAVE" -- CLAVE de materia a editar, viene de la pagina web
 AND NumeroDeGrupo = 1; -- Numero de grupo lo obtiene de la pagina web
-
-
-<<<<<<< HEAD
-=======
-SELECT Numero, Capacidad, Administrador
-FROM Salon FULL OUTER JOIN Curso ON Salon.Numero = Curso.Salon
-WHERE Horario = horarioBuscado AND Clave = "" OR Clave = NULL 
-
--- Cursos impartidos por un profesor
-Select Maestro.Nomina, Maestro.Nombre, Curso.Clave, Curso.NumeroDeGrupo, Ensena.Responsabilidad
-FROM Maestro, Curso, Ensena
-WHERE (Ensena.Nomina = Maestro.Nomina) AND (Curso.Clave = Ensena.Clave) AND (Curso.NumeroDeGrupo = Ensena.NumeroDeGrupo);
-
--- Lista de grupos de una materia
-Select Curso.Clave, Curso.NumeroDeGrupo, Curso.Horario, Curso.HorarioLaboratorio, Curso.Salon, Curso.Ingles, Curso.Honors
-FROM Curso, Materia
-WHERE Materia.Clave = Curso.Clave;
->>>>>>> f745d5e0a150bbb645f8b4ae945545204ca1816a
