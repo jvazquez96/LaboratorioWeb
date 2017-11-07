@@ -99,7 +99,8 @@ INSERT INTO Ensena (Nomina, Clave, NumeroDeGrupo, Responsabilidad)
 VALUES ("L57451829", "TC3002", 1, 50);
 INSERT INTO Administradores (Usuario, Password) 
 VALUES ("Jorge", "Vazquez");
-
+INSERT INTO Administradores (Usuario, Password) 
+VALUES ("Miguel", "Banda");
 INSERT INTO Salon (Numero, Capacidad, Administrador)
 VALUES ("A3-303", 32, "Escolar");
 
