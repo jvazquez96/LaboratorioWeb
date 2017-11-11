@@ -26,7 +26,7 @@
                 }
         %>
         <body>
-        <form action='AltaMaestro' method='post'>
+        <form action='AltaServlet' method='post'>
         <table cellspacing ='5' border='0'>
         <tr>
         <td align='left'>Nomina <input type='text' name='Nomina' required> </td>

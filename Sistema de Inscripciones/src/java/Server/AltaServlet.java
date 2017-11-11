@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jorgevazquez
  */
-public class AltaMaestro extends HttpServlet {
+public class AltaServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -72,7 +72,7 @@ public class AltaMaestro extends HttpServlet {
                 message = "El maestro que se quiere agregar ya existe";
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AltaMaestro.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AltaServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         return message;
     }
@@ -90,7 +90,7 @@ public class AltaMaestro extends HttpServlet {
                 message = "El salon que se quiere agregar ya existe";
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AltaMaestro.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AltaServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         return message;
     }
