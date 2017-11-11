@@ -37,7 +37,6 @@ target/
 .project
 
 # NetBeans specific
-Sistema\ de\ Inscripciones/nbproject/
 Sistema\ de\ Inscripciones/nbproject/private/
 Sistema\ de\ Inscripciones/build/
 Sistema\ de\ Inscripciones/nbbuild/
