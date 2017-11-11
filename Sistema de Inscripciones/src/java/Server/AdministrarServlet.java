@@ -1,12 +1,12 @@
+package Server;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Server;
 
 import DB.DatabaseConnection;
-import Data.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -14,18 +14,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author jorgevazquez
  */
-@WebServlet(name = "Login", urlPatterns = {"/Login"})
-public class Login extends HttpServlet {
+public class AdministrarServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,35 +34,29 @@ public class Login extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ClassNotFoundException {
-        
-        Boolean isUserAuthorized = false;
-        
-        String usuario = request.getParameter("usuario");
-        String password = request.getParameter("password");
-        User user = new User(usuario, password);
-        try {
-            if (DatabaseConnection.isUserAuthorized(user)) {
-                isUserAuthorized = true;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        request.setAttribute("Usuario", user);
-        
+            throws ServletException, IOException {
+        String action = request.getParameter("action");
         String url;
-        if (isUserAuthorized) {
-            url = "/welcome.jsp";
-            RequestDispatcher dispatcher = 
-                    getServletContext().getRequestDispatcher(url);
-            dispatcher.forward(request, response);
+        if (action.equals("Alta Maestros")) {
+            url = "/Alta.jsp";
+            request.setAttribute("teacher", true);
+        } else if (action.equals("Modificar Maestros")){
+            url = "/Modificar.jsp";
+            request.setAttribute("teacher", true);
+            try {
+                request.setAttribute("teachers", DatabaseConnection.getAllTeachers());
+            } catch (SQLException ex) {
+                Logger.getLogger(AdministrarServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (action.equals("Eliminar Maestros")) {
+            url = "/Eliminar.jsp";
+            request.setAttribute("teacher", true);
         } else {
-            url  = "/hello.jsp";
-            RequestDispatcher dispatcher =
-                    getServletContext().getRequestDispatcher(url);
-            dispatcher.forward(request, response);
+            url = "";
         }
+        RequestDispatcher dispatcher = 
+                getServletContext().getRequestDispatcher(url);
+        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -80,11 +71,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -98,11 +85,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
