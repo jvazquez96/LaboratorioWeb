@@ -22,10 +22,10 @@ tomcat
 *.sar
 *.class
 
-# Maven 
+# Maven
 target/
 
-# IntelliJ project files 
+# IntelliJ project files
 *.iml
 *.iws
 *.ipr
@@ -37,13 +37,13 @@ target/
 .project
 
 # NetBeans specific
-nbproject/private/
-build/
-nbbuild/
-dist/
-nbdist/
-nbactions.xml
-nb-configuration.xml
+Sistema\ de\ Inscripciones/nbproject/private/
+Sistema\ de\ Inscripciones/build/
+Sistema\ de\ Inscripciones/nbbuild/
+Sistema\ de\ Inscripciones/dist/
+Sistema\ de\ Inscripciones/nbdist/
+Sistema\ de\ Inscripciones/nbactions.xml
+Sistema\ de\ Inscripciones/nb-configuration.xml
 
 
 # OS
