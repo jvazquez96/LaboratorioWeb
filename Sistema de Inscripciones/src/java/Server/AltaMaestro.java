@@ -36,6 +36,27 @@ public class AltaMaestro extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String nomina = request.getParameter("Nomina");
+        String clave = request.getParameter("Clave");
+        String numeroDeGrupo = request.getParameter("Numero de Grupo");
+        Boolean isAddingTeacher = nomina == null;
+        Boolean isAddingClassroom = clave == null;
+        Boolean isAddingGroupes = numeroDeGrupo == null;
+        if (isAddingTeacher) {
+            request.setAttribute("mensaje", addTeacher(request));
+            request.setAttribute("teacher", true);
+        } else if (isAddingClassroom) {
+            
+        }
+       
+        String url = "/Alta.jsp";
+        RequestDispatcher dispatcher = 
+                getServletContext().getRequestDispatcher(url);
+        dispatcher.forward(request, response);
+        
+    }
+    
+    private String addTeacher(HttpServletRequest request) {
+        String nomina = request.getParameter("Nomina");
         String nombre = request.getParameter("Nombre");
         String numero = request.getParameter("Telefono");
         String correo = request.getParameter("Correo Electronico");
@@ -50,13 +71,13 @@ public class AltaMaestro extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(AltaMaestro.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String url = "/Alta.jsp";
-        request.setAttribute("mensaje", message);
-        request.setAttribute("teacher", true);
-        RequestDispatcher dispatcher = 
-                getServletContext().getRequestDispatcher(url);
-        dispatcher.forward(request, response);
+        return message;
+    }
+    
+    private String addClasrroom(HttpServletRequest request) {
         
+        String message = "";
+        return message;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

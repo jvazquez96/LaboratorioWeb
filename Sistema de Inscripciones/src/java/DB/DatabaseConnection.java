@@ -20,6 +20,7 @@ import java.util.ArrayList;
  * @author jorgevazquez
  */
 public class DatabaseConnection {
+    
    public static boolean isUserAuthorized(User user) throws SQLException, ClassNotFoundException {
        Class.forName("com.mysql.jdbc.Driver");
        String url = "jdbc:mysql://localhost:3306/Proyecto";
@@ -59,6 +60,7 @@ public class DatabaseConnection {
        preparedStatement.executeUpdate();
        return true;
    }
+   
    
    public static ArrayList<Maestro> getAllTeachers() throws SQLException {
        String url = "jdbc:mysql://localhost:3306/Proyecto";
