@@ -13,10 +13,10 @@
     </head>
     <body>
         <h1>Administrar Maestros</h1>
-        <form action="AdministrarMaestrosServlet" method="post">
-            <input type="submit" name="action" value="Alta">
-            <input type="submit" name="action" value="Modificar">
-            <input type="submit" name="action" value="Eliminar">
+        <form action="AdministrarServlet" method="post">
+            <input type="submit" name="action" value="Alta Maestros">
+            <input type="submit" name="action" value="Modificar Maestros">
+            <input type="submit" name="action" value="Eliminar Maestros">
         </form>
     </body>
 </html>

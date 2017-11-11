@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jorgevazquez
  */
-public class AdministrarMaestrosServlet extends HttpServlet {
+public class AdministrarServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,20 +37,22 @@ public class AdministrarMaestrosServlet extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         String url;
-        if (action.equals("Alta")) {
+        if (action.equals("Alta Maestros")) {
             url = "/Alta.jsp";
             request.setAttribute("teacher", true);
-        } else if (action.equals("Modificar")){
+        } else if (action.equals("Modificar Maestros")){
             url = "/Modificar.jsp";
             request.setAttribute("teacher", true);
             try {
                 request.setAttribute("teachers", DatabaseConnection.getAllTeachers());
             } catch (SQLException ex) {
-                Logger.getLogger(AdministrarMaestrosServlet.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AdministrarServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else {
+        } else if (action.equals("Eliminar Maestros")) {
             url = "/Eliminar.jsp";
             request.setAttribute("teacher", true);
+        } else {
+            url = "";
         }
         RequestDispatcher dispatcher = 
                 getServletContext().getRequestDispatcher(url);
