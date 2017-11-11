@@ -23,8 +23,8 @@ public class DatabaseConnection {
     
    public static boolean isUserAuthorized(User user) throws SQLException, ClassNotFoundException {
        Class.forName("com.mysql.jdbc.Driver");
-       String url = "jdbc:mysql://localhost:3306/Proyecto";
-       Connection connection = DriverManager.getConnection(url, "root", "");
+       String url = "jdbc:mysql://localhost:8889/proyecto";
+       Connection connection = DriverManager.getConnection(url, "root", "root");
        Statement myStmt = connection.createStatement();
        ResultSet myResult = myStmt.executeQuery("SELECT * FROM Administradores");
        while (myResult.next()) {

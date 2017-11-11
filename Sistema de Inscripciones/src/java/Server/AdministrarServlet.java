@@ -37,6 +37,8 @@ public class AdministrarServlet extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         String url;
+        
+        // MAESTROS
         if (action.equals("Alta Maestros")) {
             url = "/Alta.jsp";
             request.setAttribute("teacher", true);
@@ -51,9 +53,28 @@ public class AdministrarServlet extends HttpServlet {
         } else if (action.equals("Eliminar Maestros")) {
             url = "/Eliminar.jsp";
             request.setAttribute("teacher", true);
-        } else {
+        } 
+        
+        //SALONES
+        else if (action.equals("Alta Salones")) {
+            url = "/Alta.jsp";
+            request.setAttribute("classroom", true);
+        } else if (action.equals("Modificar Salones")){
+            url = "/Modificar.jsp";
+            request.setAttribute("classroom", true);
+            try {
+                request.setAttribute("classroom", DatabaseConnection.getAllTeachers());
+            } catch (SQLException ex) {
+                Logger.getLogger(AdministrarServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (action.equals("Eliminar Salones")) {
+            url = "/Eliminar.jsp";
+            request.setAttribute("classroom", true);
+        }
+        else {
             url = "";
         }
+        
         RequestDispatcher dispatcher = 
                 getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
