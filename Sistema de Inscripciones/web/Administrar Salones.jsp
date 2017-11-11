@@ -9,9 +9,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Administrar Salones</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Administrar Salones</h1>
+        <form action="AdministrarServlet" method="post">
+            <input type="submit" name="action" value="Alta Salón">
+            <input type="submit" name="action" value="Modificar Salón">
+            <input type="submit" name="action" value="Eliminar Salón">
+        </form>
     </body>
 </html>
