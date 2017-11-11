@@ -6,6 +6,7 @@
 package DB;
 
 import Data.Maestro;
+import Data.Salon;
 import Data.User;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -37,8 +38,8 @@ public class DatabaseConnection {
    }
    
    public static boolean isTeacherAdded(Maestro maestro) throws SQLException {
-       String url = "jdbc:mysql://localhost:3306/Proyecto";
-       Connection connection = DriverManager.getConnection(url, "root", "");
+       String url = "jdbc:mysql://localhost:8889/proyecto";
+       Connection connection = DriverManager.getConnection(url, "root", "root");
        Statement myStmt = connection.createStatement();
        ResultSet myResult = myStmt.executeQuery("SELECT * FROM Maestro");
        while (myResult.next()) {
@@ -61,8 +62,8 @@ public class DatabaseConnection {
    }
    
    public static ArrayList<Maestro> getAllTeachers() throws SQLException {
-       String url = "jdbc:mysql://localhost:3306/Proyecto";
-       Connection connection = DriverManager.getConnection(url, "root", "");
+       String url = "jdbc:mysql://localhost:8889/proyecto";
+       Connection connection = DriverManager.getConnection(url, "root", "root");
        Statement myStmt = connection.createStatement();
        ResultSet myResult = myStmt.executeQuery("SELECT * FROM Maestro");
        ArrayList<Maestro> teachers = new ArrayList<>();
@@ -77,4 +78,27 @@ public class DatabaseConnection {
        }
        return teachers;
    }
+   
+   public static boolean isClassroomAdded(Salon salon) throws SQLException {
+       String url = "jdbc:mysql://localhost:8889/proyecto";
+       Connection connection = DriverManager.getConnection(url, "root", "root");
+       Statement myStmt = connection.createStatement();
+       ResultSet myResult = myStmt.executeQuery("SELECT * FROM Salon");
+       while (myResult.next()) {
+           String numero = myResult.getString("Numero");
+           if (salon.getNumero().equals(numero)) {
+               return false;
+           }
+       }
+       Statement insertionStatement = connection.createStatement();
+       String query = "INSERT INTO Salon (Numero, Capacidad, Administrador)"
+               + "VALUES (?, ?, ?)";
+       PreparedStatement preparedStatement = connection.prepareStatement(query);
+       preparedStatement.setString(1, salon.getNumero());
+       preparedStatement.setInt(2, salon.getCapacidad());
+       preparedStatement.setString(3, salon.getAdministrador());
+       preparedStatement.executeUpdate();
+       return true;
+   }
+   
 }
