@@ -5,8 +5,10 @@
  */
 package Server;
 
+import static DB.DatabaseConnection.isClassroomAdded;
 import static DB.DatabaseConnection.isTeacherAdded;
 import Data.Maestro;
+import Data.Salon;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -45,7 +47,8 @@ public class AltaMaestro extends HttpServlet {
             request.setAttribute("mensaje", addTeacher(request));
             request.setAttribute("teacher", true);
         } else if (isAddingClassroom) {
-            
+            request.setAttribute("mensaje", addClassroom(request));
+            request.setAttribute("classroom", true);
         }
        
         String url = "/Alta.jsp";
@@ -74,9 +77,21 @@ public class AltaMaestro extends HttpServlet {
         return message;
     }
     
-    private String addClasrroom(HttpServletRequest request) {
-        
+    private String addClassroom(HttpServletRequest request) {
         String message = "";
+        String numeroDeSalon = request.getParameter("Numero");
+        int capacidad = Integer.valueOf(request.getParameter("Capacidad"));
+        String administrador = request.getParameter("Administrador");
+        Salon nuevoSalon = new Salon(numeroDeSalon, administrador, capacidad);
+        try {
+            if (isClassroomAdded(nuevoSalon)) {
+                message = "Se ha agregado un nuevo salon";
+            } else {
+                message = "El salon que se quiere agregar ya existe";
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AltaMaestro.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return message;
     }
 
