@@ -39,7 +39,7 @@ public class AltaServlet extends HttpServlet {
             throws ServletException, IOException {
         String nomina = request.getParameter("Nomina");
         String clave = request.getParameter("Clave");
-        String numeroDeGrupo = request.getParameter("Numero de Grupo");
+        String numeroDeGrupo = request.getParameter("Numero");
         Boolean isAddingTeacher = nomina == null;
         Boolean isAddingClassroom = clave == null;
         Boolean isAddingGroupes = numeroDeGrupo == null;
