@@ -40,9 +40,9 @@ public class AltaServlet extends HttpServlet {
         String nomina = request.getParameter("Nomina");
         String clave = request.getParameter("Clave");
         String numeroDeGrupo = request.getParameter("Numero");
-        Boolean isAddingTeacher = nomina == null;
-        Boolean isAddingClassroom = clave == null;
-        Boolean isAddingGroupes = numeroDeGrupo == null;
+        Boolean isAddingTeacher = nomina != null;
+        Boolean isAddingClassroom = clave != null;
+        Boolean isAddingGroupes = numeroDeGrupo != null;
         if (isAddingTeacher) {
             request.setAttribute("mensaje", addTeacher(request));
             request.setAttribute("teacher", true);
