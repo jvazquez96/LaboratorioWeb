@@ -18,9 +18,10 @@
                    (Boolean) request.getAttribute("classroom") == null? false: true;
            Boolean isAddingGroupes = 
                    (Boolean) request.getAttribute("groupes") == null ? false : true;
+           String message = (String) request.getAttribute("mensaje");
+               
             if (isAddingTeachers) {
                 out.write("<h1> Agregando Maestros</h1>");
-                String message = (String) request.getAttribute("mensaje");
                 if (message != null && !message.equals("")) {
                     out.write(message);
                 }
@@ -46,7 +47,28 @@
         </table>
         </form>
         </body>
-        <% } else if (isAddingClassroom) { %>
+        <% } else if (isAddingClassroom) {
+                if (message != null && !message.equals("")) {
+                    out.write(message);
+                }%>
+        <body>
+        <form action='AltaServlet' method='post'>
+        <table cellspacing ='5' border='0'>
+        <tr>
+        <td align='left'>Número <input type='text' name='Numero' required> </td>
+        </tr>
+        <tr>
+        <td align='left'>Capacidad <input type='number' name='Capacidad' required> </td>
+        </tr>
+        <tr>
+        <td align='left'>Administrador <input type='text' name='Administrador' required></td>
+        </tr>
+        <tr>
+        <td><br><input type='submit' value='submit'></td>
+        </tr>
+        </table>
+        </form>
+        </body>
         <% } else if (isAddingGroupes) { %>
         <% }  else {%>
 <!--        Pagina incorrecta-->
