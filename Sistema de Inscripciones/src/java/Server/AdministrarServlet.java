@@ -71,6 +71,25 @@ public class AdministrarServlet extends HttpServlet {
             url = "/Eliminar.jsp";
             request.setAttribute("classroom", true);
         }
+        
+        //GRUPOS
+        else if (action.equals("Alta Grupos")) {
+            url = "/Alta.jsp";
+            request.setAttribute("groupes", true);
+        } else if (action.equals("Modificar Salones")){
+            url = "/Modificar.jsp";
+            request.setAttribute("groupes", true);
+            try {
+                request.setAttribute("groupes", DatabaseConnection.getAllTeachers());
+            } catch (SQLException ex) {
+                Logger.getLogger(AdministrarServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (action.equals("Eliminar Salones")) {
+            url = "/Eliminar.jsp";
+            request.setAttribute("groupes", true);
+        }
+        
+        //ELSE
         else {
             url = "";
         }

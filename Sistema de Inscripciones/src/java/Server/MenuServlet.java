@@ -37,7 +37,7 @@ public class MenuServlet extends HttpServlet {
             url = "/Administrar Maestros.jsp";
         } else if (action.equals("Administrar Salones")) {
             url = "/Administrar Salones.jsp";
-        } else if (action.equals("Administrat Grupos")) {
+        } else if (action.equals("Administrar Grupos")) {
             url = "/Administrar Grupos.jsp";
         } else {
             url = "/Generar Reportes.jsp";
