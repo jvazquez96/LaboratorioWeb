@@ -5,8 +5,10 @@
  */
 package Server;
 
+import static DB.DatabaseConnection.isClassroomAdded;
 import static DB.DatabaseConnection.isTeacherAdded;
 import Data.Maestro;
+import Data.Salon;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -22,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jorgevazquez
  */
-public class AltaMaestro extends HttpServlet {
+public class AltaServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,6 +38,28 @@ public class AltaMaestro extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String nomina = request.getParameter("Nomina");
+        String clave = request.getParameter("Clave");
+        String numeroDeGrupo = request.getParameter("Numero de Grupo");
+        Boolean isAddingTeacher = nomina == null;
+        Boolean isAddingClassroom = clave == null;
+        Boolean isAddingGroupes = numeroDeGrupo == null;
+        if (isAddingTeacher) {
+            request.setAttribute("mensaje", addTeacher(request));
+            request.setAttribute("teacher", true);
+        } else if (isAddingClassroom) {
+            request.setAttribute("mensaje", addClassroom(request));
+            request.setAttribute("classroom", true);
+        }
+       
+        String url = "/Alta.jsp";
+        RequestDispatcher dispatcher = 
+                getServletContext().getRequestDispatcher(url);
+        dispatcher.forward(request, response);
+        
+    }
+    
+    private String addTeacher(HttpServletRequest request) {
+        String nomina = request.getParameter("Nomina");
         String nombre = request.getParameter("Nombre");
         String numero = request.getParameter("Telefono");
         String correo = request.getParameter("Correo Electronico");
@@ -48,15 +72,27 @@ public class AltaMaestro extends HttpServlet {
                 message = "El maestro que se quiere agregar ya existe";
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AltaMaestro.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AltaServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String url = "/Alta.jsp";
-        request.setAttribute("mensaje", message);
-        request.setAttribute("teacher", true);
-        RequestDispatcher dispatcher = 
-                getServletContext().getRequestDispatcher(url);
-        dispatcher.forward(request, response);
-        
+        return message;
+    }
+    
+    private String addClassroom(HttpServletRequest request) {
+        String message = "";
+        String numeroDeSalon = request.getParameter("Numero");
+        int capacidad = Integer.valueOf(request.getParameter("Capacidad"));
+        String administrador = request.getParameter("Administrador");
+        Salon nuevoSalon = new Salon(numeroDeSalon, administrador, capacidad);
+        try {
+            if (isClassroomAdded(nuevoSalon)) {
+                message = "Se ha agregado un nuevo salon";
+            } else {
+                message = "El salon que se quiere agregar ya existe";
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AltaServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return message;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

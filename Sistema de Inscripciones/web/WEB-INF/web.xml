@@ -5,8 +5,8 @@
         <servlet-class>Server.AdministrarServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AltaMaestro</servlet-name>
-        <servlet-class>Server.AltaMaestro</servlet-class>
+        <servlet-name>AltaServlet</servlet-name>
+        <servlet-class>Server.AltaServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ModificarServlet</servlet-name>
@@ -25,8 +25,8 @@
         <url-pattern>/AdministrarServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AltaMaestro</servlet-name>
-        <url-pattern>/AltaMaestro</url-pattern>
+        <servlet-name>AltaServlet</servlet-name>
+        <url-pattern>/AltaServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ModificarServlet</servlet-name>

@@ -14,9 +14,9 @@
     <body>
         <h1>Administrar Salones</h1>
         <form action="AdministrarServlet" method="post">
-            <input type="submit" name="action" value="Alta Salón">
-            <input type="submit" name="action" value="Modificar Salón">
-            <input type="submit" name="action" value="Eliminar Salón">
+            <input type="submit" name="action" value="Alta Salones">
+            <input type="submit" name="action" value="Modificar Salones">
+            <input type="submit" name="action" value="Eliminar Salones">
         </form>
     </body>
 </html>
