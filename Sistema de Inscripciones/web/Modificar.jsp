@@ -19,38 +19,32 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Modificar</title>
+        <script type="text/javascript" src="modificar.js"></script>
     </head>
     <body>
         <%
         final String TABLE_START = "<table class='mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp'>";
         final String TABLE_END = "</table>";
-        Boolean isModifyingTeachers =
-                   (Boolean) request.getAttribute("teacher") == null? false : true;
-        Boolean isModifyingClassroom =
-                   (Boolean) request.getAttribute("classroom") == null? false: true;
-        Boolean isModifyingGroupes =
-                   (Boolean) request.getAttribute("groupes") == null ? false : true;
-        if (isModifyingTeachers) {
             ArrayList objetos = (ArrayList) request.getAttribute("objectList");
             String beanName = (String) request.getAttribute("beanName");
             Class<?> tipoBean = Class.forName(beanName);
             //out.write("<h1>Modificando maestros</h1>");
             //out.write("<h2>Lista de maestros disponibles para modificar</h2>");
-            
+
             // Get the names of the properties of inside the bean (e.g. Maestro, Salon, Grupo)
             ArrayList<Method> getters = new ArrayList();
             for (Method method : tipoBean.getMethods() ){
                 // Get all getters from the bean
                 String name = method.getName();
-                if (name.startsWith("get") && 
-                    method.getParameterTypes().length == 0 && 
-                    !method.getName().toLowerCase().contains("class")) {                    
+                if (name.startsWith("get") &&
+                    method.getParameterTypes().length == 0 &&
+                    !method.getName().toLowerCase().contains("class")) {
                     getters.add(method);
                 }
             }
             out.write(TABLE_START);
-            
-            // Print the Table Header           
+
+            // Print the Table Header
             out.write("<thead>");
             out.write("<tr>");
             for (Method getter: getters) {
@@ -60,24 +54,28 @@
             }
             out.write("</tr>");
             out.write("</thead>");
-            
-            
+
+
             // Print the table body
             out.write("<tbody>");
             out.write("<tr>");
             for (Object objeto : objetos) {
+                if (objeto == null) {
+                    continue;
+                }
                 out.write("<tr>");
-                for (Method getter: getters) { 
-                    out.write("<td>");
+                for (Method getter: getters) {
+                    out.write("<td ondblclick='editar(this)'>");
                     // Tomar el getter del la instancia del objeto específico
                     Method getterEspecifico = objeto.getClass().getMethod(getter.getName());
-                    
+
                     // Hacer el 'get' a la instancia del objeto específico
                     String valor = getterEspecifico.invoke(objeto).toString();
                     out.write(valor);
                     out.write("</td>");
                 }
                 out.write("</tr>");
+
             }
             out.write("</tr>");
             out.write("</tbody>");
@@ -99,9 +97,6 @@
             }
             */
         %>
-       <% } else if  (isModifyingClassroom) { %>
-       <% } else if (isModifyingGroupes) { %>
-       <% }%>
         <h1></h1>
     </body>
 </html>
