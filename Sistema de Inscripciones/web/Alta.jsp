@@ -52,7 +52,7 @@
                     out.write(message);
                 }%>
         <body>
-        <form action='AltaSalon' method='post'>
+        <form action='AltaServlet' method='post'>
         <table cellspacing ='5' border='0'>
         <tr>
         <td align='left'>Número <input type='text' name='Numero' required> </td>

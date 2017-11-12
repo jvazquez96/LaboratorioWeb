@@ -24,8 +24,8 @@ public class DatabaseConnection {
     
    public static boolean isUserAuthorized(User user) throws SQLException, ClassNotFoundException {
        Class.forName("com.mysql.jdbc.Driver");
-       String url = "jdbc:mysql://localhost:3306/Proyecto";
-       Connection connection = DriverManager.getConnection(url, "root", "");
+       String url = "jdbc:mysql://localhost:8889/Proyecto";
+       Connection connection = DriverManager.getConnection(url, "root", "root");
        Statement myStmt = connection.createStatement();
        ResultSet myResult = myStmt.executeQuery("SELECT * FROM Administradores");
        while (myResult.next()) {
@@ -39,8 +39,8 @@ public class DatabaseConnection {
    }
    
    public static boolean isTeacherAdded(Maestro maestro) throws SQLException {
-       String url = "jdbc:mysql://localhost:3306/Proyecto";
-       Connection connection = DriverManager.getConnection(url, "root", "");
+       String url = "jdbc:mysql://localhost:8889/Proyecto";
+       Connection connection = DriverManager.getConnection(url, "root", "root");
        Statement myStmt = connection.createStatement();
        ResultSet myResult = myStmt.executeQuery("SELECT * FROM Maestro");
        while (myResult.next()) {
@@ -64,8 +64,8 @@ public class DatabaseConnection {
    
    
    public static ArrayList<Maestro> getAllTeachers() throws SQLException {
-       String url = "jdbc:mysql://localhost:3306/Proyecto";
-       Connection connection = DriverManager.getConnection(url, "root", "");
+       String url = "jdbc:mysql://localhost:8889/Proyecto";
+       Connection connection = DriverManager.getConnection(url, "root", "root");
        Statement myStmt = connection.createStatement();
        ResultSet myResult = myStmt.executeQuery("SELECT * FROM Maestro");
        ArrayList<Maestro> teachers = new ArrayList<>();
@@ -82,8 +82,8 @@ public class DatabaseConnection {
    }
    
    public static boolean isClassroomAdded(Salon salon) throws SQLException {
-       String url = "jdbc:mysql://localhost:3306/Proyecto";
-       Connection connection = DriverManager.getConnection(url, "root", "");
+       String url = "jdbc:mysql://localhost:8889/Proyecto";
+       Connection connection = DriverManager.getConnection(url, "root", "root");
        Statement myStmt = connection.createStatement();
        ResultSet myResult = myStmt.executeQuery("SELECT * FROM Salon");
        while (myResult.next()) {
