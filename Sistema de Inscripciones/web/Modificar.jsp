@@ -19,15 +19,29 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Modificar</title>
-        <script type="text/javascript" src="modificar.js"></script>
+        <script type="text/javascript"> //src="modificar.js">
+            function alta() {
+                //alert("alta");
+                var col = document.getElementById('mytable').rows[0].cells.length;
+                //alert(""+col);
+                if (col == 5)
+                {
+                    window.open("http://localhost:8084/Sistema_de_Inscripciones/Alta.jsp?teacher=true");
+                }
+                else if (col == 3){
+                    window.open("http://localhost:8084/Sistema_de_Inscripciones/Alta.jsp?classroom=true");
+                }
+            }
+        </script>
     </head>
     <body>
         <%
-        final String TABLE_START = "<table class='mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp'>";
+        final String TABLE_START = "<table id='mytable' class='mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp'>";
         final String TABLE_END = "</table>";
             ArrayList objetos = (ArrayList) request.getAttribute("objectList");
             String beanName = (String) request.getAttribute("beanName");
             Class<?> tipoBean = Class.forName(beanName);
+            String className = tipoBean.getName();
             //out.write("<h1>Modificando maestros</h1>");
             //out.write("<h2>Lista de maestros disponibles para modificar</h2>");
 
@@ -97,6 +111,10 @@
             }
             */
         %>
-        <h1></h1>
+        <% %>
+        <form method="post" action="AdministrarServlet">
+            <input type="text" name="<%= className %>" hidden="true" value="<%= className %>"/>
+            <input type="submit" value="+"/>
+        </form>
     </body>
 </html>

@@ -16,6 +16,10 @@
         <servlet-name>ModificarMaestro</servlet-name>
         <servlet-class>Server.ModificarMaestro</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EliminarServlet</servlet-name>
+        <servlet-class>Server.EliminarServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MenuServlet</servlet-name>
         <url-pattern>/MenuServlet</url-pattern>
@@ -35,6 +39,10 @@
     <servlet-mapping>
         <servlet-name>ModificarMaestro</servlet-name>
         <url-pattern>/ModificarMaestro</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EliminarServlet</servlet-name>
+        <url-pattern>/EliminarServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
