@@ -112,7 +112,7 @@ public class DatabaseConnection {
        while (myResult.next()) {
            String numero = myResult.getString("Numero");
            int capacidad = (Integer) myResult.getObject("Capacidad");
-           String administrador = myResult.getString("Capacidad");
+           String administrador = myResult.getString("Administrador");
            Salon nuevoSalon = new Salon(numero, administrador, capacidad);
            salones.add(nuevoSalon);
        }

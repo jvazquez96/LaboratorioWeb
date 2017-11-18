@@ -19,11 +19,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Modificar</title>
-        <script type="text/javascript" src="modificar.js"></script>
+        <script type="text/javascript" src="js/modificar.js"></script>
+        <link rel="stylesheet" href="css/mostrar.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-blue.min.css" />
+        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     </head>
     <body>
         <%
-        final String TABLE_START = "<table class='mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp'>";
+        final String TABLE_START = "<table class='mdl-data-table mdl-js-data-table mdl-shadow--2dp'align='center'>";
         final String TABLE_END = "</table>";
             ArrayList objetos = (ArrayList) request.getAttribute("objectList");
             String beanName = (String) request.getAttribute("beanName");
@@ -58,14 +63,13 @@
 
             // Print the table body
             out.write("<tbody>");
-            out.write("<tr>");
             for (Object objeto : objetos) {
                 if (objeto == null) {
                     continue;
                 }
                 out.write("<tr>");
                 for (Method getter: getters) {
-                    out.write("<td ondblclick='editar(this)'>");
+                    out.write("<td ondblclick='editar(this)' class='dbl'>");
                     // Tomar el getter del la instancia del objeto específico
                     Method getterEspecifico = objeto.getClass().getMethod(getter.getName());
 
@@ -77,7 +81,6 @@
                 out.write("</tr>");
 
             }
-            out.write("</tr>");
             out.write("</tbody>");
             out.write(TABLE_END);
             /*
