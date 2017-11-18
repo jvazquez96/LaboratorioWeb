@@ -6,12 +6,16 @@
 package Server;
 
 import static DB.DatabaseConnection.isClassroomAdded;
+import static DB.DatabaseConnection.isCourseAdded;
 import static DB.DatabaseConnection.isTeacherAdded;
+import Data.Curso;
 import Data.Maestro;
+import Data.Responsabilidad;
 import Data.Salon;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -49,6 +53,9 @@ public class AltaServlet extends HttpServlet {
         } else if (isAddingClassroom) {
             request.setAttribute("mensaje", addClassroom(request));
             request.setAttribute("classroom", true);
+        } else if (isAddingGroupes) {
+            
+            request.setAttribute("groupes", true);
         }
        
         String url = "/Alta.jsp";
@@ -92,6 +99,43 @@ public class AltaServlet extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(AltaServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return message;
+    }
+    
+    private String addCourse(HttpServletRequest request) {
+        String clave = request.getParameter("clave");
+        int numeroDeGrupo = Integer.valueOf(request.getParameter("NumeroDeGrupo"));
+        String horario = request.getParameter("Horario");
+        String horarioLaboratorio = request.getParameter("HorarioLaboratorio");
+        String salon = request.getParameter("Salon");
+        Boolean ingles = Integer.valueOf(request.getParameter("Ingles")) == 1;
+        Boolean honors = Integer.valueOf(request.getParameter("Honors")) == 1;
+        Curso curso = new Curso(clave, horario, horarioLaboratorio, salon, numeroDeGrupo, ingles, honors);
+        ArrayList<Maestro> maestros = new ArrayList<>();
+        String[] nominas = request.getParameterValues("Nomina");
+        for (String nomina: nominas) {
+            Maestro maestro = new Maestro();
+            maestro.setNombre(nomina);
+            maestros.add(maestro);
+        }
+        ArrayList<Responsabilidad> responsabilidades = new ArrayList<>();
+        String[] responsabilidadesEnString = request.getParameterValues("Responsabilidad");
+        for (int i = 0; i < responsabilidadesEnString.length; ++i) {
+            Responsabilidad responsabilidad = new Responsabilidad(maestros.get(i), Integer.valueOf(responsabilidadesEnString[i]), curso);
+            responsabilidades.add(responsabilidad);
+        }
+        
+        String message = "";
+        try {
+            if (isCourseAdded(curso, maestros, responsabilidades)) {
+                message = "El curso se agrego correctamente";
+            } else {
+                message = "No se pudo agregar el curso, verifique que no se empalmen los datos";
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AltaServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         return message;
     }
 

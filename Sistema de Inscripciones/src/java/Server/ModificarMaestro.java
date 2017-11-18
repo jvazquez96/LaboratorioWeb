@@ -35,7 +35,7 @@ public class ModificarMaestro extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ModificarMaestro</title>");            
+            out.println("<title>Servlet ModificarMaestro</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ModificarMaestro at " + request.getContextPath() + "</h1>");

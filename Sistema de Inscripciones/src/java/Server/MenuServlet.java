@@ -6,8 +6,12 @@ package Server;
  * and open the template in the editor.
  */
 
+import DB.DatabaseConnection;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -32,13 +36,26 @@ public class MenuServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
-        String url;
+        String url = "/Modificar.jsp";
         if (action.equals("Administrar Maestros")) {
-            url = "/Administrar Maestros.jsp";
+            request.setAttribute("beanName", "Data.Maestro");
+            try {
+                request.setAttribute("objectList", DatabaseConnection.getAllTeachers());
+            } catch (SQLException ex) {
+                Logger.getLogger(AdministrarServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else if (action.equals("Administrar Salones")) {
             url = "/Administrar Salones.jsp";
         } else if (action.equals("Administrar Grupos")) {
             url = "/Administrar Grupos.jsp";
+            request.setAttribute("beanName", "Data.Salon");
+            try {
+                request.setAttribute("objectList", DatabaseConnection.getAllClassrooms());
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (action.equals("Administrar Grupos")) {
+            
         } else {
             url = "/Generar Reportes.jsp";
         }

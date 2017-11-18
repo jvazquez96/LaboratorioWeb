@@ -42,11 +42,20 @@ public class AdministrarServlet extends HttpServlet {
         if (action.equals("Alta Maestros")) {
             url = "/Alta.jsp";
             request.setAttribute("teacher", true);
-        } else if (action.equals("Modificar Maestros")){
+        } else if (action.equals("Modificar Maestros")) {
             url = "/Modificar.jsp";
-            request.setAttribute("teacher", true);
+            request.setAttribute("beanName", "Data.Maestro");
             try {
-                request.setAttribute("teachers", DatabaseConnection.getAllTeachers());
+                request.setAttribute("objectList", DatabaseConnection.getAllTeachers());
+            } catch (SQLException ex) {
+                Logger.getLogger(AdministrarServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (action.equals("Modificar Cursos")) {
+            url = "/Modificar.jsp";
+            request.setAttribute("beanName", "Data.Curso");
+            try {
+                // TODO: Add the method for getting all courses here
+                request.setAttribute("objectList", DatabaseConnection.getAllTeachers());
             } catch (SQLException ex) {
                 Logger.getLogger(AdministrarServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -93,7 +102,6 @@ public class AdministrarServlet extends HttpServlet {
         else {
             url = "";
         }
-        
         RequestDispatcher dispatcher = 
                 getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
