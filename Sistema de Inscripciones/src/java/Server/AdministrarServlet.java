@@ -38,13 +38,13 @@ public class AdministrarServlet extends HttpServlet {
         String action = request.getParameter("action");
         String url;
         
-        String nomina = request.getParameter("Data.Maestro");
-        String clave = request.getParameter("Data.Salon");
-        String numeroDeSalon = request.getParameter("Data.Ensena");
+        String maestro = request.getParameter("Data.Maestro");
+        String salon = request.getParameter("Data.Salon");
+        String curso = request.getParameter("Data.Ensena");
         
-        Boolean isAddingTeacher = nomina != null;
-        Boolean isAddingClassroom = numeroDeSalon != null;
-        Boolean isAddingGroupes = clave != null;
+        Boolean isAddingTeacher = maestro != null;
+        Boolean isAddingClassroom = salon != null;
+        Boolean isAddingGroupes = curso != null;
        
         url = "/Alta.jsp";
         // MAESTROS
