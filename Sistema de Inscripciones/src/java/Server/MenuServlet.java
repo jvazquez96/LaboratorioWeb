@@ -52,7 +52,12 @@ public class MenuServlet extends HttpServlet {
                 Logger.getLogger(MenuServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else if (action.equals("Administrar Grupos")) {
-            
+            request.setAttribute("beanName", "Data.Ensena");
+            try {
+                request.setAttribute("objectList", DatabaseConnection.getAllCoursesAndTeachers());
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             url = "/Generar Reportes.jsp";
         }

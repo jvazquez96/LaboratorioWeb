@@ -6,6 +6,7 @@
 package DB;
 
 import Data.Curso;
+import Data.Ensena;
 import Data.Maestro;
 import Data.Responsabilidad;
 import Data.Salon;
@@ -112,7 +113,7 @@ public class DatabaseConnection {
        while (myResult.next()) {
            String numero = myResult.getString("Numero");
            int capacidad = (Integer) myResult.getObject("Capacidad");
-           String administrador = myResult.getString("Capacidad");
+           String administrador = myResult.getString("Administrador");
            Salon nuevoSalon = new Salon(numero, administrador, capacidad);
            salones.add(nuevoSalon);
        }
@@ -241,6 +242,36 @@ public class DatabaseConnection {
            }
        }
        return maestros;
+   }
+   
+   public static ArrayList<Ensena> getAllCoursesAndTeachers() throws SQLException {
+       String url = "jdbc:mysql://localhost:3306/Proyecto";
+       Connection connection = DriverManager.getConnection(url, "root", "");
+       String query = "Select m.Nomina, Nombre, Responsabilidad, e.Clave,"
+               + " e.NumeroDeGrupo, Horario, HorarioLaboratorio, Salon, Ingles, "
+               + "Honors from Maestro m, Curso c, Ensena e "
+               + "WHERE m.nomina = e.nomina AND e.clave = c.clave";
+       Statement myStmt = connection.createStatement();
+       ResultSet myResult = myStmt.executeQuery(query);
+       ArrayList<Ensena> ensenas = new ArrayList<>();
+       while(myResult.next()) {
+           String nomina = myResult.getString("Nomina");
+           String nombre = myResult.getString("Nombre");
+           int responsabilidad = (Integer) myResult.getObject("Responsabilidad");
+           String clave = myResult.getString("Clave");
+           int numeroDeGrupo = (Integer) myResult.getObject("NumeroDeGrupo");
+           String horario = myResult.getString("Horario");
+           String horarioLaboratorio = myResult.getString("HorarioLaboratorio");
+           if (horarioLaboratorio == null) {
+               horarioLaboratorio = "";
+           } 
+           String salon = myResult.getString("Salon");
+           Boolean ingles = (Integer) myResult.getObject("Ingles") == 1;
+           Boolean honors = (Integer) myResult.getObject("Honors") == 1;
+           Ensena ensena = new Ensena(nomina, nombre, clave, horario, horarioLaboratorio, salon, responsabilidad, numeroDeGrupo, ingles, honors);
+           ensenas.add(ensena);
+       }
+       return ensenas;
    }
    
 }
