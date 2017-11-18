@@ -43,10 +43,10 @@ public class AltaServlet extends HttpServlet {
             throws ServletException, IOException {
         String nomina = request.getParameter("Nomina");
         String clave = request.getParameter("Clave");
-        String numeroDeGrupo = request.getParameter("Numero");
+        String numeroDeSalon = request.getParameter("Numero");
         Boolean isAddingTeacher = nomina != null;
-        Boolean isAddingClassroom = clave != null;
-        Boolean isAddingGroupes = numeroDeGrupo != null;
+        Boolean isAddingClassroom = numeroDeSalon != null;
+        Boolean isAddingGroupes = clave != null;
         if (isAddingTeacher) {
             request.setAttribute("mensaje", addTeacher(request));
             request.setAttribute("teacher", true);
