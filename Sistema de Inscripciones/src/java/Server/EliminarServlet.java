@@ -1,18 +1,12 @@
-package Server;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package Server;
 
-import DB.DatabaseConnection;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author jorgevazquez
+ * @author miguelbanda
  */
-public class MenuServlet extends HttpServlet {
+public class EliminarServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,35 +29,19 @@ public class MenuServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("action");
-        String url = "/Modificar.jsp";
-        if (action.equals("Administrar Maestros")) {
-            request.setAttribute("beanName", "Data.Maestro");
-            try {
-                request.setAttribute("objectList", DatabaseConnection.getAllTeachers());
-            } catch (SQLException ex) {
-                Logger.getLogger(AdministrarServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else if (action.equals("Administrar Salones")) {
-            request.setAttribute("beanName", "Data.Salon");
-            try {
-                request.setAttribute("objectList", DatabaseConnection.getAllClassrooms());
-            } catch (SQLException ex) {
-                Logger.getLogger(AdministrarServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else if (action.equals("Administrar Grupos")) {
-            request.setAttribute("beanName", "Data.Ensena");
-            try {
-                request.setAttribute("objectList", DatabaseConnection.getAllCoursesAndTeachers());
-            } catch (SQLException ex) {
-                Logger.getLogger(MenuServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            url = "/Generar Reportes.jsp";
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet EliminarServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet EliminarServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        RequestDispatcher dispatcher = 
-                getServletContext().getRequestDispatcher(url);
-        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

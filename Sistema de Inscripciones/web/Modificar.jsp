@@ -33,6 +33,7 @@
             ArrayList objetos = (ArrayList) request.getAttribute("objectList");
             String beanName = (String) request.getAttribute("beanName");
             Class<?> tipoBean = Class.forName(beanName);
+            String className = tipoBean.getName();
             //out.write("<h1>Modificando maestros</h1>");
             //out.write("<h2>Lista de maestros disponibles para modificar</h2>");
 
@@ -100,6 +101,10 @@
             }
             */
         %>
-        <h1></h1>
+        <% %>
+        <form method="post" action="AdministrarServlet">
+            <input type="text" name="<%= className %>" hidden="true" value="<%= className %>"/>
+            <input type="submit" value="+"/>
+        </form>
     </body>
 </html>

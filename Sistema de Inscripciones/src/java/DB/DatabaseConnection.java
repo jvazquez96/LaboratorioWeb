@@ -25,10 +25,13 @@ import java.util.ArrayList;
  */
 public class DatabaseConnection {
     
+    private static String password = "";
+    private static String port = ":3306";
+    
    public static boolean isUserAuthorized(User user) throws SQLException, ClassNotFoundException {
        Class.forName("com.mysql.jdbc.Driver");
-       String url = "jdbc:mysql://localhost:3306/Proyecto";
-       Connection connection = DriverManager.getConnection(url, "root", "");
+       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
+       Connection connection = DriverManager.getConnection(url, "root", password);
        Statement myStmt = connection.createStatement();
        ResultSet myResult = myStmt.executeQuery("SELECT * FROM Administradores");
        while (myResult.next()) {
@@ -42,8 +45,8 @@ public class DatabaseConnection {
    }
    
    public static boolean isTeacherAdded(Maestro maestro) throws SQLException {
-       String url = "jdbc:mysql://localhost:3306/Proyecto";
-       Connection connection = DriverManager.getConnection(url, "root", "");
+       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
+       Connection connection = DriverManager.getConnection(url, "root", password);
        Statement myStmt = connection.createStatement();
        ResultSet myResult = myStmt.executeQuery("SELECT * FROM Maestro");
        while (myResult.next()) {
@@ -66,8 +69,8 @@ public class DatabaseConnection {
    
    
    public static ArrayList<Maestro> getAllTeachers() throws SQLException {
-       String url = "jdbc:mysql://localhost:3306/Proyecto";
-       Connection connection = DriverManager.getConnection(url, "root", "");
+       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
+       Connection connection = DriverManager.getConnection(url, "root", password);
        Statement myStmt = connection.createStatement();
        ResultSet myResult = myStmt.executeQuery("SELECT * FROM Maestro");
        ArrayList<Maestro> teachers = new ArrayList<>();
@@ -84,8 +87,8 @@ public class DatabaseConnection {
    }
    
    public static boolean isClassroomAdded(Salon salon) throws SQLException {
-       String url = "jdbc:mysql://localhost:3306/Proyecto";
-       Connection connection = DriverManager.getConnection(url, "root", "");
+       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
+       Connection connection = DriverManager.getConnection(url, "root", password);
        Statement myStmt = connection.createStatement();
        ResultSet myResult = myStmt.executeQuery("SELECT * FROM Salon");
        while (myResult.next()) {
@@ -105,8 +108,8 @@ public class DatabaseConnection {
    }
    
    public static ArrayList<Salon> getAllClassrooms() throws SQLException {
-       String url = "jdbc:mysql://localhost:3306/Proyecto";
-       Connection connection = DriverManager.getConnection(url, "root", "");
+       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
+       Connection connection = DriverManager.getConnection(url, "root", password);
        Statement myStmt = connection.createStatement();
        ResultSet myResult = myStmt.executeQuery("SELECT * FROM Salon");
        ArrayList<Salon> salones = new ArrayList<>();
@@ -131,8 +134,8 @@ public class DatabaseConnection {
    
    
    public static boolean isCourseAdded(Curso curso, ArrayList<Maestro> maestros, ArrayList<Responsabilidad> responsabilidades) throws SQLException {
-       String url = "jdbc:mysql://localhost:3306/Proyecto";
-       Connection connection = DriverManager.getConnection(url, "root", "");
+       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
+       Connection connection = DriverManager.getConnection(url, "root", password);
        Statement myStmt = connection.createStatement();
        ResultSet myResult = myStmt.executeQuery("SELECT * FROM Curso");
        ArrayList<Maestro> maestrosV = getAllTeachersFromCourse(curso.getClave(), curso.getNumeroDeGrupo());
@@ -204,8 +207,8 @@ public class DatabaseConnection {
    
    
    private static ArrayList<Curso> getAllCourses() throws SQLException{
-       String url = "jdbc:mysql://localhost:3306/Proyecto";
-       Connection connection = DriverManager.getConnection(url, "root", "");
+       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
+       Connection connection = DriverManager.getConnection(url, "root", password);
        Statement myStmt = connection.createStatement();
        ResultSet myResult = myStmt.executeQuery("SELECT * FROM Curso");
        ArrayList<Curso> cursos = new ArrayList<Curso>();
@@ -225,8 +228,8 @@ public class DatabaseConnection {
    
    private static ArrayList<Maestro> getAllTeachersFromCourse(String clave, int numeroDeGrupo) throws SQLException {
        ArrayList<Maestro> maestros = new ArrayList<>();
-       String url = "jdbc:mysql://localhost:3306/Proyecto";
-       Connection connection = DriverManager.getConnection(url, "root", "");
+       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
+       Connection connection = DriverManager.getConnection(url, "root", password);
        String query = "SELECT * FROM Ensena WHERE Clave = ? AND NumerodeGrupo = ?";
        PreparedStatement preparedStatement = connection.prepareCall(query);
        preparedStatement.setString(1, clave);
@@ -245,8 +248,8 @@ public class DatabaseConnection {
    }
    
    public static ArrayList<Ensena> getAllCoursesAndTeachers() throws SQLException {
-       String url = "jdbc:mysql://localhost:3306/Proyecto";
-       Connection connection = DriverManager.getConnection(url, "root", "");
+       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
+       Connection connection = DriverManager.getConnection(url, "root", password);
        String query = "Select m.Nomina, Nombre, Responsabilidad, e.Clave,"
                + " e.NumeroDeGrupo, Horario, HorarioLaboratorio, Salon, Ingles, "
                + "Honors from Maestro m, Curso c, Ensena e "

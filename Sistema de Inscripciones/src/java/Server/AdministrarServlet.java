@@ -38,48 +38,24 @@ public class AdministrarServlet extends HttpServlet {
         String action = request.getParameter("action");
         String url;
         
-        // MAESTROS
-        if (action.equals("Alta Maestros")) {
-            url = "/Alta.jsp";
-            request.setAttribute("teacher", true);
-        } else if (action.equals("Modificar Maestros")) {
-            url = "/Modificar.jsp";
-            request.setAttribute("beanName", "Data.Maestro");
-            try {
-                request.setAttribute("objectList", DatabaseConnection.getAllTeachers());
-            } catch (SQLException ex) {
-                Logger.getLogger(AdministrarServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else if (action.equals("Modificar Cursos")) {
-            url = "/Modificar.jsp";
-            request.setAttribute("beanName", "Data.Curso");
-            try {
-                // TODO: Add the method for getting all courses here
-                request.setAttribute("objectList", DatabaseConnection.getAllTeachers());
-            } catch (SQLException ex) {
-                Logger.getLogger(AdministrarServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else if (action.equals("Eliminar Maestros")) {
-            url = "/Eliminar.jsp";
-            request.setAttribute("teacher", true);
-        } 
+        String maestro = request.getParameter("Data.Maestro");
+        String salon = request.getParameter("Data.Salon");
+        String curso = request.getParameter("Data.Ensena");
         
-        //SALONES
-        else if (action.equals("Alta Salones")) {
-            url = "/Alta.jsp";
+        Boolean isAddingTeacher = maestro != null;
+        Boolean isAddingClassroom = salon != null;
+        Boolean isAddingGroupes = curso != null;
+       
+        url = "/Alta.jsp";
+        // MAESTROS
+        if (isAddingTeacher) {
+            request.setAttribute("teacher", true);
+        } else if (isAddingClassroom) {
             request.setAttribute("classroom", true);
-        } else if (action.equals("Modificar Salones")){
-            url = "/Modificar.jsp";
-            request.setAttribute("classroom", true);
-            try {
-                request.setAttribute("classroom", DatabaseConnection.getAllTeachers());
-            } catch (SQLException ex) {
-                Logger.getLogger(AdministrarServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else if (action.equals("Eliminar Salones")) {
-            url = "/Eliminar.jsp";
-            request.setAttribute("classroom", true);
+        } else if (isAddingGroupes) {
+            request.setAttribute("groupes", true);
         }
+        //ELSE
         else {
             url = "";
         }

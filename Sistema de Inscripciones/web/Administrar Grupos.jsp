@@ -9,9 +9,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Administrar Grupos</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Administrar Grupos</h1>
+        <form action="AdministrarServlet" method="post">
+            <input type="submit" name="action" value="Alta Grupos">
+            <input type="submit" name="action" value="Modificar Grupos">
+            <input type="submit" name="action" value="Eliminar Grupos">
+        </form>
     </body>
 </html>

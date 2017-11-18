@@ -11,6 +11,24 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Dar de alta</title>
     </head>
+    <script>
+        n = 0;
+        function maestros()
+        {
+            alert("Hola");
+            var table = document.getElementById("MyTable");
+
+            var rowCount = table.rows.length;
+            var row = table.insertRow(rowCount);
+
+            var cell1 = row.insertCell(0);
+            var element1 = document.createElement("input");
+            element1.type = "text";
+            element1.name="Maestro";
+            cell1.appendChild(element1);
+            
+        }
+    </script>
         <% 
            Boolean isAddingTeachers = 
                    (Boolean) request.getAttribute("teacher") == null? false : true;
@@ -69,7 +87,41 @@
         </table>
         </form>
         </body>
-        <% } else if (isAddingGroupes) { %>
+        <% } else if (isAddingGroupes) { 
+        if (message != null && !message.equals("")) {
+                    out.write(message);
+                }%>
+        <body>
+        <form action='AltaServlet' method='post'>
+        <table cellspacing ='5' border='0' id='MyTable'>
+        <tr>
+        <td align='left'>Clave <input type='text' name='Clave' required> </td>
+        </tr>
+        <tr>
+        <td align='left'>Número de Grupo <input type='number' name='NumeroDeGrupo' required> </td>
+        </tr>
+        <tr>
+        <td align='left'>Horario <input type='text' name='Horario' required> </td>
+        </tr>
+        <tr>
+        <td align='left'>Horario Laboratorio <input type='text' name='HorarioLaboratorio' required> </td>
+        </tr>
+        <tr>
+        <td align='left'>Salón <input type='text' name='Salon' required> </td>
+        </tr>
+        <tr>
+        <td align='left'>Ingles <input type='number' name='Ingles' required> </td>
+        </tr>
+        <tr>
+        <td align='left'>Honors <input type='number' name='Honors' required></td>
+        </tr>
+        <tr>
+        <td align='left'>Nomina de Profesor <input type='text' name='Maestro' required><button type='button' onclick="maestros()">+</button></td>
+        </tr>
+        </table>
+            <input type='submit' value='submit'>
+        </form>
+        </body>
         <% }  else {%>
 <!--        Pagina incorrecta-->
         <% } %>
