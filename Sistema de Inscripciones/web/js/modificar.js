@@ -31,7 +31,9 @@ function editar(object){
 function guardarMaestro(object) {
     //telca enter -- falta
     var valor = object.value;
+    console.log("valor");
     var id = getId($(object).parent().parent());
+    console.log("id");
     var columna;
     
     switch(getColumna($(object).parent().parent())){
@@ -45,7 +47,7 @@ function guardarMaestro(object) {
             columna = "correo";
             break;
     }
-    
+    console.log("columna");
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "http://localhost:8080/Sistema_de_Inscripciones/ModificarServlet", true);
     
@@ -59,6 +61,7 @@ function guardarMaestro(object) {
 }
 
 function validar(){
+    console.log("sdasdasd");
     console.log("YES");
 }
 

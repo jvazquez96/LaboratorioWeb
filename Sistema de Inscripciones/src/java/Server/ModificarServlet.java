@@ -29,8 +29,9 @@ public class ModificarServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("SIIIIIIIIIII");
-        
+        System.out.println("ID: " + request.getParameter("id"));
+        System.out.println("Valor: " + request.getParameter("valor"));
+        System.out.println("Columna: " + request.getParameter("columna"));
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
