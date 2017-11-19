@@ -15,17 +15,34 @@
         n = 0;
         function maestros()
         {
-            alert("Hola");
             var table = document.getElementById("MyTable");
-
+            
+            //MAESTRO y registro
             var rowCount = table.rows.length;
             var row = table.insertRow(rowCount);
 
             var cell1 = row.insertCell(0);
-            var element1 = document.createElement("input");
-            element1.type = "text";
-            element1.name="Maestro";
+            var element1 = document.createElement("p");
+            element1.innerHTML = "Maestro";
             cell1.appendChild(element1);
+            
+            var cell2 = row.insertCell(1);
+            var element2 = document.createElement("input");
+            element2.type = "text";
+            element2.name="Maestro:";
+            cell2.appendChild(element2);
+            
+            var cell3 = row.insertCell(2);
+            var element3 = document.createElement("p");
+            element3.innerHTML = "Responsabilidad:";
+            cell3.appendChild(element3);
+            
+            var cell4 = row.insertCell(3);
+            var element4 = document.createElement("input");
+            element4.type = "text";
+            element4.name="Responsabilidad";
+            cell4.appendChild(element4);
+            
             
         }
     </script>
@@ -93,7 +110,7 @@
                 }%>
         <body>
         <form action='AltaServlet' method='post'>
-        <table cellspacing ='5' border='0' id='MyTable'>
+        <table cellspacing ='5' border='0' >
         <tr>
         <td align='left'>Clave <input type='text' name='Clave' required> </td>
         </tr>
@@ -115,8 +132,14 @@
         <tr>
         <td align='left'>Honors <input type='number' name='Honors' required></td>
         </tr>
+        </table>
+        <table id='MyTable'>
         <tr>
-        <td align='left'>Nomina de Profesor <input type='text' name='Maestro' required><button type='button' onclick="maestros()">+</button></td>
+            <td align='left'>Nomina de Profesor </td>
+            <td align='left'><input type='text' name='Maestro' required></td>
+            <td align='left'>Responsabilidad </td>
+            <td align='left'><input type='text' name='Responsabilidad' required></td>
+            <td align='left'><button type='button' onclick="maestros()">+</button></td>
         </tr>
         </table>
             <input type='submit' value='submit'>
