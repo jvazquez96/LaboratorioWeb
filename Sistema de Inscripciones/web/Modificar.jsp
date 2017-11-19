@@ -66,6 +66,7 @@
                 out.write(getter.getName().replace("get",""));
                 out.write("</th>");
             }
+            out.write("<th></th>");
             out.write("</tr>");
             out.write("</thead>");
 
@@ -88,6 +89,7 @@
                     out.write(valor);
                     out.write("</td>");
                 }
+                out.write("<td><button id='borrar' onclick='borrar(this)'>Borrar fila</button></td>");
                 out.write("</tr>");
 
             }
