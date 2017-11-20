@@ -47,10 +47,11 @@
                 out.write(getter.getName().replace("get",""));
                 out.write("</th>");
             }
-            out.write("<th></th>");
+            //out.write("<th></th>");
             out.write("</tr>");
             out.write("</thead>");
             int iId = 0;
+            int numRows = 0;
 
 
             // Print the table body
@@ -71,15 +72,27 @@
                     out.write("</td>");
                     iId++;
                 }
-//                out.write("<td><button id='borrar' onclick='borrar(this)'>Borrar fila</button></td>");
+                //out.write("<td><button id='borrar' onclick='borrar(this)'>Borrar fila</button></td>");
                 out.write("</tr>");
+                numRows++;
 
             }
+            int numCols = (iId - 1) / numRows;
             out.write("<tr>");
+            // Para poner el signo de más hasta la derecha
+            System.out.println("cols - " + numCols);
+            while(numCols != 0){
+                out.write("<td>");
+                out.write("</td>");
+                numCols--;
+            }
             out.write("<td>");
             out.write("<form method='post' action='AdministrarServlet'>");
             out.write("<input type='text' name=" + "'" +className + "'" + " value=" + "'" + className+  "'" + " hidden='true' value=>");
-            out.write("<input type='submit' value='+'>");
+            out.write("<button class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'>");
+            out.write("Agregar");
+            out.write("</button>");
+            //out.write("<input type='submit' value='+'>");
             out.write("</form>");
             out.write("</td>");
             out.write("</tr>");
