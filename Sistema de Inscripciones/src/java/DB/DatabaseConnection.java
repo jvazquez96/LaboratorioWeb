@@ -231,7 +231,7 @@ public class DatabaseConnection {
        String url = "jdbc:mysql://localhost"+port+"/Proyecto";
        Connection connection = DriverManager.getConnection(url, "root", password);
        String query = "SELECT * FROM Ensena WHERE Clave = ? AND NumerodeGrupo = ?";
-       PreparedStatement preparedStatement = connection.prepareCall(query);
+       PreparedStatement preparedStatement = connection.prepareStatement(query);
        preparedStatement.setString(1, clave);
        preparedStatement.setInt(2, numeroDeGrupo);
        ResultSet myResult = preparedStatement.executeQuery();
@@ -275,6 +275,17 @@ public class DatabaseConnection {
            ensenas.add(ensena);
        }
        return ensenas;
+   }
+   
+   public static void updateTeachers(String id, String column, String value) throws SQLException {
+       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
+       Connection connection = DriverManager.getConnection(url, "root", password);
+       String query = "UPDATE Maestro SET ? = ? WHERE Nomina = ?";
+       PreparedStatement preparedStatement = connection.prepareStatement(query);
+       preparedStatement.setString(1, column);
+       preparedStatement.setString(2, value);
+       preparedStatement.setString(3, id);
+       preparedStatement.executeQuery();
    }
    
 }

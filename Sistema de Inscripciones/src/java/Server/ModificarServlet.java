@@ -5,9 +5,14 @@
  */
 package Server;
 
+import DB.DatabaseConnection;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +21,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jorgevazquez
  */
+@MultipartConfig(fileSizeThreshold=1024*1024*10, 	// 10 MB 
+                 maxFileSize=1024*1024*50,      	// 50 MB
+                 maxRequestSize=1024*1024*100)  
 public class ModificarServlet extends HttpServlet {
 
     /**
@@ -28,7 +36,14 @@ public class ModificarServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
+        String id = request.getParameter("id");
+        // Si la pk empieza con L entonces es un maestro
+        if (id.charAt(0) == 'L') {
+            String column = request.getParameter("columna");
+            String valor = request.getParameter("valor");
+            DatabaseConnection.updateTeachers(id, column, valor);
+        }
         System.out.println("ID: " + request.getParameter("id"));
         System.out.println("Valor: " + request.getParameter("valor"));
         System.out.println("Columna: " + request.getParameter("columna"));
@@ -46,7 +61,11 @@ public class ModificarServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ModificarServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -60,7 +79,11 @@ public class ModificarServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ModificarServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
