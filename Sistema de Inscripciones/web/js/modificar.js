@@ -12,12 +12,13 @@ $('input').select(function(){
 
 function editar(object, id) {
 
-    var col = object.id % 5;
     var long = $(object).parent().children().length;
+    var col = object.id % long;
     
 
     //Si el tamaño de datos es 5, es maestro
     if (long == 5) {
+        //Esto es un maestro
         switch (col) {
             case 1:
                 var columna = "nombre";
@@ -36,7 +37,7 @@ function editar(object, id) {
                 document.getElementById('input').select();
 
                 input.onblur = function salir() {
-                    guardarMaestro(object, input.value, columna, id);
+                    guardar(object, input.value, columna, id);
                     delete input;
                 };
 
@@ -64,7 +65,7 @@ function editar(object, id) {
                 document.getElementById('input').select();
 
                 input.onblur = function salir() {
-                    guardarMaestro(object, input.value, columna, id);
+                    guardar(object, input.value, columna, id);
                     delete input;
                 };
 
@@ -92,7 +93,7 @@ function editar(object, id) {
                 document.getElementById('input').select();
 
                 input.onblur = function salir() {
-                    guardarMaestro(object, input.value, columna, id);
+                    guardar(object, input.value, columna, id);
                     delete input;
                 };
 
@@ -105,19 +106,77 @@ function editar(object, id) {
                 break;
         }
     } else if (long == 3) {
+        //Esto es un salon
+        switch(col){
+            case 1:
+                var columna = "capacidad";
+                var input = document.createElement("input");
+                input.className = "mdl-textfield__input";
+                input.id = 'input';
+                
+                if (object.innerText)
+                    input.value = object.innerText;
+                else
+                    input.value = object.textContent;
 
+                input.style.width = getTextWidth(input.value) + 30 + "px";
+                object.replaceChild(input, object.firstChild);
+                document.getElementById('input').focus();
+                document.getElementById('input').select();
+
+                input.onblur = function salir() {
+                    guardar(object, input.value, columna, id);
+                    delete input;
+                };
+
+                input.onkeydown = function keyDown(event) {
+                    if (event.keyCode == 13) {
+                        document.getElementById('input').blur();
+                        delete input;
+                    }
+                }; 
+                break;
+            case 2:
+                var columna = "administrador";
+                var input = document.createElement("input");
+                input.className = "mdl-textfield__input";
+                input.id = 'input';
+                
+                if (object.innerText)
+                    input.value = object.innerText;
+                else
+                    input.value = object.textContent;
+
+                input.style.width = getTextWidth(input.value) + 30 + "px";
+                object.replaceChild(input, object.firstChild);
+                document.getElementById('input').focus();
+                document.getElementById('input').select();
+
+                input.onblur = function salir() {
+                    guardar(object, input.value, columna, id);
+                    delete input;
+                };
+
+                input.onkeydown = function keyDown(event) {
+                    if (event.keyCode == 13) {
+                        document.getElementById('input').blur();
+                        delete input;
+                    }
+                }; 
+                break;
+        }
     }
 }
 
-function guardarMaestro(obj, valor, columna, id) {
+function guardar(obj, valor, columna, id) {
     obj.replaceChild(document.createTextNode(valor), obj.firstChild);
-    var nomina = getId(obj);
+    var clave = getId(obj);
     
     xhr = new XMLHttpRequest();
     xhr.open("POST", "http://localhost:8080/Sistema_de_Inscripciones/ModificarServlet", true);
 
     var data = new FormData();
-    data.append("id", nomina);
+    data.append("id", clave);
     data.append("valor", valor);
     data.append("columna", columna);
     xhr.onload = function validar(){

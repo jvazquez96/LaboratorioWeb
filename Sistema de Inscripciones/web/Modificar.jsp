@@ -62,7 +62,7 @@
                 }
                 out.write("<tr>");
                 for (Method getter: getters) {
-                    out.write("<td ondblclick='editar(this, " +  Integer.toString(iId) + ")' class='dbl' id='" + Integer.toString(iId) +"'>");
+                    out.write("<td ondblclick='editar(this, " +  Integer.toString(iId) + ")' style='cursor: pointer' id='" + Integer.toString(iId) +"'>");
                     // Tomar el getter del la instancia del objeto específico
                     Method getterEspecifico = objeto.getClass().getMethod(getter.getName());
 

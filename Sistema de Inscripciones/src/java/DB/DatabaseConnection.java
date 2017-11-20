@@ -25,8 +25,8 @@ import java.util.ArrayList;
  */
 public class DatabaseConnection {
     
-    private static String password = "root";
-    private static String port = ":8889";
+    private static String password = "";
+    private static String port = ":3306";
     
    public static boolean isUserAuthorized(User user) throws SQLException, ClassNotFoundException {
        Class.forName("com.mysql.jdbc.Driver");
@@ -292,6 +292,19 @@ public class DatabaseConnection {
        String query = "UPDATE Maestro SET "
                + column
                + " = ? WHERE Nomina = ?";
+       PreparedStatement preparedStatement = connection.prepareStatement(query);
+       preparedStatement.setString(1, value);
+       preparedStatement.setString(2, id);
+       preparedStatement.executeUpdate();
+   }
+   
+   public static void updateClassroom(String id, String column, String value) throws SQLException, ClassNotFoundException {
+       Class.forName("com.mysql.jdbc.Driver");
+       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
+       Connection connection = DriverManager.getConnection(url, "root", password);
+       String query = "UPDATE Salon SET "
+               + column
+               + " = ? WHERE Numero = ?";
        PreparedStatement preparedStatement = connection.prepareStatement(query);
        preparedStatement.setString(1, value);
        preparedStatement.setString(2, id);
