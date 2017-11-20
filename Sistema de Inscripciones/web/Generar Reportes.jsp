@@ -4,12 +4,8 @@
     Author     : jorgevazquez
 --%>
 
+<%@include file="welcome.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Generar reportes</title>
         <script>
             function ajax_reporte(valor)
             {
@@ -137,9 +133,9 @@
                 }
             }
         </script>
-    </head>
+<!--    </head>-->
     <body>
-        <h1>Generador de Reportes</h1>
+<!--        <h1>Generador de Reportes</h1>-->
         <form name="myform" action="reportes.php">
         Reportes disponibles: 
         <select name="reporte" onchange="ajax_reporte(this.value)">
@@ -159,4 +155,5 @@ salón. </option>
         <input type="submit" id="boton" value="Generar reporte" disabled="true"/>
         </form>
     </body>
+</div>
 </html>

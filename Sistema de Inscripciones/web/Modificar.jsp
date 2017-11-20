@@ -15,7 +15,7 @@
 <%@page import="Data.Maestro"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="welcome.jsp"%>
-<br><br><br><br><br><br><br><br><br>
+<br><br>
         <%
         final String TABLE_START = "<table class='mdl-data-table mdl-js-data-table mdl-shadow--2dp'align='center'>";
         final String TABLE_END = "</table>";
