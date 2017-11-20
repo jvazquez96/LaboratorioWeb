@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,16 +41,36 @@ public class Login extends HttpServlet {
             throws ServletException, IOException, ClassNotFoundException {
         
         Boolean isUserAuthorized = false;
-        
-        String usuario = request.getParameter("usuario");
-        String password = request.getParameter("password");
-        User user = new User(usuario, password);
-        try {
-            if (DatabaseConnection.isUserAuthorized(user)) {
+        User user = new User();
+        Cookie[] cookies = request.getCookies();
+        for (int i = 0; i < cookies.length; ++i) {
+            Cookie c = cookies[i];
+            if (c.getName().equals("authorized")) {
                 isUserAuthorized = true;
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            if (c.getName().equals("usuario")) {
+                user.setUsername(c.getValue());
+            }
+        }
+        
+
+        if (!isUserAuthorized) {
+            String usuario = request.getParameter("usuario");
+            String password = request.getParameter("password");
+            user = new User(usuario, password);
+            try {
+                if (DatabaseConnection.isUserAuthorized(user)) {
+                    isUserAuthorized = true;
+                    Cookie c = new Cookie("authorized", "true");
+                    c.setMaxAge(24*60*60);
+                    Cookie cookieUsuario = new Cookie("usuario", usuario);
+                    cookieUsuario.setMaxAge(24*60*60);
+                    response.addCookie(c);
+                    response.addCookie(cookieUsuario);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         request.setAttribute("Usuario", user);

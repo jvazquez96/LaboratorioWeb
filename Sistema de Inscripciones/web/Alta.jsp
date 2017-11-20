@@ -83,6 +83,7 @@
         <tr>
         <td><br><input type='submit' value='submit'></td>
         </tr>
+        <td><br><button onclick="location.href='http://localhost:8080/Sistema_de_Inscripciones/Login#'">Regresar al menu</button></td>
         </table>
         </form>
         </body>
