@@ -40,7 +40,7 @@ public class AltaServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ClassNotFoundException {
         String nomina = request.getParameter("Nomina");
         String clave = request.getParameter("Clave");
         String numeroDeSalon = request.getParameter("Numero");
@@ -65,7 +65,7 @@ public class AltaServlet extends HttpServlet {
         
     }
     
-    private String addTeacher(HttpServletRequest request) {
+    private String addTeacher(HttpServletRequest request) throws ClassNotFoundException {
         String nomina = request.getParameter("Nomina");
         String nombre = request.getParameter("Nombre");
         String numero = request.getParameter("Telefono");
@@ -84,7 +84,7 @@ public class AltaServlet extends HttpServlet {
         return message;
     }
     
-    private String addClassroom(HttpServletRequest request) {
+    private String addClassroom(HttpServletRequest request) throws ClassNotFoundException {
         String message = "";
         String numeroDeSalon = request.getParameter("Numero");
         int capacidad = Integer.valueOf(request.getParameter("Capacidad"));
@@ -102,7 +102,7 @@ public class AltaServlet extends HttpServlet {
         return message;
     }
     
-    private String addCourse(HttpServletRequest request) {
+    private String addCourse(HttpServletRequest request) throws ClassNotFoundException {
         String clave = request.getParameter("clave");
         int numeroDeGrupo = Integer.valueOf(request.getParameter("NumeroDeGrupo"));
         String horario = request.getParameter("Horario");
@@ -151,7 +151,11 @@ public class AltaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AltaServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -165,7 +169,11 @@ public class AltaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AltaServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

@@ -36,7 +36,7 @@ public class ModificarServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException, SQLException, ClassNotFoundException {
         String id = request.getParameter("id");
         // Si la pk empieza con L entonces es un maestro
         if (id.charAt(0) == 'L') {
@@ -73,6 +73,8 @@ public class ModificarServlet extends HttpServlet {
             processRequest(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(ModificarServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ModificarServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -90,6 +92,8 @@ public class ModificarServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
+            Logger.getLogger(ModificarServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(ModificarServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
