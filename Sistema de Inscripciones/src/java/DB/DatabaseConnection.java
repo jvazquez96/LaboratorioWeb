@@ -44,7 +44,8 @@ public class DatabaseConnection {
        return false;
    }
    
-   public static boolean isTeacherAdded(Maestro maestro) throws SQLException {
+   public static boolean isTeacherAdded(Maestro maestro) throws SQLException, ClassNotFoundException {
+       Class.forName("com.mysql.jdbc.Driver");
        String url = "jdbc:mysql://localhost"+port+"/Proyecto";
        Connection connection = DriverManager.getConnection(url, "root", password);
        Statement myStmt = connection.createStatement();
@@ -68,7 +69,8 @@ public class DatabaseConnection {
    }
    
    
-   public static ArrayList<Maestro> getAllTeachers() throws SQLException {
+   public static ArrayList<Maestro> getAllTeachers() throws SQLException, ClassNotFoundException{
+       Class.forName("com.mysql.jdbc.Driver");
        String url = "jdbc:mysql://localhost"+port+"/Proyecto";
        Connection connection = DriverManager.getConnection(url, "root", password);
        Statement myStmt = connection.createStatement();
@@ -86,7 +88,8 @@ public class DatabaseConnection {
        return teachers;
    }
    
-   public static boolean isClassroomAdded(Salon salon) throws SQLException {
+   public static boolean isClassroomAdded(Salon salon) throws SQLException, ClassNotFoundException {
+       Class.forName("com.mysql.jdbc.Driver");
        String url = "jdbc:mysql://localhost"+port+"/Proyecto";
        Connection connection = DriverManager.getConnection(url, "root", password);
        Statement myStmt = connection.createStatement();
@@ -107,7 +110,8 @@ public class DatabaseConnection {
        return true;
    }
    
-   public static ArrayList<Salon> getAllClassrooms() throws SQLException {
+   public static ArrayList<Salon> getAllClassrooms() throws SQLException, ClassNotFoundException {
+       Class.forName("com.mysql.jdbc.Driver");
        String url = "jdbc:mysql://localhost"+port+"/Proyecto";
        Connection connection = DriverManager.getConnection(url, "root", password);
        Statement myStmt = connection.createStatement();
@@ -133,7 +137,8 @@ public class DatabaseConnection {
    // No pueden tener los mismos maestros en el mismo horario
    
    
-   public static boolean isCourseAdded(Curso curso, ArrayList<Maestro> maestros, ArrayList<Responsabilidad> responsabilidades) throws SQLException {
+   public static boolean isCourseAdded(Curso curso, ArrayList<Maestro> maestros, ArrayList<Responsabilidad> responsabilidades) throws SQLException, ClassNotFoundException {
+       Class.forName("com.mysql.jdbc.Driver");
        String url = "jdbc:mysql://localhost"+port+"/Proyecto";
        Connection connection = DriverManager.getConnection(url, "root", password);
        Statement myStmt = connection.createStatement();
@@ -206,7 +211,8 @@ public class DatabaseConnection {
    }
    
    
-   private static ArrayList<Curso> getAllCourses() throws SQLException{
+   private static ArrayList<Curso> getAllCourses() throws SQLException, ClassNotFoundException{
+       Class.forName("com.mysql.jdbc.Driver");
        String url = "jdbc:mysql://localhost"+port+"/Proyecto";
        Connection connection = DriverManager.getConnection(url, "root", password);
        Statement myStmt = connection.createStatement();
@@ -226,7 +232,8 @@ public class DatabaseConnection {
        return cursos;
    }
    
-   private static ArrayList<Maestro> getAllTeachersFromCourse(String clave, int numeroDeGrupo) throws SQLException {
+   private static ArrayList<Maestro> getAllTeachersFromCourse(String clave, int numeroDeGrupo) throws SQLException, ClassNotFoundException {
+       Class.forName("com.mysql.jdbc.Driver");
        ArrayList<Maestro> maestros = new ArrayList<>();
        String url = "jdbc:mysql://localhost"+port+"/Proyecto";
        Connection connection = DriverManager.getConnection(url, "root", password);
@@ -247,7 +254,8 @@ public class DatabaseConnection {
        return maestros;
    }
    
-   public static ArrayList<Ensena> getAllCoursesAndTeachers() throws SQLException {
+   public static ArrayList<Ensena> getAllCoursesAndTeachers() throws SQLException, ClassNotFoundException {
+       Class.forName("com.mysql.jdbc.Driver");
        String url = "jdbc:mysql://localhost"+port+"/Proyecto";
        Connection connection = DriverManager.getConnection(url, "root", password);
        String query = "Select m.Nomina, Nombre, Responsabilidad, e.Clave,"
@@ -277,7 +285,8 @@ public class DatabaseConnection {
        return ensenas;
    }
    
-   public static void updateTeachers(String id, String column, String value) throws SQLException {
+   public static void updateTeachers(String id, String column, String value) throws SQLException, ClassNotFoundException {
+       Class.forName("com.mysql.jdbc.Driver");
        String url = "jdbc:mysql://localhost"+port+"/Proyecto";
        Connection connection = DriverManager.getConnection(url, "root", password);
        String query = "UPDATE Maestro SET "
