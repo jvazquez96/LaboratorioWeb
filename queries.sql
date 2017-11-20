@@ -1,5 +1,6 @@
 -- Si no tienen la base de datos creada corran descomenten las siguientes lineas.
--- CREATE DATABASE Proyecto;
+DROP DATABASE Proyecto;
+CREATE DATABASE Proyecto;
 USE Proyecto;
 CREATE TABLE Horario (
 	Frequencia VARCHAR(100) NOT NULL,
@@ -73,38 +74,120 @@ INSERT INTO Maestro (Nomina, Nombre, Telefono, CorreoElectronico, CursosPrograma
 VALUES ("L98765432", "Julia Limon", 74682972, "julia@hotmail.com", 0);
 INSERT INTO Maestro (Nomina, Nombre, Telefono, CorreoElectronico, CursosProgramados)
 VALUES ("L57451829", "Juan Herrera", 23457289, "juan@hotmail.com", 0);
+INSERT INTO Maestro (Nomina, Nombre, Telefono, CorreoElectronico, CursosProgramados)
+VALUES ("L00251587", "Manuel Ortiz", 23457289, "manuel.ortiz@yahoo.com", 0);
 INSERT INTO Horario (Frequencia)
 VALUES ("7/3 LuJu");
 INSERT INTO Horario (Frequencia)
 VALUES ("8+/3 MaVi");
 INSERT INTO Horario (Frequencia)
 VALUES ("10/3 MaVi");
+INSERT INTO Horario (Frequencia)
+VALUES ("7/3 MaVi");
+INSERT INTO Horario (Frequencia)
+VALUES ("18/6 Ju");
+INSERT INTO Horario (Frequencia)
+VALUES ("16/3 LuJu");
+INSERT INTO Horario (Frequencia)
+VALUES ("14+/3 MaVi");
+INSERT INTO Horario (Frequencia)
+VALUES ("13/3 MaVi");
+INSERT INTO Horario (Frequencia)
+VALUES ("10/3 LuJu");
+INSERT INTO Horario (Frequencia)
+VALUES ("16/3 MaVi");
+INSERT INTO Horario (Frequencia)
+VALUES ("14/3 LuJu");
+INSERT INTO Horario (Frequencia)
+VALUES ("13/3 LuJu");
+INSERT INTO Horario (Frequencia)
+VALUES ("18/6 Lu");
 INSERT INTO Salon (Numero, Capacidad, Administrador)
 VALUES ("A3-301", 38, "Escolar");
 INSERT INTO Salon (Numero, Capacidad, Administrador)
-VALUES ("A3-302", 25, "Escolar");
+VALUES ("A3-312", 30, "Escolar");
+INSERT INTO Salon (Numero, Capacidad, Administrador)
+VALUES ("A3-303", 30, "Escolar");
+INSERT INTO Salon (Numero, Capacidad, Administrador)
+VALUES ("A3-302", 35, "Escolar");
+INSERT INTO Salon (Numero, Capacidad, Administrador)
+VALUES ("CEDDIE-S2", 12, "Escolar");
+INSERT INTO Salon (Numero, Capacidad, Administrador)
+VALUES ("A3-304", 25, "Escolar");
+INSERT INTO Salon (Numero, Capacidad, Administrador)
+VALUES ("A4-104", 20, "Escolar");
+INSERT INTO Salon (Numero, Capacidad, Administrador)
+VALUES ("A4-415", 20, "Escolar");
+INSERT INTO Salon (Numero, Capacidad, Administrador)
+VALUES ("A7-205", 35, "Escolar");
+INSERT INTO Salon (Numero, Capacidad, Administrador)
+VALUES ("A1-111", 20, "Escolar");
 INSERT INTO Materia (Clave, Nombre, HorasLaboratorio)
 VALUES ("TC3001", "Intro a la programacion", 0);
 INSERT INTO Materia (Clave, Nombre, HorasLaboratorio)
 VALUES ("TC3002", "Seguridad informatica", 1);
+INSERT INTO Materia (Clave, Nombre, HorasLaboratorio)
+VALUES ("TC1021", "Proyecto desarrollo de videojuegos", 1);
+INSERT INTO Materia (Clave, Nombre, HorasLaboratorio)
+VALUES ("TC3045", "Calidad y Pruebas de Software I", 1);
+INSERT INTO Materia (Clave, Nombre, HorasLaboratorio)
+VALUES ("TC3046", "Calidad y Pruebas de Software II", 1);
+INSERT INTO Materia (Clave, Nombre, HorasLaboratorio)
+VALUES ("TC3098", "Proyecto de desarrollo CMMI 5 y PSP 3.0", 1);
+INSERT INTO Materia (Clave, Nombre, HorasLaboratorio)
+VALUES ("TC1020", "Bases de datos", 1);
+INSERT INTO Materia (Clave, Nombre, HorasLaboratorio)
+VALUES ("TC3020", "Evaluacion y Administracion de Proyectos de Software", 1);
 INSERT INTO Curso (Clave, NumeroDeGrupo, Horario, HorarioLaboratorio, Salon, Ingles, Honors)
 VALUES ("TC3001", 1, "7/3 LuJu", NULL, "A3-301", 1, 0);
 INSERT INTO Curso (Clave, NumeroDeGrupo, Horario, HorarioLaboratorio, Salon, Ingles, Honors)
 VALUES ("TC3002", 1, "8+/3 MaVi", "10/3 MaVi", "A3-302", 1, 1);
+INSERT INTO Curso (Clave, NumeroDeGrupo, Horario, HorarioLaboratorio, Salon, Ingles, Honors)
+VALUES ("TC3002", 2, "16/3 LuJu", "14/3 LuJu", "A3-302", 1, 1);
+INSERT INTO Curso (Clave, NumeroDeGrupo, Horario, HorarioLaboratorio, Salon, Ingles, Honors)
+VALUES ("TC3002", 3, "10/3 MaVi", "13/3 MaVi", "A1-111", 1, 1);
+INSERT INTO Curso (Clave, NumeroDeGrupo, Horario, HorarioLaboratorio, Salon, Ingles, Honors)
+VALUES ("TC1021", 1, "7/3 LuJu", NULL, "A3-301", 1, 0);
+INSERT INTO Curso (Clave, NumeroDeGrupo, Horario, HorarioLaboratorio, Salon, Ingles, Honors)
+VALUES ("TC1021", 2, "13/3 MaVi", NULL, "A3-301", 1, 0);
+INSERT INTO Curso (Clave, NumeroDeGrupo, Horario, HorarioLaboratorio, Salon, Ingles, Honors)
+VALUES ("TC3045", 1, "13/3 LuJu", NULL, "A3-312", 0, 0);
+INSERT INTO Curso (Clave, NumeroDeGrupo, Horario, HorarioLaboratorio, Salon, Ingles, Honors)
+VALUES ("TC3046", 1, "8+/3 MaVi", NULL, "A3-303", 1, 0);
+INSERT INTO Curso (Clave, NumeroDeGrupo, Horario, HorarioLaboratorio, Salon, Ingles, Honors)
+VALUES ("TC3098", 1, "14+/3 MaVi", NULL, "A3-303", 0, 1);
+INSERT INTO Curso (Clave, NumeroDeGrupo, Horario, HorarioLaboratorio, Salon, Ingles, Honors)
+VALUES ("TC3098", 2, "18/6 Lu", NULL, "A3-303", 0, 1);
+INSERT INTO Curso (Clave, NumeroDeGrupo, Horario, HorarioLaboratorio, Salon, Ingles, Honors)
+VALUES ("TC3098", 3, "18/6 Ju", NULL, "A3-304", 0, 1);
+INSERT INTO Curso (Clave, NumeroDeGrupo, Horario, HorarioLaboratorio, Salon, Ingles, Honors)
+VALUES ("TC3098", 4, "10/3 LuJu", NULL, "A3-304", 0, 1);
+INSERT INTO Curso (Clave, NumeroDeGrupo, Horario, HorarioLaboratorio, Salon, Ingles, Honors)
+VALUES ("TC3020", 1, "16/3 LuJu", NULL, "A3-304", 0, 1);
+INSERT INTO Curso (Clave, NumeroDeGrupo, Horario, HorarioLaboratorio, Salon, Ingles, Honors)
+VALUES ("TC3020", 2, "10/3 MaVi", NULL, "A4-104", 0, 1);
+INSERT INTO Curso (Clave, NumeroDeGrupo, Horario, HorarioLaboratorio, Salon, Ingles, Honors)
+VALUES ("TC3020", 3, "13/3 MaVi", NULL, "A7-205", 0, 0);
+INSERT INTO Curso (Clave, NumeroDeGrupo, Horario, HorarioLaboratorio, Salon, Ingles, Honors)
+VALUES ("TC1020", 1, "18/6 Lu", NULL, "CEDDIE-S2", 0, 0);
 INSERT INTO Ensena (Nomina, Clave, NumeroDeGrupo, Responsabilidad)
 VALUES ("L12345678", "TC3001", 1, 100);
 INSERT INTO Ensena (Nomina, Clave, NumeroDeGrupo, Responsabilidad)
 VALUES ("L98765432", "TC3002", 1, 50);
 INSERT INTO Ensena (Nomina, Clave, NumeroDeGrupo, Responsabilidad)
 VALUES ("L57451829", "TC3002", 1, 50);
-INSERT INTO Administradores (Usuario, Password) 
+INSERT INTO Ensena (Nomina, Clave, NumeroDeGrupo, Responsabilidad)
+VALUES ("L00251587", "TC3045", 1, 50);
+INSERT INTO Ensena (Nomina, Clave, NumeroDeGrupo, Responsabilidad)
+VALUES ("L00251587", "TC3046", 1, 50);
+INSERT INTO Ensena (Nomina, Clave, NumeroDeGrupo, Responsabilidad)
+VALUES ("L00251587", "TC3098", 1, 50);
+INSERT INTO Administradores (Usuario, Password)
 VALUES ("Jorge", "Vazquez");
-INSERT INTO Administradores (Usuario, Password) 
+INSERT INTO Administradores (Usuario, Password)
 VALUES ("Miguel", "Banda");
-INSERT INTO Salon (Numero, Capacidad, Administrador)
-VALUES ("A3-303", 32, "Escolar");
 
--- Cursos impartidos por un profesor 
+-- Cursos impartidos por un profesor
 SELECT Clave, NumeroDeGrupo, Horario, Salon, Ingles, Honors
 FROM Ensena NATURAL JOIN Curso
 WHERE Nomina = "NOMINA_PROFESOR"; -- NOMINA_PROFESOR viene desde la pagina web
