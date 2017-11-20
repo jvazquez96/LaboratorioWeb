@@ -11,15 +11,16 @@
             padding-right: 6em;
         }
     </style>
-    <script type="text/javascript" src="solicitarReportes.js"></script>
+    <script type="text/javascript" src="solicitarReporte.js"></script>
 </head>
-<body id="resultadosReporte">
+<body>
     <?php
         readfile("../web/header.html");
     ?>
-    <h1 id="titulo-reporte"></h1>
-    <table id="tabla-reporte">
-    </table>
+    <div id="resultadosReporte">
+        <h1 id="titulo-reporte"></h1>
+        <table id="tabla-reporte"></table>
+    </div>
 
 </body>
 </html>
