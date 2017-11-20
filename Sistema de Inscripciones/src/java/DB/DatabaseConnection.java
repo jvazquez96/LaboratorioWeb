@@ -25,8 +25,8 @@ import java.util.ArrayList;
  */
 public class DatabaseConnection {
     
-    private static String password = "";
-    private static String port = ":3306";
+    private static String password = "root";
+    private static String port = ":8889";
     
    public static boolean isUserAuthorized(User user) throws SQLException, ClassNotFoundException {
        Class.forName("com.mysql.jdbc.Driver");
