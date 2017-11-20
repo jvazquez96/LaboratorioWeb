@@ -40,12 +40,20 @@ public class ModificarServlet extends HttpServlet {
         String id = request.getParameter("id");
         // Si la pk empieza con L entonces es un maestro
         if (id.charAt(0) == 'L') {
+            // Maestro
             System.out.println("ID: " + request.getParameter("id"));
             System.out.println("Valor: " + request.getParameter("valor"));
             System.out.println("Columna: " + request.getParameter("columna"));
             String column = request.getParameter("columna");
             String valor = request.getParameter("valor");
             DatabaseConnection.updateTeachers(id, column, valor);
+        } else if (Character.isLetter(id.charAt(0))) {
+            // Esto es un salon
+            System.out.println("ID: " + request.getParameter("id"));
+            System.out.println("Valor: " + request.getParameter("valor"));
+            System.out.println("Columna: " + request.getParameter("columna"));
+            String column = request.getParameter("columna");
+            String valor = request.getParameter("valor");
         }
     }
 

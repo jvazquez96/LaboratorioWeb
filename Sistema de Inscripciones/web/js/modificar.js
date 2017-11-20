@@ -5,7 +5,6 @@
  */
 
 function editar(object){
-    console.log("EDITAR");
     var col  = getColumna(object);
     var long = $(object).parent().children().length;
     var value = object.innerHTML;
@@ -26,15 +25,15 @@ function editar(object){
                 object.ondblclick = function(){return false;};
                 break;
         }
+    } else if (long == 3) {
+        
     }
 }
 
 function guardarMaestro(object) {
     //telca enter -- falta
     var valor = object.value;
-    console.log("valor");
     var id = getId($(object).parent().parent());
-    console.log("id");
     var columna;
     
     switch(getColumna($(object).parent().parent())){
