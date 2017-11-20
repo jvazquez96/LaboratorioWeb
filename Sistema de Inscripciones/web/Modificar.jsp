@@ -61,6 +61,7 @@
             out.write("<th></th>");
             out.write("</tr>");
             out.write("</thead>");
+            int iId = 0;
 
 
             // Print the table body
@@ -71,7 +72,7 @@
                 }
                 out.write("<tr>");
                 for (Method getter: getters) {
-                    out.write("<td ondblclick='editar(this)' class='dbl'>");
+                    out.write("<td ondblclick='editar(this, " +  Integer.toString(iId) + ")' class='dbl' id='" + Integer.toString(iId) +"'>");
                     // Tomar el getter del la instancia del objeto específico
                     Method getterEspecifico = objeto.getClass().getMethod(getter.getName());
 
@@ -79,6 +80,7 @@
                     String valor = getterEspecifico.invoke(objeto).toString();
                     out.write(valor);
                     out.write("</td>");
+                    iId++;
                 }
 //                out.write("<td><button id='borrar' onclick='borrar(this)'>Borrar fila</button></td>");
                 out.write("</tr>");
