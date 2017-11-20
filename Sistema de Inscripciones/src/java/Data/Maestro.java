@@ -77,5 +77,4 @@ public class Maestro {
     public void setCursosProgramados(int cursosProgramados) {
         this.cursosProgramados = cursosProgramados;
     }
-  
 }
