@@ -15,11 +15,13 @@
 </head>
 <body>
     <?php
-        readfile("../web/header.html");
+        // Descomentando esta linea se activa el tema y el header principal
+        //readfile("../web/header.html");
     ?>
     <div id="resultadosReporte">
         <h1 id="titulo-reporte"></h1>
         <table id="tabla-reporte"></table>
+        <button type="button" id="btninvertir" onclick="invertirOrden()">Mostrar salones menos utilizados</button>
     </div>
 
 </body>

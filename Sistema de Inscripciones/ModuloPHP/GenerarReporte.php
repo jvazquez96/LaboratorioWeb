@@ -4,7 +4,7 @@ if ($mysqli->connect_errno) {
     echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 }
 
-function salonesMasUtilizados() {
+function calcularUsoSalones($deMenosAMas) {
     global $mysqli;
     $queryCursos="SELECT * FROM Curso";
     $querySalones="SELECT * FROM Salon";
@@ -41,20 +41,44 @@ function salonesMasUtilizados() {
     }
     $salonesConFrecuencia = ["table_head" => ["Numero Salon", "Capacidad", "Administrador",
                              "Número de veces utilizado"]];
-    while ($salon = $salones->fetch_assoc()) {
-        $numeroSalon = $salon["Numero"];
-        $vecesUsado = (int)$repeticionesSalones[$numeroSalon];  // Nulls get turned into 0 by the magic of PHP
-        $salonesConFrecuencia["table_rows"][] = [$numeroSalon, $salon["Capacidad"],
-                                   $salon["Administrador"], $vecesUsado];
+    if ($deMenosAMas) {
+        asort($repeticionesSalones);
+        $salonesConFrecuencia["table_name"] = "Salones menos utilizados";
+        $salonesConFrecuencia["btn_invertir"] = "Mostrar salones más utilizados";
     }
-    $salonesConFrecuencia["table_name"] = "Salones más utilizados";
+    else {
+        arsort($repeticionesSalones);
+        $salonesConFrecuencia["table_name"] = "Salones más utilizados";
+        $salonesConFrecuencia["btn_invertir"] = "Mostrar salones menos utilizados";
+    }
+    $salonesPorNumero = [];
+    while ($salon = $salones->fetch_assoc()) {
+        $salonesPorNumero[$salon["Numero"]] = $salon;
+    }
+    // Iterar sobre repeticionesSalones en vez de salonesPorNumero para mantener el orden
+    foreach ($repeticionesSalones as $numeroSalon => $vecesUsado) {
+        $salon = $salonesPorNumero[$numeroSalon];
+        $salonesConFrecuencia["table_rows"][] = [$numeroSalon, $salon["Capacidad"],
+                              $salon["Administrador"], $vecesUsado];
+        unset($salonesPorNumero[$numeroSalon]);
+    }
+    // Los salones que quedaron no tienen ninguna clase asignada
+    foreach ($salonesPorNumero as $numeroSalon => $salon) {
+        $vecesUsado = 0;
+        $salonesConFrecuencia["table_rows"][] = [$numeroSalon, $salon["Capacidad"],
+                              $salon["Administrador"], $vecesUsado];
+    }
     echo json_encode($salonesConFrecuencia);
 }
 
 $tipoReporte = $_GET["tipoReporte"];
 
 if ($tipoReporte == "salonesMasUtilizados") {
-    salonesMasUtilizados();
+    calcularUsoSalones(False);
+}
+
+if ($tipoReporte == "salonesMenosUtilizados") {
+    calcularUsoSalones(True);
 }
 
 $mysqli->close();

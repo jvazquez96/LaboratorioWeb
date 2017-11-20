@@ -1,8 +1,21 @@
+var enOrdenDesc = true;
+
 document.onreadystatechange = function () {
   if (document.readyState == 'complete') {
     solicitarDatos();
   }
 };
+
+function invertirOrden() {
+  if (enOrdenDesc) {
+    solicitarDatos("salonesMenosUtilizados");
+    enOrdenDesc = false;
+  }
+  else {
+    solicitarDatos("salonesMasUtilizados");
+    enOrdenDesc = true;
+  }
+}
 
 function solicitarDatos(tipoReporte = "salonesMasUtilizados") {
   const urlReporte = "GenerarReporte.php?tipoReporte=" + tipoReporte;
@@ -18,6 +31,7 @@ function solicitarDatos(tipoReporte = "salonesMasUtilizados") {
         var tablaResultado = generarCabecera(resultados["table_head"]);
         tablaResultado += generarRenglones(resultados["table_rows"]);
         document.getElementById("titulo-reporte").innerHTML = resultados["table_name"];
+        document.getElementById("btninvertir").innerText = resultados["btn_invertir"];
 
         console.log(tablaResultado);
         document.getElementById("tabla-reporte").innerHTML = tablaResultado;
