@@ -23,8 +23,6 @@
             String beanName = (String) request.getAttribute("beanName");
             Class<?> tipoBean = Class.forName(beanName);
             String className = tipoBean.getName();
-            //out.write("<h1>Modificando maestros</h1>");
-            //out.write("<h2>Lista de maestros disponibles para modificar</h2>");
 
             // Get the names of the properties of inside the bean (e.g. Maestro, Salon, Grupo)
             ArrayList<Method> getters = new ArrayList();
@@ -98,27 +96,6 @@
             out.write("</tr>");
             out.write("</tbody>");
             out.write(TABLE_END);
-            /*
-             TABLE_START
-            for (tipoBean objeto: objetos) {
-                out.write(
-                "<table class='mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp'>"
-                + "<tr>"
-                + "<td align='left'>Nomina: "
-                + maestro.getNomina()
-                + "</td>"
-                + "<td align='left'><>Nombre: "
-                + maestro.getNombre()
-                + "</td>"
-                + "</tr>"
-                + "</table>");
-            }
-            */
         %>
-        <% %>
-<!-- <form method="post" action="AdministrarServlet">
- <input type="text" name="<%= className %>" hidden="true" value="<%= className %>"/>
- <input type="submit" value="+"/>-->
-<!-- </form>-->
     </body>
 </html>
