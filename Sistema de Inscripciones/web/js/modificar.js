@@ -14,6 +14,7 @@ function editar(object, id) {
 
     var col = object.id % 5;
     var long = $(object).parent().children().length;
+    
 
     //Si el tamaño de datos es 5, es maestro
     if (long == 5) {
@@ -22,8 +23,7 @@ function editar(object, id) {
                 var columna = "nombre";
                 var input = document.createElement("input");
                 input.className = "mdl-textfield__input";
-                
-                input.select();
+                input.id = 'input';
                 
                 if (object.innerText)
                     input.value = object.innerText;
@@ -32,6 +32,8 @@ function editar(object, id) {
 
                 input.style.width = getTextWidth(input.value) + 30 + "px";
                 object.replaceChild(input, object.firstChild);
+                document.getElementById('input').focus();
+                document.getElementById('input').select();
 
                 input.onblur = function salir() {
                     guardarMaestro(object, input.value, columna, id);
@@ -40,18 +42,17 @@ function editar(object, id) {
 
                 input.onkeydown = function keyDown(event) {
                     if (event.keyCode == 13) {
-                        guardarMaestro(object, input.value, columna, id);
+                        document.getElementById('input').blur();
                         delete input;
                     }
-                };
+                }; 
                 break;
             case 2:
                 var columna = "telefono";
                 var input = document.createElement("input");
                 input.className = "mdl-textfield__input";
+                input.id = 'input';
                 
-                input.select();
-
                 if (object.innerText)
                     input.value = object.innerText;
                 else
@@ -59,6 +60,8 @@ function editar(object, id) {
 
                 input.style.width = getTextWidth(input.value) + 30 + "px";
                 object.replaceChild(input, object.firstChild);
+                document.getElementById('input').focus();
+                document.getElementById('input').select();
 
                 input.onblur = function salir() {
                     guardarMaestro(object, input.value, columna, id);
@@ -67,18 +70,17 @@ function editar(object, id) {
 
                 input.onkeydown = function keyDown(event) {
                     if (event.keyCode == 13) {
-                        guardarMaestro(object, input.value, columna, id);
+                        document.getElementById('input').blur();
                         delete input;
                     }
-                };
+                }; 
                 break;
             case 3:
-                var columna = "correo";
+                var columna = "correoelectronico";
                 var input = document.createElement("input");
                 input.className = "mdl-textfield__input";
+                input.id = 'input';
                 
-                input.select();
-
                 if (object.innerText)
                     input.value = object.innerText;
                 else
@@ -86,11 +88,20 @@ function editar(object, id) {
 
                 input.style.width = getTextWidth(input.value) + 30 + "px";
                 object.replaceChild(input, object.firstChild);
+                document.getElementById('input').focus();
+                document.getElementById('input').select();
 
                 input.onblur = function salir() {
                     guardarMaestro(object, input.value, columna, id);
                     delete input;
-                };                
+                };
+
+                input.onkeydown = function keyDown(event) {
+                    if (event.keyCode == 13) {
+                        document.getElementById('input').blur();
+                        delete input;
+                    }
+                };           
                 break;
         }
     } else if (long == 3) {
@@ -101,7 +112,6 @@ function editar(object, id) {
 function guardarMaestro(obj, valor, columna, id) {
     obj.replaceChild(document.createTextNode(valor), obj.firstChild);
     var nomina = getId(obj);
-    console.log(nomina);
     
     xhr = new XMLHttpRequest();
     xhr.open("POST", "http://localhost:8080/Sistema_de_Inscripciones/ModificarServlet", true);
