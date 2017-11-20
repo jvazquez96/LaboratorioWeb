@@ -10,6 +10,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Dar de alta</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-blue.min.css" />
+        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     </head>
     <script>
         n = 0;
@@ -63,7 +67,7 @@
         %>
         <body>
         <form action='AltaServlet' method='post'>
-        <table cellspacing ='5' border='0'>
+        <table class='mdl-data-table mdl-js-data-table mdl-shadow--2dp'align='center' cellspacing ='5' border='0'>
         <tr>
         <td align='left'>Nomina <input type='text' name='Nomina' required> </td>
         </tr>
@@ -88,7 +92,7 @@
                 }%>
         <body>
         <form action='AltaServlet' method='post'>
-        <table cellspacing ='5' border='0'>
+        <table class='mdl-data-table mdl-js-data-table mdl-shadow--2dp'align='center' cellspacing ='5' border='0'>
         <tr>
         <td align='left'>Número <input type='text' name='Numero' required> </td>
         </tr>
@@ -110,7 +114,7 @@
                 }%>
         <body>
         <form action='AltaServlet' method='post'>
-        <table cellspacing ='5' border='0' >
+        <table class='mdl-data-table mdl-js-data-table mdl-shadow--2dp'align='center' cellspacing ='5' border='0' >
         <tr>
         <td align='left'>Clave <input type='text' name='Clave' required> </td>
         </tr>
@@ -133,7 +137,7 @@
         <td align='left'>Honors <input type='number' name='Honors' required></td>
         </tr>
         </table>
-        <table id='MyTable'>
+        <table class='mdl-data-table mdl-js-data-table mdl-shadow--2dp'align='center' id='MyTable'>
         <tr>
             <td align='left'>Nomina de Profesor </td>
             <td align='left'><input type='text' name='Maestro' required></td>
