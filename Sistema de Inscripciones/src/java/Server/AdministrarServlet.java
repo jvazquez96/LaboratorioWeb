@@ -35,12 +35,13 @@ public class AdministrarServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("action");
         String url;
         
         String maestro = request.getParameter("Data.Maestro");
         String salon = request.getParameter("Data.Salon");
         String curso = request.getParameter("Data.Ensena");
+        
+        System.out.println("Maestro: " + maestro);
         
         Boolean isAddingTeacher = maestro != null;
         Boolean isAddingClassroom = salon != null;

@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-blue.min.css" />
         <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
         <script src="js/menu.js"></script>
+        <script src="s/modificar.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <title>Menu Principal</title>
 </head>
@@ -46,7 +47,7 @@
                 </nav>
             </div>
         </header>
-        <main class="mdl-layout__content">
+<!--        <main class="mdl-layout__content">
             <div class="page-content">
                 <% User user = new User();
                         Cookie[] cookies = request.getCookies();
@@ -59,4 +60,5 @@
                 %>
                 <h2>Bienvenido(a) <%= user.getUsername()%></h2>
             </div>
+        </main>-->
     </div>

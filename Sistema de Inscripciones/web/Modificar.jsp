@@ -75,6 +75,14 @@
                 out.write("</tr>");
 
             }
+            out.write("<tr>");
+            out.write("<td>");
+            out.write("<form method='post' action='AdministrarServlet'>");
+            out.write("<input type='text' name=" + "'" +className + "'" + " value=" + "'" + className+  "'" + " hidden='true' value=>");
+            out.write("<input type='submit' value='+'>");
+            out.write("</form>");
+            out.write("</td>");
+            out.write("</tr>");
             out.write("</tbody>");
             out.write(TABLE_END);
             /*
@@ -95,6 +103,9 @@
             */
         %>
         <% %>
-</main>
+<!-- <form method="post" action="AdministrarServlet">
+ <input type="text" name="<%= className %>" hidden="true" value="<%= className %>"/>
+ <input type="submit" value="+"/>-->
+<!-- </form>-->
     </body>
 </html>
