@@ -48,10 +48,15 @@
         </header>
         <main class="mdl-layout__content">
             <div class="page-content">
-                <% User user = (User) request.getAttribute("Usuario");%>
+                <% User user = new User();
+                        Cookie[] cookies = request.getCookies();
+                for (int i = 0; i < cookies.length; ++i) {
+                    Cookie c = cookies[i];
+                    if (c.getName().equals("usuario")) {
+                        user.setUsername(c.getValue());
+                    }
+                }
+                %>
                 <h2>Bienvenido(a) <%= user.getUsername()%></h2>
             </div>
-        </main>
     </div>
-</body>
-</html>

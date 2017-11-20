@@ -14,19 +14,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="Data.Maestro"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Modificar</title>
-        <link rel="stylesheet" href="css/mostrar.css" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-blue.min.css" />
-        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script type="text/javascript" src="js/modificar.js"></script>
-    </head>
-    <body>
+<%@include file="welcome.jsp"%>
+<br><br><br><br><br><br><br><br><br>
         <%
         final String TABLE_START = "<table class='mdl-data-table mdl-js-data-table mdl-shadow--2dp'align='center'>";
         final String TABLE_END = "</table>";
@@ -104,9 +93,6 @@
             */
         %>
         <% %>
-        <form method="post" action="AdministrarServlet">
-            <input type="text" name="<%= className %>" hidden="true" value="<%= className %>"/>
-            <input type="submit" value="+"/>
-        </form>
+</main>
     </body>
 </html>
