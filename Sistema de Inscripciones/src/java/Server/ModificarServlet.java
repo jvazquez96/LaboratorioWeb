@@ -40,13 +40,13 @@ public class ModificarServlet extends HttpServlet {
         String id = request.getParameter("id");
         // Si la pk empieza con L entonces es un maestro
         if (id.charAt(0) == 'L') {
+            System.out.println("ID: " + request.getParameter("id"));
+            System.out.println("Valor: " + request.getParameter("valor"));
+            System.out.println("Columna: " + request.getParameter("columna"));
             String column = request.getParameter("columna");
             String valor = request.getParameter("valor");
             DatabaseConnection.updateTeachers(id, column, valor);
         }
-        System.out.println("ID: " + request.getParameter("id"));
-        System.out.println("Valor: " + request.getParameter("valor"));
-        System.out.println("Columna: " + request.getParameter("columna"));
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

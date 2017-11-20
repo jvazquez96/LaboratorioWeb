@@ -80,7 +80,7 @@
                     out.write(valor);
                     out.write("</td>");
                 }
-                out.write("<td><button id='borrar' onclick='borrar(this)'>Borrar fila</button></td>");
+//                out.write("<td><button id='borrar' onclick='borrar(this)'>Borrar fila</button></td>");
                 out.write("</tr>");
 
             }

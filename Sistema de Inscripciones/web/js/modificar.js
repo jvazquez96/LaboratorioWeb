@@ -5,6 +5,7 @@
  */
 
 function editar(object){
+    console.log("EDITAR");
     var col  = getColumna(object);
     var long = $(object).parent().children().length;
     var value = object.innerHTML;
