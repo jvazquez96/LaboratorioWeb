@@ -20,6 +20,10 @@
         <servlet-name>EliminarServlet</servlet-name>
         <servlet-class>Server.EliminarServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReportesServlet</servlet-name>
+        <servlet-class>Server.ReportesServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MenuServlet</servlet-name>
         <url-pattern>/MenuServlet</url-pattern>
@@ -43,6 +47,10 @@
     <servlet-mapping>
         <servlet-name>EliminarServlet</servlet-name>
         <url-pattern>/EliminarServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportesServlet</servlet-name>
+        <url-pattern>/ReportesServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

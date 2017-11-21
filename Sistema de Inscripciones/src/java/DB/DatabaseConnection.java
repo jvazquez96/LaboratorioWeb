@@ -25,8 +25,8 @@ import java.util.ArrayList;
  */
 public class DatabaseConnection {
     
-    private static String password = "";
-    private static String port = ":3306";
+    private static String password = "root";
+    private static String port = ":8889";
     
    public static boolean isUserAuthorized(User user) throws SQLException, ClassNotFoundException {
        Class.forName("com.mysql.jdbc.Driver");
@@ -298,4 +298,132 @@ public class DatabaseConnection {
        preparedStatement.executeUpdate();
    }
    
+   public static ArrayList<Curso> getAllCoursesProfessor(String nomina) throws SQLException, ClassNotFoundException{
+       Class.forName("com.mysql.jdbc.Driver");
+       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
+       Connection connection = DriverManager.getConnection(url, "root", password);
+       Statement myStmt = connection.createStatement();
+       String query = "SELECT Clave, NumeroDeGrupo, Horario, Salon, Ingles, Honors FROM Ensena NATURAL JOIN Curso WHERE Nomina = '"+nomina+"'";
+       ResultSet myResult = myStmt.executeQuery(query);
+       ArrayList<Curso> cursos = new ArrayList<Curso>();
+       while(myResult.next()) {
+           String clave = myResult.getString("Clave");
+           int numeroDeGrupo = (Integer) myResult.getObject("grupo");
+           String horario = myResult.getString("Horario");
+           String salon = myResult.getString("Salon");
+           Boolean ingles = (Boolean) myResult.getObject("Ingles");
+           Boolean honors = (Boolean) myResult.getObject("Honors");
+           Curso curso = new Curso(clave, horario, "", salon, numeroDeGrupo, ingles, honors);
+           cursos.add(curso);
+       }
+       return cursos;
+   } 
+   
+   public static ArrayList<Ensena> getListaMateria(String materia) throws SQLException, ClassNotFoundException {
+       Class.forName("com.mysql.jdbc.Driver");
+       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
+       Connection connection = DriverManager.getConnection(url, "root", password);
+       String query = "SELECT Curso.Clave, Nomina, NumeroDeGrupo, Horario, Salon, Ingles, Honors FROM Curso NATURAL JOIN Ensena WHERE Curso.Clave = '"+materia+"';";
+       Statement myStmt = connection.createStatement();
+       ResultSet myResult = myStmt.executeQuery(query);
+       ArrayList<Ensena> ensenas = new ArrayList<>();
+       while(myResult.next()) {
+           String nomina = myResult.getString("Nomina");
+           String nombre = myResult.getString("Nombre");
+           //int responsabilidad = (Integer) myResult.getObject("Responsabilidad");
+           String clave = myResult.getString("Clave");
+           int numeroDeGrupo = (Integer) myResult.getObject("NumeroDeGrupo");
+           String horario = myResult.getString("Horario");
+           //String horarioLaboratorio = myResult.getString("HorarioLaboratorio");
+            
+           String salon = myResult.getString("Salon");
+           Boolean ingles = (Integer) myResult.getObject("Ingles") == 1;
+           Boolean honors = (Integer) myResult.getObject("Honors") == 1;
+           Ensena ensena = new Ensena(nomina, nombre, clave, horario, "", salon, 0, numeroDeGrupo, ingles, honors);
+           ensenas.add(ensena);
+       }
+       return ensenas;
+   }
+   
+   public static ArrayList<Salon> getSalonesDisponibles(String horario) throws SQLException, ClassNotFoundException {
+       Class.forName("com.mysql.jdbc.Driver");
+       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
+       Connection connection = DriverManager.getConnection(url, "root", password);
+       Statement myStmt = connection.createStatement();
+       ResultSet myResult = myStmt.executeQuery("SELECT DISTINCT Numero, Capacidad, Administrador FROM Salon LEFT JOIN Curso ON Salon.Numero = Curso.Salon WHERE Horario IS NULL OR Horario != '"+horario+"';");
+       ArrayList<Salon> salones = new ArrayList<>();
+       while (myResult.next()) {
+           String numero = myResult.getString("Numero");
+           int capacidad = (Integer) myResult.getObject("Capacidad");
+           String administrador = myResult.getString("Administrador");
+           Salon nuevoSalon = new Salon(numero, administrador, capacidad);
+           salones.add(nuevoSalon);
+       }
+       return salones;
+   }
+   
+   private static ArrayList<Maestro> getTeachersScheduled(String horario) throws SQLException, ClassNotFoundException {
+       Class.forName("com.mysql.jdbc.Driver");
+       ArrayList<Maestro> maestros = new ArrayList<>();
+       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
+       Connection connection = DriverManager.getConnection(url, "root", password);
+       Statement myStmt = connection.createStatement();
+       String query = "SELECT * FROM Maestro m, Ensena e, Curso c WHERE m.Nomina = e.Nomina AND c.Clave = e.Clave AND Horario = '"+horario+"';";
+       ResultSet myResult = myStmt.executeQuery(query);
+               
+       while(myResult.next()) {
+           String nomina = myResult.getString("Nomina");
+           String nombre = myResult.getString("Clave");
+           String tel = myResult.getString("Telefono");
+           String correo = myResult.getString("CorreoElectronico");
+           Maestro m = new Maestro(nomina, nombre, tel, correo, 0);
+           maestros.add(m);
+       }
+       return maestros;
+   }
+   
+   private static ArrayList<Maestro> getTeachersNotScheduled(String horario) throws SQLException, ClassNotFoundException {
+       Class.forName("com.mysql.jdbc.Driver");
+       ArrayList<Maestro> maestros = new ArrayList<>();
+       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
+       Connection connection = DriverManager.getConnection(url, "root", password);
+       Statement myStmt = connection.createStatement();
+       String query = "SELECT * FROM Maestro m, Ensena e, Curso c WHERE m.Nomina = e.Nomina AND c.Clave = e.Clave AND Horario != '"+horario+"';";
+       ResultSet myResult = myStmt.executeQuery(query);
+               
+       while(myResult.next()) {
+           String nomina = myResult.getString("Nomina");
+           String nombre = myResult.getString("Clave");
+           String tel = myResult.getString("Telefono");
+           String correo = myResult.getString("CorreoElectronico");
+           Maestro m = new Maestro(nomina, nombre, tel, correo, 0);
+           maestros.add(m);
+       }
+       return maestros;
+   }
+   
+   public static ArrayList<Curso> getCursosSalonHorario(String horario, String salon) throws SQLException, ClassNotFoundException{
+       Class.forName("com.mysql.jdbc.Driver");
+       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
+       Connection connection = DriverManager.getConnection(url, "root", password);
+       Statement myStmt = connection.createStatement();
+       String query = "SELECT * FROM Curso WHERE Horario = '"+horario+"' AND Salon = '"+salon+"';";
+       ResultSet myResult = myStmt.executeQuery(query);
+       ArrayList<Curso> cursos = new ArrayList<>();
+       while(myResult.next()) {
+           String clave = myResult.getString("Clave");
+           //String hora = myResult.getString("Horario");
+           String horarioLaboratorio = myResult.getString("HorarioLaboratorio");
+           if (horarioLaboratorio == null) {
+               horarioLaboratorio = "";
+           }
+           //String salon = myResult.getString("Salon");
+           int numero = myResult.getInt("NumeroDeGrupo");
+           Boolean ingles = (Integer) myResult.getObject("Ingles") == 1;
+           Boolean honors = (Integer) myResult.getObject("Honors") == 1;
+           Curso curso = new Curso(clave, horario, horarioLaboratorio, salon, numero, ingles, honors);
+           cursos.add(curso);
+       }
+       return cursos;
+   }
 }
