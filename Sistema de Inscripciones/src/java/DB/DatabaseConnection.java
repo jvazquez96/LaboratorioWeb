@@ -22,20 +22,32 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  *
  * @author jorgevazquez
  */
 public class DatabaseConnection {
-    
+
     private static String password = "";
     private static String port = ":3306";
-    
+
+    public static Connection setupDBConnection() throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.jdbc.Driver");
+        String url = "jdbc:mysql://localhost" + port + "/Proyecto";
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(url, "root", password);
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return connection;
+    }
+
    public static boolean isUserAuthorized(User user) throws SQLException, ClassNotFoundException {
-       Class.forName("com.mysql.jdbc.Driver");
-       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
-       Connection connection = DriverManager.getConnection(url, "root", password);
+       Connection connection = setupDBConnection();
        Statement myStmt = connection.createStatement();
        ResultSet myResult = myStmt.executeQuery("SELECT * FROM Administradores");
        while (myResult.next()) {
@@ -47,11 +59,9 @@ public class DatabaseConnection {
        }
        return false;
    }
-   
+
    public static boolean isTeacherAdded(Maestro maestro) throws SQLException, ClassNotFoundException {
-       Class.forName("com.mysql.jdbc.Driver");
-       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
-       Connection connection = DriverManager.getConnection(url, "root", password);
+       Connection connection = setupDBConnection();
        Statement myStmt = connection.createStatement();
        ResultSet myResult = myStmt.executeQuery("SELECT * FROM Maestro");
        while (myResult.next()) {
@@ -71,12 +81,10 @@ public class DatabaseConnection {
        preparedStatement.executeUpdate();
        return true;
    }
-   
-   
+
+
    public static ArrayList<Maestro> getAllTeachers() throws SQLException, ClassNotFoundException{
-       Class.forName("com.mysql.jdbc.Driver");
-       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
-       Connection connection = DriverManager.getConnection(url, "root", password);
+       Connection connection = setupDBConnection();
        Statement myStmt = connection.createStatement();
        ResultSet myResult = myStmt.executeQuery("SELECT * FROM Maestro");
        ArrayList<Maestro> teachers = new ArrayList<>();
@@ -91,11 +99,9 @@ public class DatabaseConnection {
        }
        return teachers;
    }
-   
+
    public static boolean isClassroomAdded(Salon salon) throws SQLException, ClassNotFoundException {
-       Class.forName("com.mysql.jdbc.Driver");
-       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
-       Connection connection = DriverManager.getConnection(url, "root", password);
+       Connection connection = setupDBConnection();
        Statement myStmt = connection.createStatement();
        ResultSet myResult = myStmt.executeQuery("SELECT * FROM Salon");
        while (myResult.next()) {
@@ -113,11 +119,9 @@ public class DatabaseConnection {
        preparedStatement.executeUpdate();
        return true;
    }
-   
+
    public static ArrayList<Salon> getAllClassrooms() throws SQLException, ClassNotFoundException {
-       Class.forName("com.mysql.jdbc.Driver");
-       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
-       Connection connection = DriverManager.getConnection(url, "root", password);
+       Connection connection = setupDBConnection();
        Statement myStmt = connection.createStatement();
        ResultSet myResult = myStmt.executeQuery("SELECT * FROM Salon");
        ArrayList<Salon> salones = new ArrayList<>();
@@ -130,42 +134,44 @@ public class DatabaseConnection {
        }
        return salones;
    }
-   
+
    // Se puede tener el mismo numero de clave siempre y diferente numero de grupo cuando
         // Tengan diferente horario Y
         // Tengan diferente salon Y
         // Tengan diferente profesor (es)
-   
+
    // El salon y la hora no puede ser el mismo
    // La clave y el numero de grupo no pueden ser el mismo
    // No pueden tener los mismos maestros en el mismo horario
-   
-   
+
+
    public static boolean isCourseAdded(Curso curso, ArrayList<Maestro> maestros, ArrayList<Responsabilidad> responsabilidades) throws SQLException, ClassNotFoundException {
-       Class.forName("com.mysql.jdbc.Driver");
-       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
-       Connection connection = DriverManager.getConnection(url, "root", password);
+       Connection connection = setupDBConnection();
        Statement myStmt = connection.createStatement();
        ResultSet myResult = myStmt.executeQuery("SELECT * FROM Curso");
        ArrayList<Maestro> maestrosV = getAllTeachersFromCourse(curso.getClave(), curso.getNumeroDeGrupo());
        ArrayList<Curso> cursos = getAllCourses();
        for (Curso cursitos: cursos) {
             if (cursitos.getSalon().equals(curso.getSalon()) && cursitos.getHorario().equals(curso.getHorario())) {
+                System.out.println("Horario:" + curso.getHorario());
+                System.out.println("Mismo salon y mismo horario");
                 return false;
             }
             if (cursitos.getClave().equals(curso.getClave()) && curso.getNumeroDeGrupo() == cursitos.getNumeroDeGrupo()) {
+                System.out.println("Misma clave y mismo numero de grupo");
                 return false;
             }
-            if (cursitos.getNumeroDeGrupo().equals(curso.getNumeroDeGrupo())) {
+            if (cursitos.getHorario().equals(curso.getHorario())) {
                 for(Maestro maestrosActuales: maestrosV) {
                     for (Maestro nuevosMaestros: maestros) {
                         if (maestrosActuales == nuevosMaestros) {
+                            System.out.println("Mismo numero horario y mismos maestros");
                             return false;
                         }
                     }
                 }
             }
-        } 
+        }
 
         while (myResult.next()) {
            String clave = myResult.getString("Clave");
@@ -177,16 +183,23 @@ public class DatabaseConnection {
            // Mismo clave de materia y diferente numero de grupo
            if (curso.getClave().equals(clave) && curso.getNumeroDeGrupo() != numeroDeGrupo) {
                if (curso.getHorario().equals(horario)) {
+                   System.out.println("Horario: " + curso.getHorario());
+                   System.out.println("Horario2: " + horario);
+                   System.out.println("Misma clave, diferente numero de grupo, mismo horario");
                    return false;
                }
-               if (curso.getSalon().equals(salon)) {
+               if (curso.getSalon().equals(salon) && curso.getHorario() == horario) {
+                   System.out.println("Horario del curso: " + curso.getHorario());
+                   System.out.println("Horario: " + horario);
+                   System.out.println("Misma clave, diferente numero de grupo, mismo salon");
                    return false;
                }
            } else if (curso.getClave().equals(clave) && curso.getNumeroDeGrupo() == numeroDeGrupo) {
+               System.out.println("Misma clave y mismo numero de grupo");
                return false;
            }
         }
-       
+
               String insertCurso = "INSERT INTO Curso "
                + "(Clave, NumeroDeGrupo, Horario, HorarioLaboratorio, Salon, Ingles, Honors)"
                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -198,8 +211,8 @@ public class DatabaseConnection {
        preparedInsertStatementCurso.setString(5, curso.getSalon());
        preparedInsertStatementCurso.setInt(5, curso.hasIngles() == true? 1 : 0);
        preparedInsertStatementCurso.setInt(6, curso.hasHonors() == true ? 1 : 0);
-       
-       
+
+
        for (Responsabilidad responsabilidad: responsabilidades) {
             String insertResponsabilidad = "INSERT INTO Ensena VALUES(Nomina, Clave, NumeroDeGrupo, Responsabilidad)"
                      + "VALUES (?, ?, ?, ?)";
@@ -209,16 +222,14 @@ public class DatabaseConnection {
              preparedInsertStatementEnsena.setInt(3, responsabilidad.getCurso().getNumeroDeGrupo());
              preparedInsertStatementEnsena.setInt(4, responsabilidad.getResponsabilidad());
         }
-       
-       
+
+
        return true;
    }
-   
-   
+
+
    private static ArrayList<Curso> getAllCourses() throws SQLException, ClassNotFoundException{
-       Class.forName("com.mysql.jdbc.Driver");
-       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
-       Connection connection = DriverManager.getConnection(url, "root", password);
+       Connection connection = setupDBConnection();
        Statement myStmt = connection.createStatement();
        ResultSet myResult = myStmt.executeQuery("SELECT * FROM Curso");
        ArrayList<Curso> cursos = new ArrayList<Curso>();
@@ -228,19 +239,17 @@ public class DatabaseConnection {
            String horario = myResult.getString("Horario");
            String horarioLaboratorio = myResult.getString("HorarioLaboratorio");
            String salon = myResult.getString("Salon");
-           Boolean ingles = (Boolean) myResult.getObject("Ingles");
-           Boolean honors = (Boolean) myResult.getObject("Honors");
+           Boolean ingles = (Integer) myResult.getObject("Ingles") == 1;
+           Boolean honors = (Integer) myResult.getObject("Honors") == 1;
            Curso curso = new Curso(clave, horario, horarioLaboratorio, salon, numeroDeGrupo, ingles, honors);
            cursos.add(curso);
        }
        return cursos;
    }
-   
+
    private static ArrayList<Maestro> getAllTeachersFromCourse(String clave, int numeroDeGrupo) throws SQLException, ClassNotFoundException {
-       Class.forName("com.mysql.jdbc.Driver");
+       Connection connection = setupDBConnection();
        ArrayList<Maestro> maestros = new ArrayList<>();
-       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
-       Connection connection = DriverManager.getConnection(url, "root", password);
        String query = "SELECT * FROM Ensena WHERE Clave = ? AND NumerodeGrupo = ?";
        PreparedStatement preparedStatement = connection.prepareStatement(query);
        preparedStatement.setString(1, clave);
@@ -257,11 +266,9 @@ public class DatabaseConnection {
        }
        return maestros;
    }
-   
+
    public static ArrayList<Ensena> getAllCoursesAndTeachers() throws SQLException, ClassNotFoundException {
-       Class.forName("com.mysql.jdbc.Driver");
-       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
-       Connection connection = DriverManager.getConnection(url, "root", password);
+       Connection connection = setupDBConnection();
        String query = "Select m.Nomina, Nombre, Responsabilidad, e.Clave,"
                + " e.NumeroDeGrupo, Horario, HorarioLaboratorio, Salon, Ingles, "
                + "Honors from Maestro m, Curso c, Ensena e "
@@ -279,7 +286,7 @@ public class DatabaseConnection {
            String horarioLaboratorio = myResult.getString("HorarioLaboratorio");
            if (horarioLaboratorio == null) {
                horarioLaboratorio = "";
-           } 
+           }
            String salon = myResult.getString("Salon");
            Boolean ingles = (Integer) myResult.getObject("Ingles") == 1;
            Boolean honors = (Integer) myResult.getObject("Honors") == 1;
@@ -288,11 +295,9 @@ public class DatabaseConnection {
        }
        return ensenas;
    }
-   
+
    public static void updateTeachers(String id, String column, String value) throws SQLException, ClassNotFoundException {
-       Class.forName("com.mysql.jdbc.Driver");
-       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
-       Connection connection = DriverManager.getConnection(url, "root", password);
+       Connection connection = setupDBConnection();
        String query = "UPDATE Maestro SET "
                + column
                + " = ? WHERE Nomina = ?";
@@ -431,9 +436,7 @@ public class DatabaseConnection {
    }
    
    public static void updateClassroom(String id, String column, String value) throws SQLException, ClassNotFoundException {
-       Class.forName("com.mysql.jdbc.Driver");
-       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
-       Connection connection = DriverManager.getConnection(url, "root", password);
+       Connection connection = setupDBConnection();
        String query = "UPDATE Salon SET "
                + column
                + " = ? WHERE Numero = ?";
@@ -442,16 +445,9 @@ public class DatabaseConnection {
        preparedStatement.setString(2, id);
        preparedStatement.executeUpdate();
    }
-   
+
    public static ArrayList<Materia> getAllSubjects() throws ClassNotFoundException, SQLException {
-       Class.forName("com.mysql.jdbc.Driver");
-       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
-       Connection connection = null;
-        try {
-            connection = DriverManager.getConnection(url, "root", password);
-        } catch (SQLException ex) {
-            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       Connection connection = setupDBConnection();
         String query = "SELECT * FROM Materia";
         Statement myStmt = connection.createStatement();
         ResultSet resultSet = myStmt.executeQuery(query);
@@ -465,16 +461,9 @@ public class DatabaseConnection {
         }
        return materias;
    }
-   
+
    public static ArrayList<Horario> getAllSchedules() throws SQLException, ClassNotFoundException {
-       Class.forName("com.mysql.jdbc.Driver");
-       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
-       Connection connection = null;
-        try {
-            connection = DriverManager.getConnection(url, "root", password);
-        } catch (SQLException ex) {
-            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       Connection connection = setupDBConnection();
         String query = "SELECT * FROM Horario";
         Statement myStmt = connection.createStatement();
         ResultSet resultSet = myStmt.executeQuery(query);
@@ -491,4 +480,31 @@ public class DatabaseConnection {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
    
+
+    public static void deleteRow(String tableName, HashMap<String, String> primaryKeys)
+            throws SQLException, ClassNotFoundException {
+        String keyCondition = "";
+        for (Map.Entry<String, String> entry : primaryKeys.entrySet()) {
+            System.out.println(entry);
+            try {
+                if (keyCondition == "") {
+                    keyCondition += entry.getKey() + "=" + Integer.parseInt(entry.getValue());
+                } else {
+                    keyCondition += " and " + entry.getKey() + "=" + Integer.parseInt(entry.getValue());
+                }
+            } catch (Exception e) {
+                if (keyCondition == "") {
+                    keyCondition += entry.getKey() + "='" + entry.getValue() + "'";
+                } else {
+                    keyCondition += " and " + entry.getKey() + "='" + entry.getValue() + "'";
+                }
+            }
+        }
+        Connection connection = setupDBConnection();
+        String query = "DELETE FROM " + tableName + " WHERE " + keyCondition;
+        System.out.println(query);
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.executeUpdate();
+    }
+
 }

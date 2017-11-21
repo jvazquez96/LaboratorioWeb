@@ -17,18 +17,17 @@
 <%@include file="welcome.jsp"%>
 <br><br>
         <%
-        final String TABLE_START = "<table class='mdl-data-table mdl-js-data-table mdl-shadow--2dp'align='center'>";
-        final String TABLE_END = "</table>";
-            ArrayList objetos = (ArrayList) request.getAttribute("objectList");
+            ArrayList objects = (ArrayList) request.getAttribute("objectList");
             String beanName = (String) request.getAttribute("beanName");
-            Class<?> tipoBean = Class.forName(beanName);
-            String className = tipoBean.getName();
-            //out.write("<h1>Modificando maestros</h1>");
-            //out.write("<h2>Lista de maestros disponibles para modificar</h2>");
+            ArrayList<String> primaryKeyNames = (ArrayList<String>) request.getAttribute("primaryKeyNames");
+            Class<?> beanType = Class.forName(beanName);
 
+            final String TABLE_START = "<table class='mdl-data-table mdl-js-data-table mdl-shadow--2dp' align='center' id='" + beanName + "'>";
+            final String TABLE_END = "</table>";
             // Get the names of the properties of inside the bean (e.g. Maestro, Salon, Grupo)
             ArrayList<Method> getters = new ArrayList();
-            for (Method method : tipoBean.getMethods() ){
+
+            for (Method method : beanType.getMethods() ){
                 // Get all getters from the bean
                 String name = method.getName();
                 if (name.startsWith("get") &&
@@ -43,26 +42,32 @@
             out.write("<thead>");
             out.write("<tr>");
             for (Method getter: getters) {
-                out.write("<th>");
-                out.write(getter.getName().replace("get",""));
+                final String headerName = getter.getName().replace("get","");
+                if (primaryKeyNames.contains(headerName)) {
+                    out.write("<th data-is-primary-key='True'>");
+                }
+                else {
+                    out.write("<th>");
+                }
+                out.write(headerName);
                 out.write("</th>");
             }
-            //out.write("<th></th>");
+            // Empty header for the column with the "Borrar" button
+            out.write("<th></th>");
+
             out.write("</tr>");
             out.write("</thead>");
-            int iId = 0;
-            int numRows = 0;
 
-
+            int objectId = 0;
             // Print the table body
             out.write("<tbody>");
-            for (Object objeto : objetos) {
+            for (Object objeto : objects) {
                 if (objeto == null) {
                     continue;
                 }
                 out.write("<tr>");
                 for (Method getter: getters) {
-                    out.write("<td ondblclick='editar(this, " +  Integer.toString(iId) + ")' style='cursor: pointer' id='" + Integer.toString(iId) +"'>");
+                    out.write("<td ondblclick='editar(this, " +  objectId + ")' style='cursor: pointer' id='" + objectId +"'>");
                     // Tomar el getter del la instancia del objeto específico
                     Method getterEspecifico = objeto.getClass().getMethod(getter.getName());
 
@@ -70,55 +75,23 @@
                     String valor = getterEspecifico.invoke(objeto).toString();
                     out.write(valor);
                     out.write("</td>");
-                    iId++;
+                    objectId++;
                 }
-                //out.write("<td><button id='borrar' onclick='borrar(this)'>Borrar fila</button></td>");
+                out.write("<td><button onclick='eliminar(this)'>Eliminar</button></td>");
                 out.write("</tr>");
-                numRows++;
 
-            }
-            int numCols = (iId - 1) / numRows;
-            out.write("<tr>");
-            // Para poner el signo de más hasta la derecha
-            System.out.println("cols - " + numCols);
-            while(numCols != 0){
-                out.write("<td>");
-                out.write("</td>");
-                numCols--;
             }
             out.write("<td>");
             out.write("<form method='post' action='AdministrarServlet'>");
-            out.write("<input type='text' name=" + "'" +className + "'" + " value=" + "'" + className+  "'" + " hidden='true' value=>");
+            out.write("<input type='text' name=" + "'" +beanName + "'" + " value=" + "'" + beanName+  "'" + " hidden='true' value=>");
             out.write("<button class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'>");
             out.write("Agregar");
             out.write("</button>");
-            //out.write("<input type='submit' value='+'>");
             out.write("</form>");
             out.write("</td>");
             out.write("</tr>");
             out.write("</tbody>");
             out.write(TABLE_END);
-            /*
-             TABLE_START
-            for (tipoBean objeto: objetos) {
-                out.write(
-                "<table class='mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp'>"
-                + "<tr>"
-                + "<td align='left'>Nomina: "
-                + maestro.getNomina()
-                + "</td>"
-                + "<td align='left'><>Nombre: "
-                + maestro.getNombre()
-                + "</td>"
-                + "</tr>"
-                + "</table>");
-            }
-            */
         %>
-        <% %>
-<!-- <form method="post" action="AdministrarServlet">
- <input type="text" name="<%= className %>" hidden="true" value="<%= className %>"/>
- <input type="submit" value="+"/>-->
-<!-- </form>-->
     </body>
 </html>

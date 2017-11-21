@@ -172,7 +172,28 @@ salón. </option>
         <div id="campos"></div>
         <br>
         <input type="submit" id="boton" value="Generar reporte" disabled="true"/>
+<!--    </head>-->
+<body>
+    <!--        <h1>Generador de Reportes</h1>-->
+    <div class="center">
+        <form name="myform" action="reportes.php">
+            <select name="reporte" onchange="ajax_reporte(this.value)">
+                <option value="x">Selecciona un reporte</option>
+                <option value="rep1">Cursos impartidos por un profesor</option>
+                <option value="rep2">Lista de grupos de una materia</option>
+                <option value="rep3">Lista de salones disponibles en un determinado horario oficial</option>
+                <option value="rep4">Lista de profesores que tienen clase en un determinado horario.</option>
+                <option value="rep5">Lista de profesores que no tienen clase en un determinado horario </option>
+                <option value="rep6">Lista de los cursos que se imparten un determinado día en un determinado
+                    salón. </option>
+            </select>
+            <br>
+            <br>
+            <div id="campos"></div>
+            <br>
+            <input type="submit" id="boton" value="Generar reporte" disabled="true"/>
         </form>
-    </body>
+    </div>
+</body>
 </div>
 </html>

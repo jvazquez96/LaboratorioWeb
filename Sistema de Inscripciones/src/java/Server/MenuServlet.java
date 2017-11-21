@@ -7,6 +7,9 @@ package Server;
  */
 
 import DB.DatabaseConnection;
+import Data.Maestro;
+import Data.Ensena;
+import Data.Salon;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -38,6 +41,7 @@ public class MenuServlet extends HttpServlet {
         String action = request.getParameter("action");
         String url = "/Modificar.jsp";
         if (action.equals("Administrar Maestros")) {
+            request.setAttribute("primaryKeyNames", Maestro.ggetprimaryKeyNames());
             request.setAttribute("beanName", "Data.Maestro");
             try {
                 request.setAttribute("objectList", DatabaseConnection.getAllTeachers());
@@ -45,6 +49,7 @@ public class MenuServlet extends HttpServlet {
                 Logger.getLogger(AdministrarServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else if (action.equals("Administrar Salones")) {
+            request.setAttribute("primaryKeyNames", Salon.ggetprimaryKeyNames());
             request.setAttribute("beanName", "Data.Salon");
             try {
                 request.setAttribute("objectList", DatabaseConnection.getAllClassrooms());
@@ -52,6 +57,7 @@ public class MenuServlet extends HttpServlet {
                 Logger.getLogger(AdministrarServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else if (action.equals("Administrar Grupos")) {
+            request.setAttribute("primaryKeyNames", Ensena.ggetprimaryKeyNames());
             request.setAttribute("beanName", "Data.Ensena");
             try {
                 request.setAttribute("objectList", DatabaseConnection.getAllCoursesAndTeachers());
@@ -61,7 +67,7 @@ public class MenuServlet extends HttpServlet {
         } else {
             url = "/Generar Reportes.jsp";
         }
-        RequestDispatcher dispatcher = 
+        RequestDispatcher dispatcher =
                 getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
     }

@@ -5,22 +5,25 @@
  */
 package Data;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  *
  * @author jorgevazquez
  */
 public class Maestro {
-    
+
     String nomina, nombre, correoElectronico, telefono;
     int cursosProgramados;
-        
+
     public Maestro() {
         this.nomina = "";
         this.nombre = "";
         this.correoElectronico = "";
         this.telefono = "";
         this.cursosProgramados = 0;
-    }    
+    }
 
     public Maestro(String nomina, String nombre, String correoElectronico, String telefono) {
         this.nomina = nomina;
@@ -29,7 +32,7 @@ public class Maestro {
         this.telefono = telefono;
         this.cursosProgramados = 0;
     }
-    
+
     public Maestro(String nomina, String nombre, String correoElectronico, String telefono, int cursosProgramados) {
         this.nomina = nomina;
         this.nombre = nombre;
@@ -76,5 +79,9 @@ public class Maestro {
 
     public void setCursosProgramados(int cursosProgramados) {
         this.cursosProgramados = cursosProgramados;
+    }
+
+    public static ArrayList<String> ggetprimaryKeyNames() {
+        return new ArrayList<>(Arrays.asList("Nomina"));
     }
 }

@@ -1,9 +1,10 @@
-<%-- 
+<%--
     Document   : welcome
     Created on : Nov 6, 2017, 12:51:44 PM
     Author     : jorgevazquez
 --%>
 
+<%@page import="Mail.SendMail"%>
 <%@page import="Data.User"%>
 <%@page import="Data.Maestro"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -25,7 +26,7 @@
             <div class="mdl-layout__header-row">
                 <! -- Title -->
 <!--                <span class="mdl-layout-title">Sistema de inscripciones</span>-->
-                <a href="http://localhost:8080/Sistema_de_Inscripciones/Login">Sistema de inscripciones</a>
+                <a href="Login">Sistema de inscripciones</a>
                 <div class="mdl-layout-spacer"></div>
                 <nav class="mdl-navigation mdl-layout--large-screen-only">
                     <a class="mdl-navigation__link" href="#" onclick="administrarMaestros()">Administrar Maestros</a>
@@ -51,6 +52,7 @@
 -->            <div class="page-content">
                 <% User user = new User();
                         Cookie[] cookies = request.getCookies();
+                    //SendMail.sendMail();
                 for (int i = 0; i < cookies.length; ++i) {
                     Cookie c = cookies[i];
                     if (c.getName().equals("usuario")) {
