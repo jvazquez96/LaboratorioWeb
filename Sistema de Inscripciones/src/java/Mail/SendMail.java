@@ -19,13 +19,12 @@ import javax.mail.internet.MimeMessage;
  * @author jorgevazquez
  */
 public class SendMail {
-    private static String to = "jorgevzqz6@gmail.com";
+//    private static String to = "jorgevzqz6@gmail.com";
     private static String from = "examenjsp@gmail.com";
-    private static String host = "localhost";
     private static Properties properties = System.getProperties();
     
     
-    public static String sendMail() {
+    public static String sendMail(String to, String content, String subject) {
         String menssage;
         properties = new Properties();
         properties.put("mail.smtp.auth", "true");
@@ -41,8 +40,8 @@ public class SendMail {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(from));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-            message.setSubject("This is the Subject Line!");
-            message.setText("Thisis actual message");
+            message.setSubject(subject);
+            message.setText(content);
             Transport.send(message);
             menssage = "Sent message sucessfully";
         } catch (MessagingException mex) {
