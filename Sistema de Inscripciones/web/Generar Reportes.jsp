@@ -4,7 +4,14 @@
     Author     : jorgevazquez
 --%>
 
+<%@page import="Data.Salon"%>
+<%@page import="Data.Horario"%>
+<%@page import="Data.Materia"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="DB.DatabaseConnection"%>
+<%@include file="welcome.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,11 +36,14 @@
                     element0.innerHTML = "Nomina: ";
                     div.appendChild(element0);
                     
-                    var element1 = document.createElement("input");
-                    element1.name = "nomina";
-                    element1.type = "text";
-                    element1.required = true;
-                    div.appendChild(element1);
+                    var select = document.createElement("select");
+                    <%
+                    ArrayList<Maestro> maestros = DatabaseConnection.getAllTeachers();
+                    for (Maestro maestro: maestros) { %>
+                        select.options.add(new Option('<%= maestro.getNomina() %>', "nomina", false, false));
+                    <% } %>
+                    select.required = true;
+                    div.appendChild(select);
                 }
                 
                 else if(valor == "rep2")
@@ -43,11 +53,14 @@
                     element0.innerHTML = "Materia: ";
                     div.appendChild(element0);
                     
-                    var element1 = document.createElement("input");
-                    element1.name = "materia";
-                    element1.type = "text";
-                    element1.required = true;
-                    div.appendChild(element1);
+                    var select = document.createElement("select");
+                    <% 
+                    ArrayList<Materia> materias = DatabaseConnection.getAllSubjects();
+                    for (Materia materia: materias) { %>
+                        select.options.add(new Option('<%= materia.getClave()%>', 'materia', false, false));
+                    <% } %>
+                    select.required = true;
+                    div.appendChild(select);
                 }
                 
                 else if(valor == "rep3")
@@ -57,11 +70,14 @@
                     element0.innerHTML = "Horario: ";
                     div.appendChild(element0);
                     
-                    var element1 = document.createElement("input");
-                    element1.name = "horario";
-                    element1.type = "text";
-                    element1.required = true;
-                    div.appendChild(element1);
+                    var select = document.createElement("select");
+                    <%
+                    ArrayList<Horario> horarios = DatabaseConnection.getAllSchedules();    
+                    for (Horario horario: horarios) {%>
+                        select.options.add(new Option('<%= horario.getFrequencia()%>', 'horario'. false, false));
+                    <% } %>
+                    select.required = true;
+                    div.appendChild(select);
                 }
                 
                 else if(valor == "rep4")
@@ -70,9 +86,12 @@
                     element2.innerHTML = " Horario: ";
                     div.appendChild(element2);
                     
-                    var element3 = document.createElement("input");
-                    element3.name = "horario";
-                    element3.type = "text";
+                    var element3 = document.createElement("select");
+                    <%
+                    ArrayList<Horario> horarios4 = DatabaseConnection.getAllSchedules();    
+                    for (Horario horario: horarios4) {%>
+                        element3.options.add(new Option('<%= horario.getFrequencia()%>', 'horario'. false, false));
+                    <% } %>
                     element3.required = true;
                     div.appendChild(element3);
                 }
@@ -84,19 +103,25 @@
                     element0.innerHTML = "Profesor: ";
                     div.appendChild(element0);
                     
-                    var element1 = document.createElement("input");
-                    element1.name = "profesor";
-                    element1.type = "text";
+                    var element1 = document.createElement("select");
+                    <%
+                    ArrayList<Maestro> maestros5 = DatabaseConnection.getAllTeachers();
+                    for (Maestro maestro: maestros5) { %>
+                        element1.options.add(new Option('<%= maestro.getNomina() %>', "profesor", false, false));
+                    <% } %>
                     element1.required = true;
                     div.appendChild(element1);
                     
                     var element2 = document.createElement("label");
                     element2.innerHTML = " Horario: ";
                     div.appendChild(element2);
-                    
-                    var element3 = document.createElement("input");
-                    element3.name = "horario";
-                    element3.type = "text";
+
+                    var element3 = document.createElement("select");
+                     <%
+                    ArrayList<Horario> horarios5 = DatabaseConnection.getAllSchedules();    
+                    for (Horario horario: horarios5) {%>
+                        element3.options.add(new Option('<%= horario.getFrequencia()%>', 'horario'. false, false));
+                    <% } %>
                     element3.required = true;
                     div.appendChild(element3);
                 }
@@ -107,20 +132,26 @@
                     var element0 = document.createElement("label");
                     element0.innerHTML = "Día: ";
                     div.appendChild(element0);
-                    
-                    var element1 = document.createElement("input");
-                    element1.name = "dia";
-                    element1.type = "text";
+
+                    var element1 = document.createElement("select");
+                    element1.options.add(new Option("LuJu", "dia", false, false));
+                    element1.options.add(new Option("MaVi", "dia", false, false));
+                    element1.options.add(new Option("Mie", "dia", false, false));
+
                     element1.required = true;
                     div.appendChild(element1);
                     
                     var element2 = document.createElement("label");
                     element2.innerHTML = " Salón: ";
                     div.appendChild(element2);
-                    
-                    var element3 = document.createElement("input");
-                    element3.name = "salon";
-                    element3.type = "text";
+
+                    var element3 = document.createElement("select");
+                    <%
+                    ArrayList<Salon> salones = DatabaseConnection.getAllClassrooms();    
+                    for (Salon salon: salones) {%>
+                        element3.options.add(new Option('<%= salon.getNumero()%>' , 'salon', false, false));
+                    <% } %> 
+                        
                     element3.required = true;
                     div.appendChild(element3);
                 }
@@ -130,6 +161,7 @@
     <body>
         <h1>Generador de Reportes</h1>
         <form name="myform" action="ReportesServlet">
+            
         Reportes disponibles: 
         <select name="reporte" onchange="ajax_reporte(this.value)">
             <option value="x">Selecciona un reporte</option>
@@ -142,10 +174,10 @@
 salón. </option>
         </select>
         <br>
-         <br>
         <div id="campos"></div>
         <br>
         <input type="submit" id="boton" value="Generar reporte" disabled="true"/>
         </form>
     </body>
+</div>
 </html>

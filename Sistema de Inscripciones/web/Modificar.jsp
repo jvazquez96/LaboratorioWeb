@@ -15,7 +15,7 @@
 <%@page import="Data.Maestro"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="welcome.jsp"%>
-<br><br><br><br><br><br><br><br><br>
+<br><br>
         <%
         final String TABLE_START = "<table class='mdl-data-table mdl-js-data-table mdl-shadow--2dp'align='center'>";
         final String TABLE_END = "</table>";
@@ -47,10 +47,11 @@
                 out.write(getter.getName().replace("get",""));
                 out.write("</th>");
             }
-            out.write("<th></th>");
+            //out.write("<th></th>");
             out.write("</tr>");
             out.write("</thead>");
             int iId = 0;
+            int numRows = 0;
 
 
             // Print the table body
@@ -61,7 +62,7 @@
                 }
                 out.write("<tr>");
                 for (Method getter: getters) {
-                    out.write("<td ondblclick='editar(this, " +  Integer.toString(iId) + ")' class='dbl' id='" + Integer.toString(iId) +"'>");
+                    out.write("<td ondblclick='editar(this, " +  Integer.toString(iId) + ")' style='cursor: pointer' id='" + Integer.toString(iId) +"'>");
                     // Tomar el getter del la instancia del objeto específico
                     Method getterEspecifico = objeto.getClass().getMethod(getter.getName());
 
@@ -71,15 +72,27 @@
                     out.write("</td>");
                     iId++;
                 }
-//                out.write("<td><button id='borrar' onclick='borrar(this)'>Borrar fila</button></td>");
+                //out.write("<td><button id='borrar' onclick='borrar(this)'>Borrar fila</button></td>");
                 out.write("</tr>");
+                numRows++;
 
             }
+            int numCols = (iId - 1) / numRows;
             out.write("<tr>");
+            // Para poner el signo de más hasta la derecha
+            System.out.println("cols - " + numCols);
+            while(numCols != 0){
+                out.write("<td>");
+                out.write("</td>");
+                numCols--;
+            }
             out.write("<td>");
             out.write("<form method='post' action='AdministrarServlet'>");
             out.write("<input type='text' name=" + "'" +className + "'" + " value=" + "'" + className+  "'" + " hidden='true' value=>");
-            out.write("<input type='submit' value='+'>");
+            out.write("<button class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'>");
+            out.write("Agregar");
+            out.write("</button>");
+            //out.write("<input type='submit' value='+'>");
             out.write("</form>");
             out.write("</td>");
             out.write("</tr>");

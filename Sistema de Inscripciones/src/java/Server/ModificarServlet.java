@@ -54,6 +54,7 @@ public class ModificarServlet extends HttpServlet {
             System.out.println("Columna: " + request.getParameter("columna"));
             String column = request.getParameter("columna");
             String valor = request.getParameter("valor");
+            DatabaseConnection.updateClassroom(id, column, valor);
         }
     }
 

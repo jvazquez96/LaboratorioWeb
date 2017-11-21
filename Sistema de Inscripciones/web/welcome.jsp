@@ -16,8 +16,7 @@
         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-blue.min.css" />
         <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
         <script src="js/menu.js"></script>
-        <script src="s/modificar.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="js/modificar.js"></script>
         <title>Menu Principal</title>
 </head>
 <body>
@@ -25,7 +24,7 @@
         <header class="mdl-layout__header">
             <div class="mdl-layout__header-row">
                 <! -- Title -->
-                <!--<span class="mdl-layout-title">Sistema de inscripciones</span>-->
+<!--                <span class="mdl-layout-title">Sistema de inscripciones</span>-->
                 <a href="http://localhost:8080/Sistema_de_Inscripciones/Login">Sistema de inscripciones</a>
                 <div class="mdl-layout-spacer"></div>
                 <nav class="mdl-navigation mdl-layout--large-screen-only">
@@ -49,7 +48,7 @@
             </div>
         </header>
 <!--        <main class="mdl-layout__content">
-            <div class="page-content">
+-->            <div class="page-content">
                 <% User user = new User();
                         Cookie[] cookies = request.getCookies();
                 for (int i = 0; i < cookies.length; ++i) {
@@ -59,7 +58,7 @@
                     }
                 }
                 %>
-                <h2>Bienvenido(a) <%= user.getUsername()%></h2>
+            <h2>Bienvenido(a) <%= user.getUsername()%></h2>
             </div>
-        </main>-->
-    </div>
+<!--        </main>-->
+<!--    </div>-->
