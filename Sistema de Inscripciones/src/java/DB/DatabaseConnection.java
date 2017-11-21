@@ -31,8 +31,8 @@ import java.util.HashMap;
  */
 public class DatabaseConnection {
 
-    private static String password = "root";
-    private static String port = ":8889";
+    private static String password = "";
+    private static String port = ":3306";
 
     public static Connection setupDBConnection() throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.jdbc.Driver");
