@@ -175,7 +175,7 @@ VALUES ("L12345678", "TC3001", 1, 100);
 INSERT INTO Ensena (Nomina, Clave, NumeroDeGrupo, Responsabilidad)
 VALUES ("L98765432", "TC3002", 1, 50);
 INSERT INTO Ensena (Nomina, Clave, NumeroDeGrupo, Responsabilidad)
-VALUES ("L57451829", "TC3002", 1, 50);
+VALUES ("L57451829", "TC3002", 2, 50);
 INSERT INTO Ensena (Nomina, Clave, NumeroDeGrupo, Responsabilidad)
 VALUES ("L00251587", "TC3045", 1, 50);
 INSERT INTO Ensena (Nomina, Clave, NumeroDeGrupo, Responsabilidad)
