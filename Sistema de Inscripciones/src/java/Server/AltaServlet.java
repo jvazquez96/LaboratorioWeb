@@ -120,14 +120,14 @@ public class AltaServlet extends HttpServlet {
         Boolean honors = request.getParameter("Honors").equals("Si");
         Curso curso = new Curso(clave, horario, horarioLaboratorio, salon, numeroDeGrupo, ingles, honors);
         ArrayList<Maestro> maestros = new ArrayList<>();
-        String[] nominas = request.getParameterValues("Nomina");
+        String[] nominas = request.getParameterValues("Nomina[]");
         for (String nomina: nominas) {
             Maestro maestro = new Maestro();
             maestro.setNomina(nomina);
             maestros.add(maestro);
         }
         ArrayList<Responsabilidad> responsabilidades = new ArrayList<>();
-        String[] responsabilidadesEnString = request.getParameterValues("Responsabilidad");
+        String[] responsabilidadesEnString = request.getParameterValues("Responsabilidad[]");
         for (int i = 0; i < responsabilidadesEnString.length; ++i) {
             Responsabilidad responsabilidad = new Responsabilidad(maestros.get(i), Integer.valueOf(responsabilidadesEnString[i]), curso);
             responsabilidades.add(responsabilidad);

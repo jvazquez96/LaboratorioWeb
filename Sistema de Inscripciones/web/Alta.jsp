@@ -42,7 +42,7 @@
 
 
             var element2 = document.createElement("select");
-            element2.name = "Maestro";
+            element2.name = "Nomina[]";
         <%                    ArrayList<Maestro> maestro1 = DatabaseConnection.getAllTeachers();
             for (Maestro maestro : maestro1) {%>
             element2.options.add(new Option('<%= maestro.getNomina()%>', '<%= maestro.getNomina()%>', false, false));
@@ -57,7 +57,7 @@
             var cell4 = row.insertCell(3);
             var element4 = document.createElement("input");
             element4.type = "text";
-            element4.name = "Responsabilidad";
+            element4.name = "Responsabilidad[]";
             cell4.appendChild(element4);
 
 
@@ -224,7 +224,7 @@
             <tr>
                 <td align='left'>Nomina de Profesor </td>
                 <td align='left'>
-                    <select name='Nomina' required>
+                    <select name='Nomina[]' required>
                         <%
                             ArrayList<Maestro> maestros1 = DatabaseConnection.getAllTeachers();
                             for (Maestro maestro : maestros1) {%>
@@ -233,7 +233,7 @@
                     </select>
                 </td>
                 <td align='left'>Responsabilidad </td>
-                <td align='left'><input type='numeric' name='Responsabilidad' required></td>
+                <td align='left'><input type='numeric' name='Responsabilidad[]' required></td>
                 <td align='left'><button type='button' onclick="maestros()">+</button></td>
             </tr>
         </table>
