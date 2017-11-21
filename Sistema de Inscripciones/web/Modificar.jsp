@@ -19,9 +19,11 @@
         <%
             ArrayList objects = (ArrayList) request.getAttribute("objectList");
             String beanName = (String) request.getAttribute("beanName");
-            Class<?> tipoBean = Class.forName(beanName);
-            String className = tipoBean.getName();
+            ArrayList<String> primaryKeyNames = (ArrayList<String>) request.getAttribute("primaryKeyNames");
+            Class<?> beanType = Class.forName(beanName);
 
+            final String TABLE_START = "<table class='mdl-data-table mdl-js-data-table mdl-shadow--2dp' align='center' id='" + beanName + "'>";
+            final String TABLE_END = "</table>";
             // Get the names of the properties of inside the bean (e.g. Maestro, Salon, Grupo)
             ArrayList<Method> getters = new ArrayList();
 
@@ -40,11 +42,19 @@
             out.write("<thead>");
             out.write("<tr>");
             for (Method getter: getters) {
-                out.write("<th>");
-                out.write(getter.getName().replace("get",""));
+                final String headerName = getter.getName().replace("get","");
+                if (primaryKeyNames.contains(headerName)) {
+                    out.write("<th data-is-primary-key='True'>");
+                }
+                else {
+                    out.write("<th>");
+                }
+                out.write(headerName);
                 out.write("</th>");
             }
-            //out.write("<th></th>");
+            // Empty header for the column with the "Borrar" button
+            out.write("<th></th>");
+
             out.write("</tr>");
             out.write("</thead>");
 

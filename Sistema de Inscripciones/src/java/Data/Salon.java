@@ -5,6 +5,9 @@
  */
 package Data;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  *
  * @author miguelbanda
@@ -42,6 +45,8 @@ public class Salon {
     public void setCapacidad(int capacidad) {
         this.capacidad = capacidad;
     }
-    
-    
+
+    public static ArrayList<String> ggetprimaryKeyNames() {
+        return new ArrayList<>(Arrays.asList("Numero"));
+    }
 }
