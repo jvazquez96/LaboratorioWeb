@@ -38,9 +38,16 @@
             cell1.appendChild(element1);
             
             var cell2 = row.insertCell(1);
-            var element2 = document.createElement("input");
-            element2.type = "text";
-            element2.name = "Maestro:";
+            
+            
+            
+            var element2 = document.createElement("select");
+            element2.name = "Maestro";
+                <%
+                ArrayList<Maestro> maestro1 = DatabaseConnection.getAllTeachers();    
+                for (Maestro maestro: maestro1) {%>
+                    element2.options.add(new Option('<%= maestro.getNomina() %>' , '<%= maestro.getNomina() %>', false, false));
+                <% } %> 
             cell2.appendChild(element2);
             
             var cell3 = row.insertCell(2);
@@ -209,8 +216,8 @@
             <td align='left'>
                 <select name='Nomina' required>
                     <% 
-                        ArrayList<Maestro> maestros = DatabaseConnection.getAllTeachers();
-                        for (Maestro maestro: maestros) {%>
+                        ArrayList<Maestro> maestros1 = DatabaseConnection.getAllTeachers();
+                        for (Maestro maestro: maestros1) {%>
                         <option name='Maestro' value='<%= maestro.getNomina() %>'><%= maestro.getNomina() %> </option>
                         <% } %>
                 </select>

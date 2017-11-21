@@ -122,7 +122,7 @@ public class AltaServlet extends HttpServlet {
         String[] nominas = request.getParameterValues("Nomina");
         for (String nomina: nominas) {
             Maestro maestro = new Maestro();
-            maestro.setNombre(nomina);
+            maestro.setNomina(nomina);
             maestros.add(maestro);
         }
         ArrayList<Responsabilidad> responsabilidades = new ArrayList<>();
@@ -131,7 +131,7 @@ public class AltaServlet extends HttpServlet {
             Responsabilidad responsabilidad = new Responsabilidad(maestros.get(i), Integer.valueOf(responsabilidadesEnString[i]), curso);
             responsabilidades.add(responsabilidad);
         }
-        
+       
         String message = "";
         try {
             if (isCourseAdded(curso, maestros, responsabilidades)) {
@@ -142,7 +142,7 @@ public class AltaServlet extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(AltaServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+       
         return message;
     }
 

@@ -26,10 +26,10 @@
                     div.removeChild(div.lastChild);
                 }
                 
-                if(valor == "x")
+                if(valor === "x")
                     document.getElementById("boton").disabled=true;
                 
-                if(valor == "rep1")
+                if(valor === "rep1")
                 {
                     document.getElementById("boton").disabled=false;
                     var element0 = document.createElement("label");
@@ -47,7 +47,7 @@
                     div.appendChild(select);
                 }
                 
-                else if(valor == "rep2")
+                else if(valor === "rep2")
                 {
                     document.getElementById("boton").disabled=false;
                     var element0 = document.createElement("label");
@@ -65,7 +65,7 @@
                     div.appendChild(select);
                 }
                 
-                else if(valor == "rep3")
+                else if(valor === "rep3")
                 {
                     document.getElementById("boton").disabled=false;
                     var element0 = document.createElement("label");
@@ -83,7 +83,7 @@
                     div.appendChild(select);
                 }
                 
-                else if(valor == "rep4")
+                else if(valor === "rep4")
                 {   
                     document.getElementById("boton").disabled=false;
                     var element2 = document.createElement("label");
@@ -101,7 +101,7 @@
                     div.appendChild(element3);
                 }
                 
-                else if(valor == "rep5")
+                else if(valor === "rep5")
                 {   
                     document.getElementById("boton").disabled=false;
                     var element2 = document.createElement("label");
@@ -119,7 +119,7 @@
                     div.appendChild(element3);
                 }
                 
-                else if(valor == "rep6")
+                else if(valor === "rep6")
                 {
                     document.getElementById("boton").disabled=false;
                     var element0 = document.createElement("label");
@@ -153,30 +153,10 @@
             }
         </script>
     </head>
-    <body>
-        <h1>Generador de Reportes</h1>
-        <form name="myform" action="ReportesServlet">
-            
-        Reportes disponibles: 
-        <select name="reporte" onchange="ajax_reporte(this.value)">
-            <option value="x">Selecciona un reporte</option>
-            <option value="rep1">Cursos impartidos por un profesor</option>
-            <option value="rep2">Lista de grupos de una materia</option>
-            <option value="rep3">Lista de salones disponibles en un determinado horario oficial</option>
-            <option value="rep4">Lista de profesores que tienen clase en un determinado horario.</option>
-            <option value="rep5">Lista de profesores que no tienen clase en un determinado horario </option>
-            <option value="rep6">Lista de los cursos que se imparten un determinado día en un determinado
-salón. </option>
-        </select>
-        <br>
-        <div id="campos"></div>
-        <br>
-        <input type="submit" id="boton" value="Generar reporte" disabled="true"/>
-<!--    </head>-->
 <body>
-    <!--        <h1>Generador de Reportes</h1>-->
+    <h1>Generador de Reportes</h1>
     <div class="center">
-        <form name="myform" action="reportes.php">
+        <form name="myform" action="ReportesServlet">
             <select name="reporte" onchange="ajax_reporte(this.value)">
                 <option value="x">Selecciona un reporte</option>
                 <option value="rep1">Cursos impartidos por un profesor</option>

@@ -31,8 +31,8 @@ import java.util.HashMap;
  */
 public class DatabaseConnection {
 
-    private static String password = "";
-    private static String port = ":3306";
+    private static String password = "root";
+    private static String port = ":8889";
 
     public static Connection setupDBConnection() throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.jdbc.Driver");
@@ -153,7 +153,10 @@ public class DatabaseConnection {
        ArrayList<Curso> cursos = getAllCourses();
        for (Curso cursitos: cursos) {
             if (cursitos.getSalon().equals(curso.getSalon()) && cursitos.getHorario().equals(curso.getHorario())) {
-                System.out.println("Horario:" + curso.getHorario());
+                System.out.println("Horario curso:" + curso.getHorario());
+                System.out.println("Horario cursito: " + curso.getHorario());
+                System.out.println("Salon: " + curso.getSalon());
+                System.out.println("Salon cursito: " + curso.getSalon());
                 System.out.println("Mismo salon y mismo horario");
                 return false;
             }
@@ -172,7 +175,7 @@ public class DatabaseConnection {
                 }
             }
         }
-
+ 
         while (myResult.next()) {
            String clave = myResult.getString("Clave");
            int numeroDeGrupo = Integer.valueOf(myResult.getString("NumeroDeGrupo"));
@@ -182,12 +185,6 @@ public class DatabaseConnection {
            int ingles = Integer.valueOf(myResult.getString("Ingles"));
            // Mismo clave de materia y diferente numero de grupo
            if (curso.getClave().equals(clave) && curso.getNumeroDeGrupo() != numeroDeGrupo) {
-               if (curso.getHorario().equals(horario)) {
-                   System.out.println("Horario: " + curso.getHorario());
-                   System.out.println("Horario2: " + horario);
-                   System.out.println("Misma clave, diferente numero de grupo, mismo horario");
-                   return false;
-               }
                if (curso.getSalon().equals(salon) && curso.getHorario() == horario) {
                    System.out.println("Horario del curso: " + curso.getHorario());
                    System.out.println("Horario: " + horario);
@@ -199,7 +196,7 @@ public class DatabaseConnection {
                return false;
            }
         }
-
+ 
               String insertCurso = "INSERT INTO Curso "
                + "(Clave, NumeroDeGrupo, Horario, HorarioLaboratorio, Salon, Ingles, Honors)"
                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -209,21 +206,23 @@ public class DatabaseConnection {
        preparedInsertStatementCurso.setString(3, curso.getHorario());
        preparedInsertStatementCurso.setString(4, curso.getHorarioLaboratorio());
        preparedInsertStatementCurso.setString(5, curso.getSalon());
-       preparedInsertStatementCurso.setInt(5, curso.hasIngles() == true? 1 : 0);
-       preparedInsertStatementCurso.setInt(6, curso.hasHonors() == true ? 1 : 0);
-
-
+       preparedInsertStatementCurso.setInt(6, curso.hasIngles() == true? 1 : 0);
+       preparedInsertStatementCurso.setInt(7, curso.hasHonors() == true ? 1 : 0);
+       preparedInsertStatementCurso.executeUpdate();
+ 
+ 
        for (Responsabilidad responsabilidad: responsabilidades) {
-            String insertResponsabilidad = "INSERT INTO Ensena VALUES(Nomina, Clave, NumeroDeGrupo, Responsabilidad)"
+            String insertResponsabilidad = "INSERT INTO Ensena (Nomina, Clave, NumeroDeGrupo, Responsabilidad)"
                      + "VALUES (?, ?, ?, ?)";
              PreparedStatement preparedInsertStatementEnsena = connection.prepareStatement(insertResponsabilidad);
              preparedInsertStatementEnsena.setString(1, responsabilidad.getMaestro().getNomina());
              preparedInsertStatementEnsena.setString(2, responsabilidad.getCurso().getClave());
              preparedInsertStatementEnsena.setInt(3, responsabilidad.getCurso().getNumeroDeGrupo());
              preparedInsertStatementEnsena.setInt(4, responsabilidad.getResponsabilidad());
+             preparedInsertStatementEnsena.executeUpdate();
         }
-
-
+ 
+ 
        return true;
    }
 
