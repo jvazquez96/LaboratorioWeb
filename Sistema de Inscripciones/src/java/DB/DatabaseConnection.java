@@ -7,7 +7,9 @@ package DB;
 
 import Data.Curso;
 import Data.Ensena;
+import Data.Horario;
 import Data.Maestro;
+import Data.Materia;
 import Data.Responsabilidad;
 import Data.Salon;
 import Data.User;
@@ -18,6 +20,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -311,4 +315,48 @@ public class DatabaseConnection {
        preparedStatement.executeUpdate();
    }
    
+   public static ArrayList<Materia> getAllSubjects() throws ClassNotFoundException, SQLException {
+       Class.forName("com.mysql.jdbc.Driver");
+       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
+       Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(url, "root", password);
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String query = "SELECT * FROM Materia";
+        Statement myStmt = connection.createStatement();
+        ResultSet resultSet = myStmt.executeQuery(query);
+        ArrayList<Materia> materias = new ArrayList<>();
+        while (resultSet.next()) {
+            String clave = resultSet.getString("Clave");
+            String nombre = resultSet.getString("Nombre");
+            int horasLaboratorio = (Integer) resultSet.getObject("HorasLaboratorio");
+            Materia materia = new Materia(clave, nombre, horasLaboratorio);
+            materias.add(materia);
+        }
+       return materias;
+   }
+   
+   public static ArrayList<Horario> getAllSchedules() throws SQLException, ClassNotFoundException {
+       Class.forName("com.mysql.jdbc.Driver");
+       String url = "jdbc:mysql://localhost"+port+"/Proyecto";
+       Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(url, "root", password);
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String query = "SELECT * FROM Horario";
+        Statement myStmt = connection.createStatement();
+        ResultSet resultSet = myStmt.executeQuery(query);
+        ArrayList<Horario> horarios = new ArrayList<>();
+        while (resultSet.next()) {
+            String frequencia = resultSet.getString("Frequencia");
+            Horario horario = new Horario(frequencia);
+            horarios.add(horario);
+        }
+        return horarios;
+   }
+    
 }
