@@ -18,3 +18,8 @@ a{
     cursor: pointer;
     font-size: 20px;
 }
+
+.center{
+    width: 50%;
+    margin: 0 auto;
+}
