@@ -41,21 +41,28 @@ public class AltaServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException {
-        String nomina = request.getParameter("Nomina");
+        String nomina = request.getParameter("Nomina1");
         String clave = request.getParameter("Clave");
-        String numeroDeSalon = request.getParameter("Numero");
+        String numeroDeSalon = request.getParameter("Numero2");
         Boolean isAddingTeacher = nomina != null;
         Boolean isAddingClassroom = numeroDeSalon != null;
         Boolean isAddingGroupes = clave != null;
         if (isAddingTeacher) {
             request.setAttribute("mensaje", addTeacher(request));
             request.setAttribute("teacher", true);
+            request.setAttribute("groupes", null);
+            request.setAttribute("classroom", null);
         } else if (isAddingClassroom) {
             request.setAttribute("mensaje", addClassroom(request));
             request.setAttribute("classroom", true);
-        } else if (isAddingGroupes) {
-            
+            request.setAttribute("teacher", null);
+            request.setAttribute("groupes", null);
+        } else {
+            request.setAttribute("mensaje", addCourse(request));
             request.setAttribute("groupes", true);
+            request.setAttribute("teacher", null);
+            request.setAttribute("classroom", null);
+            System.out.println("GROUPOSSSSSS");
         }
        
         String url = "/Alta.jsp";
@@ -103,13 +110,13 @@ public class AltaServlet extends HttpServlet {
     }
     
     private String addCourse(HttpServletRequest request) throws ClassNotFoundException {
-        String clave = request.getParameter("clave");
+        String clave = request.getParameter("Clave");
         int numeroDeGrupo = Integer.valueOf(request.getParameter("NumeroDeGrupo"));
         String horario = request.getParameter("Horario");
-        String horarioLaboratorio = request.getParameter("HorarioLaboratorio");
+        String horarioLaboratorio = request.getParameter("HorarioLaboratorio").equals("Sin Horario") ? null : request.getParameter("HorarioLaboratorio");
         String salon = request.getParameter("Salon");
-        Boolean ingles = Integer.valueOf(request.getParameter("Ingles")) == 1;
-        Boolean honors = Integer.valueOf(request.getParameter("Honors")) == 1;
+        Boolean ingles = request.getParameter("Ingles").equals("Si");
+        Boolean honors = request.getParameter("Honors").equals("Si");
         Curso curso = new Curso(clave, horario, horarioLaboratorio, salon, numeroDeGrupo, ingles, honors);
         ArrayList<Maestro> maestros = new ArrayList<>();
         String[] nominas = request.getParameterValues("Nomina");

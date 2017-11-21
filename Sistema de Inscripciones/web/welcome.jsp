@@ -4,6 +4,7 @@
     Author     : jorgevazquez
 --%>
 
+<%@page import="Mail.SendMail"%>
 <%@page import="Data.User"%>
 <%@page import="Data.Maestro"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -51,6 +52,7 @@
 -->            <div class="page-content">
                 <% User user = new User();
                         Cookie[] cookies = request.getCookies();
+                    //SendMail.sendMail();
                 for (int i = 0; i < cookies.length; ++i) {
                     Cookie c = cookies[i];
                     if (c.getName().equals("usuario")) {

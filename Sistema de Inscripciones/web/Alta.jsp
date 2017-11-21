@@ -4,6 +4,12 @@
     Author     : jorgevazquez
 --%>
 
+<%@page import="Data.Maestro"%>
+<%@page import="Data.Salon"%>
+<%@page import="Data.Horario"%>
+<%@page import="Data.Materia"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="DB.DatabaseConnection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -69,7 +75,7 @@
         <form action='AltaServlet' method='post'>
         <table class='mdl-data-table mdl-js-data-table mdl-shadow--2dp'align='center' cellspacing ='5' border='0'>
         <tr>
-        <td align='left'>Nomina <input type='text' name='Nomina' required> </td>
+        <td align='left'>Nomina <input type='text' name='Nomina1' required> </td>
         </tr>
         <tr>
         <td align='left'>Nombre <input type='text' name='Nombre' required> </td>
@@ -95,7 +101,7 @@
         <form action='AltaServlet' method='post'>
         <table class='mdl-data-table mdl-js-data-table mdl-shadow--2dp'align='center' cellspacing ='5' border='0'>
         <tr>
-        <td align='left'>Número <input type='text' name='Numero' required> </td>
+        <td align='left'>Número <input type='text' name='Numero2' required> </td>
         </tr>
         <tr>
         <td align='left'>Capacidad <input type='number' name='Capacidad' required> </td>
@@ -117,33 +123,77 @@
         <form action='AltaServlet' method='post'>
         <table class='mdl-data-table mdl-js-data-table mdl-shadow--2dp'align='center' cellspacing ='5' border='0' >
         <tr>
-        <td align='left'>Clave <input type='text' name='Clave' required> </td>
+            <td align='left'> Clave <select name ='Clave' required>
+            <% 
+                ArrayList<Materia> materias = DatabaseConnection.getAllSubjects();
+                for (Materia materia: materias) {            %>
+                <option value='<%= materia.getClave()%>'><%= materia.getClave() %></option>
+                <% } %>
+            </td>
+        
         </tr>
         <tr>
         <td align='left'>Número de Grupo <input type='number' name='NumeroDeGrupo' required> </td>
         </tr>
         <tr>
-        <td align='left'>Horario <input type='text' name='Horario' required> </td>
+        <td align='left'>Horario <select name='Horario' required> 
+           <%
+               ArrayList<Horario> horarios = DatabaseConnection.getAllSchedules();
+               for (Horario horario: horarios) { %>
+               <option value='<%= horario.getFrequencia()%>'><%= horario.getFrequencia() %></option>
+               <% } %>
+            </select>
+        </td>
         </tr>
         <tr>
-        <td align='left'>Horario Laboratorio <input type='text' name='HorarioLaboratorio' required> </td>
+        <td align='left'>Horario Laboratorio <select name='HorarioLaboratorio'>
+                 <%
+               for (Horario horario: horarios) { %>
+               <option value='<%= horario.getFrequencia()%>'><%= horario.getFrequencia() %></option>
+               <% } %>
+               <option value='Sin Horario'>Sin Horario</option>
+               </select>
+        </td>
         </tr>
         <tr>
-        <td align='left'>Salón <input type='text' name='Salon' required> </td>
+        <td align='left'>Salón <select name='Salon' required> 
+        <%
+               ArrayList<Salon> salones = DatabaseConnection.getAllClassrooms();
+               for (Salon salon: salones) { %>
+               <option value='<%= salon.getNumero() %>'><%= salon.getNumero() %></option>
+               <% } %>   
+               </select>
+        </td>
         </tr>
         <tr>
-        <td align='left'>Ingles <input type='number' name='Ingles' required> </td>
+        <td align='left'>Ingles <select name='Ingles' required>
+                <option value='Si'>Si</option>
+                <option value='No'>No</option>
+        </select>
+        </td>
         </tr>
         <tr>
-        <td align='left'>Honors <input type='number' name='Honors' required></td>
+        <td align='left'>Honors <select name = 'Honors' required>
+            <option value='Si'>Si</option>
+            <option value='No'>No</option>
+        </select>
+        </td>
         </tr>
         </table>
         <table class='mdl-data-table mdl-js-data-table mdl-shadow--2dp'align='center' id='MyTable'>
         <tr>
             <td align='left'>Nomina de Profesor </td>
-            <td align='left'><input type='text' name='Maestro' required></td>
+            <td align='left'>
+                <select name='Nomina' required>
+                    <% 
+                        ArrayList<Maestro> maestros = DatabaseConnection.getAllTeachers();
+                        for (Maestro maestro: maestros) {%>
+                        <option name='Maestro' value='<%= maestro.getNomina() %>'><%= maestro.getNomina() %> </option>
+                        <% } %>
+                </select>
+            </td>
             <td align='left'>Responsabilidad </td>
-            <td align='left'><input type='text' name='Responsabilidad' required></td>
+            <td align='left'><input type='numeric' name='Responsabilidad' required></td>
             <td align='left'><button type='button' onclick="maestros()">+</button></td>
         </tr>
         </table>

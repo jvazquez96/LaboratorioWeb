@@ -151,15 +151,19 @@ public class DatabaseConnection {
        ArrayList<Curso> cursos = getAllCourses();
        for (Curso cursitos: cursos) {
             if (cursitos.getSalon().equals(curso.getSalon()) && cursitos.getHorario().equals(curso.getHorario())) {
-                return false;
+                System.out.println("Horario:" + curso.getHorario());
+                System.out.println("Mismo salon y mismo horario");
+                return false;   
             }
             if (cursitos.getClave().equals(curso.getClave()) && curso.getNumeroDeGrupo() == cursitos.getNumeroDeGrupo()) {
+                System.out.println("Misma clave y mismo numero de grupo");
                 return false;
             }
-            if (cursitos.getNumeroDeGrupo().equals(curso.getNumeroDeGrupo())) {
+            if (cursitos.getHorario().equals(curso.getHorario())) {
                 for(Maestro maestrosActuales: maestrosV) {
                     for (Maestro nuevosMaestros: maestros) {
                         if (maestrosActuales == nuevosMaestros) {
+                            System.out.println("Mismo numero horario y mismos maestros");
                             return false;
                         }
                     }
@@ -177,12 +181,19 @@ public class DatabaseConnection {
            // Mismo clave de materia y diferente numero de grupo
            if (curso.getClave().equals(clave) && curso.getNumeroDeGrupo() != numeroDeGrupo) {
                if (curso.getHorario().equals(horario)) {
+                   System.out.println("Horario: " + curso.getHorario());
+                   System.out.println("Horario2: " + horario);
+                   System.out.println("Misma clave, diferente numero de grupo, mismo horario");
                    return false;
                }
-               if (curso.getSalon().equals(salon)) {
+               if (curso.getSalon().equals(salon) && curso.getHorario() == horario) {
+                   System.out.println("Horario del curso: " + curso.getHorario());
+                   System.out.println("Horario: " + horario);
+                   System.out.println("Misms clave, diferente numero de grupo, mismo salon");
                    return false;
                }
            } else if (curso.getClave().equals(clave) && curso.getNumeroDeGrupo() == numeroDeGrupo) {
+               System.out.println("Misma clave y mismo numero de grupo");
                return false;
            }
         }
@@ -228,8 +239,8 @@ public class DatabaseConnection {
            String horario = myResult.getString("Horario");
            String horarioLaboratorio = myResult.getString("HorarioLaboratorio");
            String salon = myResult.getString("Salon");
-           Boolean ingles = (Boolean) myResult.getObject("Ingles");
-           Boolean honors = (Boolean) myResult.getObject("Honors");
+           Boolean ingles = (Integer) myResult.getObject("Ingles") == 1;
+           Boolean honors = (Integer) myResult.getObject("Honors") == 1;
            Curso curso = new Curso(clave, horario, horarioLaboratorio, salon, numeroDeGrupo, ingles, honors);
            cursos.add(curso);
        }
