@@ -17,16 +17,15 @@
 <%@include file="welcome.jsp"%>
 <br><br><br><br><br><br><br><br><br>
         <%
-        final String TABLE_START = "<table class='mdl-data-table mdl-js-data-table mdl-shadow--2dp'align='center'>";
-        final String TABLE_END = "</table>";
-            ArrayList objetos = (ArrayList) request.getAttribute("objectList");
+            ArrayList objects = (ArrayList) request.getAttribute("objectList");
             String beanName = (String) request.getAttribute("beanName");
             Class<?> tipoBean = Class.forName(beanName);
             String className = tipoBean.getName();
 
             // Get the names of the properties of inside the bean (e.g. Maestro, Salon, Grupo)
             ArrayList<Method> getters = new ArrayList();
-            for (Method method : tipoBean.getMethods() ){
+
+            for (Method method : beanType.getMethods() ){
                 // Get all getters from the bean
                 String name = method.getName();
                 if (name.startsWith("get") &&
@@ -48,19 +47,18 @@
             //out.write("<th></th>");
             out.write("</tr>");
             out.write("</thead>");
-            int iId = 0;
+
+            int objectId = 0;
             int numRows = 0;
-
-
             // Print the table body
             out.write("<tbody>");
-            for (Object objeto : objetos) {
+            for (Object objeto : objects) {
                 if (objeto == null) {
                     continue;
                 }
                 out.write("<tr>");
                 for (Method getter: getters) {
-                    out.write("<td ondblclick='editar(this, " +  Integer.toString(iId) + ")' style='cursor: pointer' id='" + Integer.toString(iId) +"'>");
+                    out.write("<td ondblclick='editar(this, " +  objectId + ")' style='cursor: pointer' id='" + objectId +"'>");
                     // Tomar el getter del la instancia del objeto específico
                     Method getterEspecifico = objeto.getClass().getMethod(getter.getName());
 
@@ -68,14 +66,14 @@
                     String valor = getterEspecifico.invoke(objeto).toString();
                     out.write(valor);
                     out.write("</td>");
-                    iId++;
+                    objectId++;
                 }
-                //out.write("<td><button id='borrar' onclick='borrar(this)'>Borrar fila</button></td>");
+                out.write("<td><button onclick='eliminar(this)'>Eliminar</button></td>");
                 out.write("</tr>");
                 numRows++;
 
             }
-            int numCols = (iId - 1) / numRows;
+            int numCols = (objectId - 1) / numRows;
             out.write("<tr>");
             // Para poner el signo de más hasta la derecha
             System.out.println("cols - " + numCols);
@@ -86,11 +84,10 @@
             }
             out.write("<td>");
             out.write("<form method='post' action='AdministrarServlet'>");
-            out.write("<input type='text' name=" + "'" +className + "'" + " value=" + "'" + className+  "'" + " hidden='true' value=>");
+            out.write("<input type='text' name=" + "'" +beanName + "'" + " value=" + "'" + beanName+  "'" + " hidden='true' value=>");
             out.write("<button class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'>");
             out.write("Agregar");
             out.write("</button>");
-            //out.write("<input type='submit' value='+'>");
             out.write("</form>");
             out.write("</td>");
             out.write("</tr>");
