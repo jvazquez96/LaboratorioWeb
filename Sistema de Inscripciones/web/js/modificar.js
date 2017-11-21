@@ -173,7 +173,7 @@ function guardar(obj, valor, columna, id) {
     var clave = getId(obj);
 
     xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://localhost:8080/Sistema_de_Inscripciones/ModificarServlet", true);
+    xhr.open("POST", "ModificarServlet", true);
 
     var data = new FormData();
     data.append("id", clave);
@@ -231,7 +231,7 @@ function eliminar(obj) {
         return;
     }
     xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://localhost:8084/Sistema_de_Inscripciones/EliminarServlet", true);
+    xhr.open("POST", "EliminarServlet", true);
     var data = new FormData();
     data.append("beanName", beanName);
     data.append("primaryKeys", JSON.stringify(primaryKeys));
