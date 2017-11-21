@@ -218,10 +218,6 @@ function eliminar(obj) {
         colIdx++;
     }
 
-    // We're assuming that the first column always belongs to the private key
-    var primaryKeyName = firstRowHeader.firstChild.innerText;
-    var primaryKeyValue = rowToDelete.firstChild.innerText;
-
     var beanName = entireTable.id;
     console.log(primaryKeys)
     console.log(beanName)
