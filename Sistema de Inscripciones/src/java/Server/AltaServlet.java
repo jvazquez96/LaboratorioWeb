@@ -94,7 +94,7 @@ public class AltaServlet extends HttpServlet {
     
     private String addClassroom(HttpServletRequest request) throws ClassNotFoundException {
         String message = "";
-        String numeroDeSalon = request.getParameter("Numero");
+        String numeroDeSalon = request.getParameter("Numero2");
         int capacidad = Integer.valueOf(request.getParameter("Capacidad"));
         String administrador = request.getParameter("Administrador");
         Salon nuevoSalon = new Salon(numeroDeSalon, administrador, capacidad);
