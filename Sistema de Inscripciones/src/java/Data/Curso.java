@@ -12,13 +12,13 @@ public class Curso {
     Boolean ingles, honors;
 
     public Curso() {
-        this.clave = null;
-        this.horario = null;
-        this.horarioLaboratorio = null;
-        this.salon = null;
-        this.numeroDeGrupo = null;
-        this.ingles = null;
-        this.honors = null;
+        this.clave = "";
+        this.horario = "";
+        this.horarioLaboratorio = "";
+        this.salon = "";
+        this.numeroDeGrupo = 0;
+        this.ingles = false;
+        this.honors = false;
     }
 
     public Curso(String clave, String horario, String horarioLaboratorio, String salon,

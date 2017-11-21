@@ -7,7 +7,10 @@ package Server;
 
 import DB.DatabaseConnection;
 import Data.Curso;
+import Data.Ensena;
 import Data.Maestro;
+import Data.Materia;
+import Data.Salon;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -47,6 +50,9 @@ public class ReportesServlet extends HttpServlet {
                 try {
                     System.out.println("Nomina: "+ request.getParameter("nomina"));
                     ArrayList<Curso> cursos = DatabaseConnection.getAllCoursesProfessor((String) request.getParameter("nomina"));
+                    if (cursos.size() == 0) {
+                        cursos.add(new Curso());
+                    }
                     System.out.println("Curso: " + cursos.size());        
                     request.setAttribute("objectList", cursos);
                 } catch (SQLException ex) {
@@ -60,7 +66,11 @@ public class ReportesServlet extends HttpServlet {
                 System.out.println("Materia: " + request.getParameter("materia"));
                 request.setAttribute("beanName", "Data.Ensena");
                 try {
-                    request.setAttribute("objectList", DatabaseConnection.getListaMateria((String) request.getParameter("materia")));
+                    ArrayList<Ensena> ensena =  DatabaseConnection.getListaMateria((String) request.getParameter("materia"));
+                    if (ensena.size() == 0) {
+                        ensena.add(new Ensena());
+                    }
+                    request.setAttribute("objectList",ensena);
                 } catch (SQLException ex) {
                     Logger.getLogger(AdministrarServlet.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
@@ -71,7 +81,11 @@ public class ReportesServlet extends HttpServlet {
             {
                 request.setAttribute("beanName", "Data.Salon");
                 try {
-                    request.setAttribute("objectList", DatabaseConnection.getSalonesDisponibles((String) request.getParameter("horario")));
+                    ArrayList<Salon> salones = DatabaseConnection.getSalonesDisponibles((String) request.getParameter("horario"));
+                    if (salones.size() == 0) {
+                        salones.add(new Salon());
+                    }
+                    request.setAttribute("objectList", salones);
                 } catch (SQLException ex) {
                     Logger.getLogger(AdministrarServlet.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
@@ -83,7 +97,11 @@ public class ReportesServlet extends HttpServlet {
                 System.out.println("Horario: " + request.getParameter("horario"));
                 request.setAttribute("beanName", "Data.Maestro");
                 try {
-                    request.setAttribute("objectList", DatabaseConnection.getTeachersScheduled((String) request.getParameter("horario")));
+                    ArrayList<Maestro> maestros = DatabaseConnection.getTeachersScheduled((String) request.getParameter("horario"));
+                    if (maestros.size() == 0) {
+                        maestros.add(new Maestro());
+                    }
+                    request.setAttribute("objectList", maestros);
                 } catch (SQLException ex) {
                     Logger.getLogger(AdministrarServlet.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
@@ -95,7 +113,11 @@ public class ReportesServlet extends HttpServlet {
                 request.setAttribute("beanName", "Data.Maestro");
                 System.out.println("Horario: " + request.getParameter("horario"));
                 try {
-                    request.setAttribute("objectList", DatabaseConnection.getTeachersNotScheduled((String) request.getParameter("horario")));
+                    ArrayList<Maestro> maestros = DatabaseConnection.getTeachersNotScheduled((String) request.getParameter("horario"));
+                    if (maestros.size() == 0) {
+                        maestros.add(new Maestro());
+                    }
+                    request.setAttribute("objectList", maestros);
                 } catch (SQLException ex) {
                     Logger.getLogger(AdministrarServlet.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
@@ -106,7 +128,11 @@ public class ReportesServlet extends HttpServlet {
             {
                 request.setAttribute("beanName", "Data.Curso");
                 try {
-                    request.setAttribute("objectList", DatabaseConnection.getCursosSalonHorario((String) request.getParameter("dia"), (String) request.getParameter("salon")));
+                    ArrayList<Curso> cursos = DatabaseConnection.getCursosSalonHorario((String) request.getParameter("dia"), (String) request.getParameter("salon"));
+                    if (cursos.size() == 0) {
+                        cursos.add(new Curso());
+                    }
+                    request.setAttribute("objectList", cursos);
                 } catch (SQLException ex) {
                     Logger.getLogger(AdministrarServlet.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {

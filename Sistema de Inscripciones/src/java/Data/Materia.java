@@ -14,8 +14,8 @@ public class Materia {
     int horasLaboratorio;
 
     public Materia() {
-        this.clave= null;
-        this.nombre = null;
+        this.clave= "";
+        this.nombre = "";
         this.horasLaboratorio = 0;
     }
     public Materia(String clave, String nombre, int horasLaboratorio) {

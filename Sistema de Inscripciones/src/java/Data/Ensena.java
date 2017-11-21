@@ -16,16 +16,16 @@ public class Ensena {
     Boolean ingles, honors;
     
     public Ensena() {
-        this.nomina = null;
-        this.nombre = null;
-        this.clave = null;
-        this.horario = null;
-        this.horarioLaboratorio = null;
-        this.salon = null;
+        this.nomina = "";
+        this.nombre = "";
+        this.clave = "";
+        this.horario = "";
+        this.horarioLaboratorio = "";
+        this.salon = "";
         this.responsabilidad = 0;
         this.numeroDeGrupo = 0;
-        this.ingles = null;
-        this.honors = null;
+        this.ingles = false;
+        this.honors = false;
     }
     
     public Ensena(String nomina, String nombre, String clave, String horario, 

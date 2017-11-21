@@ -12,6 +12,12 @@ package Data;
 public class Salon {
     String numero, administrador;
     int capacidad;
+    
+    public Salon() {
+        this.numero = "";
+        this.administrador = "";
+        this.capacidad = -1;
+    }
 
     public Salon(String numero, String administrador, int capacidad) {
         this.numero = numero;

@@ -15,10 +15,10 @@ public class Maestro {
     int cursosProgramados;
         
     public Maestro() {
-        this.nomina = null;
-        this.nombre = null;
-        this.correoElectronico = null;
-        this.telefono = null;
+        this.nomina = "";
+        this.nombre = "";
+        this.correoElectronico = "";
+        this.telefono = "";
         this.cursosProgramados = 0;
     }    
 

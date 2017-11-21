@@ -12,7 +12,7 @@ package Data;
 public class Horario {
     String frequencia;
     public Horario() {
-        this.frequencia = null;
+        this.frequencia = "";
     }
     
     public Horario(String frequencia) {
