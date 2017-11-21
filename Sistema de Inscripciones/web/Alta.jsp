@@ -94,7 +94,7 @@
             <div class="mdl-card__supporting-text">
                 <form action='AltaServlet' method='post'>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" name='Nomina' type="text" id="nomina" required="">
+                        <input class="mdl-textfield__input" name='Nomina1' type="text" id="nomina" required="">
                         <label class="mdl-textfield__label" for="nomina">Nomina</label>
                     </div>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -138,7 +138,7 @@
             <div class="mdl-card__supporting-text">
                 <form action='AltaServlet' method='post'>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" name='Numero' type="text" id="numero" required="">
+                        <input class="mdl-textfield__input" name='Numero2' type="text" id="numero" required="">
                         <label class="mdl-textfield__label" for="numero">Número</label>                        </div>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" name='Capacidad' type="number" id="capacidad" required>

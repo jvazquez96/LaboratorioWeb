@@ -42,6 +42,7 @@ public class AltaServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException {
         String nomina = request.getParameter("Nomina1");
+        System.out.println("Nomina1: " + nomina);
         String clave = request.getParameter("Clave");
         String numeroDeSalon = request.getParameter("Numero2");
         Boolean isAddingTeacher = nomina != null;
@@ -73,7 +74,7 @@ public class AltaServlet extends HttpServlet {
     }
     
     private String addTeacher(HttpServletRequest request) throws ClassNotFoundException {
-        String nomina = request.getParameter("Nomina");
+        String nomina = request.getParameter("Nomina1");
         String nombre = request.getParameter("Nombre");
         String numero = request.getParameter("Telefono");
         String correo = request.getParameter("Correo Electronico");
