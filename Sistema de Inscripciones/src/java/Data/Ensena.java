@@ -5,16 +5,19 @@
  */
 package Data;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  *
  * @author jorgevazquez
  */
 public class Ensena {
-    
+
     String nomina, nombre, clave, horario, horarioLaboratorio, salon;
     int responsabilidad, numeroDeGrupo;
     Boolean ingles, honors;
-    
+
     public Ensena() {
         this.nomina = null;
         this.nombre = null;
@@ -27,8 +30,8 @@ public class Ensena {
         this.ingles = null;
         this.honors = null;
     }
-    
-    public Ensena(String nomina, String nombre, String clave, String horario, 
+
+    public Ensena(String nomina, String nombre, String clave, String horario,
             String horarioLaboratorio, String salon, int responsabilidad, int numeroDeGrupo,
             Boolean ingles, Boolean honors) {
         this.nomina = nomina;
@@ -122,5 +125,8 @@ public class Ensena {
     public void setHonors(Boolean honors) {
         this.honors = honors;
     }
-    
+
+    public static ArrayList<String> ggetprimaryKeyNames() {
+        return new ArrayList<>(Arrays.asList("Nomina", "Clave", "NumeroDeGrupo"));   
+    }
 }

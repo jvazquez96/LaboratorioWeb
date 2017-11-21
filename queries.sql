@@ -39,10 +39,10 @@ CREATE TABLE Curso (
 	Ingles INT NOT NULL,
 	Honors INT NOT NULL,
 	PRIMARY KEY (Clave, NumeroDeGrupo),
-	FOREIGN KEY (Clave) REFERENCES Materia (Clave),
-	FOREIGN KEY (Horario) REFERENCES Horario(Frequencia),
-	FOREIGN KEY (HorarioLaboratorio) REFERENCES Horario(Frequencia),
-	FOREIGN KEY (Salon) REFERENCES Salon(Numero)
+	FOREIGN KEY (Clave) REFERENCES Materia (Clave) ON DELETE CASCADE,
+	FOREIGN KEY (Horario) REFERENCES Horario(Frequencia) ON DELETE CASCADE,
+	FOREIGN KEY (HorarioLaboratorio) REFERENCES Horario(Frequencia) ON DELETE CASCADE,
+	FOREIGN KEY (Salon) REFERENCES Salon(Numero) ON DELETE CASCADE
 );
 
 CREATE TABLE Ensena (
@@ -51,8 +51,8 @@ CREATE TABLE Ensena (
 	NumeroDeGrupo INT NOT NULL,
 	Responsabilidad INT NOT NULL,
 	PRIMARY KEY (Nomina, Clave, NumeroDeGrupo),
-	FOREIGN KEY (Nomina) REFERENCES Maestro(Nomina),
-	FOREIGN KEY (Clave, NumeroDeGrupo) REFERENCES Curso(Clave, NumeroDeGrupo)
+	FOREIGN KEY (Nomina) REFERENCES Maestro(Nomina) ON DELETE CASCADE,
+	FOREIGN KEY (Clave, NumeroDeGrupo) REFERENCES Curso(Clave, NumeroDeGrupo) ON DELETE CASCADE
 );
 
 CREATE TABLE Administradores (
@@ -175,7 +175,7 @@ VALUES ("L12345678", "TC3001", 1, 100);
 INSERT INTO Ensena (Nomina, Clave, NumeroDeGrupo, Responsabilidad)
 VALUES ("L98765432", "TC3002", 1, 50);
 INSERT INTO Ensena (Nomina, Clave, NumeroDeGrupo, Responsabilidad)
-VALUES ("L57451829", "TC3002", 1, 50);
+VALUES ("L57451829", "TC3002", 2, 50);
 INSERT INTO Ensena (Nomina, Clave, NumeroDeGrupo, Responsabilidad)
 VALUES ("L00251587", "TC3045", 1, 50);
 INSERT INTO Ensena (Nomina, Clave, NumeroDeGrupo, Responsabilidad)

@@ -1,4 +1,4 @@
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -14,7 +14,7 @@ function editar(object, id) {
 
     var long = $(object).parent().children().length;
     var col = object.id % long;
-    
+
 
     //Si el tamaño de datos es 5, es maestro
     if (long == 5) {
@@ -25,7 +25,7 @@ function editar(object, id) {
                 var input = document.createElement("input");
                 input.className = "mdl-textfield__input";
                 input.id = 'input';
-                
+
                 if (object.innerText)
                     input.value = object.innerText;
                 else
@@ -46,14 +46,14 @@ function editar(object, id) {
                         document.getElementById('input').blur();
                         delete input;
                     }
-                }; 
+                };
                 break;
             case 2:
                 var columna = "telefono";
                 var input = document.createElement("input");
                 input.className = "mdl-textfield__input";
                 input.id = 'input';
-                
+
                 if (object.innerText)
                     input.value = object.innerText;
                 else
@@ -74,14 +74,14 @@ function editar(object, id) {
                         document.getElementById('input').blur();
                         delete input;
                     }
-                }; 
+                };
                 break;
             case 3:
                 var columna = "correoelectronico";
                 var input = document.createElement("input");
                 input.className = "mdl-textfield__input";
                 input.id = 'input';
-                
+
                 if (object.innerText)
                     input.value = object.innerText;
                 else
@@ -102,7 +102,7 @@ function editar(object, id) {
                         document.getElementById('input').blur();
                         delete input;
                     }
-                };           
+                };
                 break;
         }
     } else if (long == 3) {
@@ -113,7 +113,7 @@ function editar(object, id) {
                 var input = document.createElement("input");
                 input.className = "mdl-textfield__input";
                 input.id = 'input';
-                
+
                 if (object.innerText)
                     input.value = object.innerText;
                 else
@@ -134,14 +134,14 @@ function editar(object, id) {
                         document.getElementById('input').blur();
                         delete input;
                     }
-                }; 
+                };
                 break;
             case 2:
                 var columna = "administrador";
                 var input = document.createElement("input");
                 input.className = "mdl-textfield__input";
                 input.id = 'input';
-                
+
                 if (object.innerText)
                     input.value = object.innerText;
                 else
@@ -162,7 +162,7 @@ function editar(object, id) {
                         document.getElementById('input').blur();
                         delete input;
                     }
-                }; 
+                };
                 break;
         }
     }
@@ -171,7 +171,7 @@ function editar(object, id) {
 function guardar(obj, valor, columna, id) {
     obj.replaceChild(document.createTextNode(valor), obj.firstChild);
     var clave = getId(obj);
-    
+
     xhr = new XMLHttpRequest();
     xhr.open("POST", "http://localhost:8080/Sistema_de_Inscripciones/ModificarServlet", true);
 
@@ -185,6 +185,65 @@ function guardar(obj, valor, columna, id) {
         }
     };
 
+    xhr.send(data);
+}
+
+function eliminar(obj) {
+    var rowToDelete = obj.parentNode.parentNode;
+    var entireTable = rowToDelete.parentNode.parentNode;
+    var firstRowHeader = entireTable.tHead.firstChild;
+    var primaryKeyNames = [];
+    var primaryKeyIndexes = [];
+
+    // Discover what are the primary keys names
+    var headerIdx = 0;
+    for (var header = firstRowHeader.firstChild; header !== null; header = header.nextSibling) {
+        if (header.getAttribute("data-is-primary-key")) {
+            primaryKeyNames.push(header.innerText);
+            primaryKeyIndexes.push(headerIdx);
+        }
+        headerIdx ++;
+    }
+
+    // Get the values for the primary keys to delete
+    var primaryKeys = {}
+    var colIdx = 0;
+    for (var tableData = rowToDelete.firstChild; tableData !== null; tableData = tableData.nextSibling) {
+        keyNameIdx = primaryKeyIndexes.indexOf(colIdx);
+        if (keyNameIdx > -1) {
+            // The header is the primary key name, and the td inside each cells under that header
+            // ks the primary key value
+            primaryKeys[primaryKeyNames[keyNameIdx]] = tableData.innerText;
+        }
+        colIdx++;
+    }
+
+    // We're assuming that the first column always belongs to the private key
+    var primaryKeyName = firstRowHeader.firstChild.innerText;
+    var primaryKeyValue = rowToDelete.firstChild.innerText;
+
+    var beanName = entireTable.id;
+    console.log(primaryKeys)
+    console.log(beanName)
+    var deletionPlan = ""
+    for (var key in primaryKeys) {
+        deletionPlan += " " + key + ": " + primaryKeys[key] ;
+    }
+    var userConfirmed = confirm("¿Está seguro que desea eliminar" + deletionPlan +
+                                " y sus elementos dependientes?");
+    if (!userConfirmed) {
+        return;
+    }
+    xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://localhost:8084/Sistema_de_Inscripciones/EliminarServlet", true);
+    var data = new FormData();
+    data.append("beanName", beanName);
+    data.append("primaryKeys", JSON.stringify(primaryKeys));
+    xhr.onload = function validar() {
+        if (xhr.status == 200) {
+            rowToDelete.parentNode.removeChild(rowToDelete);
+        }
+    };
     xhr.send(data);
 }
 
@@ -204,7 +263,7 @@ function getTextWidth(texto) {
         return ancho;
     }
 
-    //Creacion de un span escondido que se puedra medir 
+    //Creacion de un span escondido que se puedra medir
     var span = document.createElement("span");
     span.style.visibility = "hidden";
     span.style.position = "absolute";
