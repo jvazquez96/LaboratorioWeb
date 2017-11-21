@@ -82,6 +82,7 @@
                 
                 else if(valor == "rep4")
                 {   
+                    document.getElementById("boton").disabled=false;
                     var element2 = document.createElement("label");
                     element2.innerHTML = " Horario: ";
                     div.appendChild(element2);
@@ -97,21 +98,8 @@
                 }
                 
                 else if(valor == "rep5")
-                {
+                {   
                     document.getElementById("boton").disabled=false;
-                    var element0 = document.createElement("label");
-                    element0.innerHTML = "Profesor: ";
-                    div.appendChild(element0);
-                    
-                    var element1 = document.createElement("select");
-                    <%
-                    ArrayList<Maestro> maestros5 = DatabaseConnection.getAllTeachers();
-                    for (Maestro maestro: maestros5) { %>
-                        element1.options.add(new Option('<%= maestro.getNomina() %>', "profesor", false, false));
-                    <% } %>
-                    element1.required = true;
-                    div.appendChild(element1);
-                    
                     var element2 = document.createElement("label");
                     element2.innerHTML = " Horario: ";
                     div.appendChild(element2);

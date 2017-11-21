@@ -56,9 +56,9 @@ public class ReportesServlet extends HttpServlet {
         
         String reporte = (String) request.getAttribute("reporte");
         String url = "/reporte.jsp";
-        PrintWriter out = response.getWriter();
         if("rep1".equals(reporte))
             {
+                request.setAttribute("beanName", "Data.Maestro");
                 try {
                     request.setAttribute("objectList", DatabaseConnection.getAllCoursesProfessor((String) request.getAttribute("nomina")));
                 } catch (SQLException ex) {
@@ -67,10 +67,55 @@ public class ReportesServlet extends HttpServlet {
                 Logger.getLogger(ReportesServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        if("rep2".equals(reporte))
+        else if("rep2".equals(reporte))
             {
+                request.setAttribute("beanName", "Data.Ensena");
                 try {
-                    request.setAttribute("objectList", DatabaseConnection.getAllCoursesProfessor((String) request.getAttribute("nomina")));
+                    request.setAttribute("objectList", DatabaseConnection.getListaMateria((String) request.getAttribute("materia")));
+                } catch (SQLException ex) {
+                    Logger.getLogger(AdministrarServlet.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ReportesServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        else if("rep3".equals(reporte))
+            {
+                request.setAttribute("beanName", "Data.Salon");
+                try {
+                    request.setAttribute("objectList", DatabaseConnection.getSalonesDisponibles((String) request.getAttribute("horario")));
+                } catch (SQLException ex) {
+                    Logger.getLogger(AdministrarServlet.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ReportesServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        else if("rep4".equals(reporte))
+            {
+                request.setAttribute("beanName", "Data.Maestro");
+                try {
+                    request.setAttribute("objectList", DatabaseConnection.getTeachersScheduled((String) request.getAttribute("horario")));
+                } catch (SQLException ex) {
+                    Logger.getLogger(AdministrarServlet.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ReportesServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        else if("rep5".equals(reporte))
+            {
+                request.setAttribute("beanName", "Data.Maestro");
+                try {
+                    request.setAttribute("objectList", DatabaseConnection.getTeachersNotScheduled((String) request.getAttribute("horario")));
+                } catch (SQLException ex) {
+                    Logger.getLogger(AdministrarServlet.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ReportesServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        else if("rep6".equals(reporte))
+            {
+                request.setAttribute("beanName", "Data.Curso");
+                try {
+                    request.setAttribute("objectList", DatabaseConnection.getCursosSalonHorario((String) request.getAttribute("dia"), (String) request.getAttribute("salon")));
                 } catch (SQLException ex) {
                     Logger.getLogger(AdministrarServlet.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {

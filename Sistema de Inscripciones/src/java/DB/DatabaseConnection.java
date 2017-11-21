@@ -366,7 +366,7 @@ public class DatabaseConnection {
        return salones;
    }
    
-   private static ArrayList<Maestro> getTeachersScheduled(String horario) throws SQLException, ClassNotFoundException {
+   public static ArrayList<Maestro> getTeachersScheduled(String horario) throws SQLException, ClassNotFoundException {
        Class.forName("com.mysql.jdbc.Driver");
        ArrayList<Maestro> maestros = new ArrayList<>();
        String url = "jdbc:mysql://localhost"+port+"/Proyecto";
@@ -386,7 +386,7 @@ public class DatabaseConnection {
        return maestros;
    }
    
-   private static ArrayList<Maestro> getTeachersNotScheduled(String horario) throws SQLException, ClassNotFoundException {
+   public static ArrayList<Maestro> getTeachersNotScheduled(String horario) throws SQLException, ClassNotFoundException {
        Class.forName("com.mysql.jdbc.Driver");
        ArrayList<Maestro> maestros = new ArrayList<>();
        String url = "jdbc:mysql://localhost"+port+"/Proyecto";
@@ -406,17 +406,17 @@ public class DatabaseConnection {
        return maestros;
    }
    
-   public static ArrayList<Curso> getCursosSalonHorario(String horario, String salon) throws SQLException, ClassNotFoundException{
+   public static ArrayList<Curso> getCursosSalonHorario(String dia, String salon) throws SQLException, ClassNotFoundException{
        Class.forName("com.mysql.jdbc.Driver");
        String url = "jdbc:mysql://localhost"+port+"/Proyecto";
        Connection connection = DriverManager.getConnection(url, "root", password);
        Statement myStmt = connection.createStatement();
-       String query = "SELECT * FROM Curso WHERE Horario = '"+horario+"' AND Salon = '"+salon+"';";
+       String query = "SELECT * FROM Curso WHERE Horario LIKE '%"+dia+"%' AND Salon = '"+salon+"';";
        ResultSet myResult = myStmt.executeQuery(query);
        ArrayList<Curso> cursos = new ArrayList<>();
        while(myResult.next()) {
            String clave = myResult.getString("Clave");
-           //String hora = myResult.getString("Horario");
+           String horario = myResult.getString("Horario");
            String horarioLaboratorio = myResult.getString("HorarioLaboratorio");
            if (horarioLaboratorio == null) {
                horarioLaboratorio = "";
@@ -487,5 +487,9 @@ public class DatabaseConnection {
         }
         return horarios;
    }
+
+    public static Object getAllSchedules(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
    
 }
