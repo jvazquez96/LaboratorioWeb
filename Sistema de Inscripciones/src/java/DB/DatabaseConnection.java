@@ -29,8 +29,8 @@ import java.util.logging.Logger;
  */
 public class DatabaseConnection {
     
-    private static String password = "root";
-    private static String port = ":8889";
+    private static String password = "";
+    private static String port = ":3306";
     
    public static boolean isUserAuthorized(User user) throws SQLException, ClassNotFoundException {
        Class.forName("com.mysql.jdbc.Driver");
@@ -312,11 +312,11 @@ public class DatabaseConnection {
        ArrayList<Curso> cursos = new ArrayList<Curso>();
        while(myResult.next()) {
            String clave = myResult.getString("Clave");
-           int numeroDeGrupo = (Integer) myResult.getObject("grupo");
+           int numeroDeGrupo = (Integer) myResult.getObject("NumeroDeGrupo");
            String horario = myResult.getString("Horario");
            String salon = myResult.getString("Salon");
-           Boolean ingles = (Boolean) myResult.getObject("Ingles");
-           Boolean honors = (Boolean) myResult.getObject("Honors");
+           Boolean ingles = (Integer) myResult.getObject("Ingles") == 1;
+           Boolean honors = (Integer) myResult.getObject("Honors") == 2;
            Curso curso = new Curso(clave, horario, "", salon, numeroDeGrupo, ingles, honors);
            cursos.add(curso);
        }
@@ -333,8 +333,7 @@ public class DatabaseConnection {
        ArrayList<Ensena> ensenas = new ArrayList<>();
        while(myResult.next()) {
            String nomina = myResult.getString("Nomina");
-           String nombre = myResult.getString("Nombre");
-           //int responsabilidad = (Integer) myResult.getObject("Responsabilidad");
+//           int responsabilidad = (Integer) myResult.getObject("Responsabilidad");
            String clave = myResult.getString("Clave");
            int numeroDeGrupo = (Integer) myResult.getObject("NumeroDeGrupo");
            String horario = myResult.getString("Horario");
@@ -343,7 +342,7 @@ public class DatabaseConnection {
            String salon = myResult.getString("Salon");
            Boolean ingles = (Integer) myResult.getObject("Ingles") == 1;
            Boolean honors = (Integer) myResult.getObject("Honors") == 1;
-           Ensena ensena = new Ensena(nomina, nombre, clave, horario, "", salon, 0, numeroDeGrupo, ingles, honors);
+           Ensena ensena = new Ensena(nomina, "", clave, horario, "", salon, 0, numeroDeGrupo, ingles, honors);
            ensenas.add(ensena);
        }
        return ensenas;

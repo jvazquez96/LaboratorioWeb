@@ -37,10 +37,11 @@
                     div.appendChild(element0);
                     
                     var select = document.createElement("select");
+                    select.name="nomina";
                     <%
                     ArrayList<Maestro> maestros = DatabaseConnection.getAllTeachers();
                     for (Maestro maestro: maestros) { %>
-                        select.options.add(new Option('<%= maestro.getNomina() %>', "nomina", false, false));
+                        select.options.add(new Option('<%= maestro.getNomina() %>', '<%= maestro.getNomina() %>', false, false));
                     <% } %>
                     select.required = true;
                     div.appendChild(select);
@@ -54,10 +55,11 @@
                     div.appendChild(element0);
                     
                     var select = document.createElement("select");
+                    select.name = "materia";
                     <% 
                     ArrayList<Materia> materias = DatabaseConnection.getAllSubjects();
                     for (Materia materia: materias) { %>
-                        select.options.add(new Option('<%= materia.getClave()%>', 'materia', false, false));
+                        select.options.add(new Option('<%= materia.getClave()%>', '<%= materia.getClave()%>', false, false));
                     <% } %>
                     select.required = true;
                     div.appendChild(select);
@@ -71,10 +73,11 @@
                     div.appendChild(element0);
                     
                     var select = document.createElement("select");
+                    select.name = "horario";
                     <%
                     ArrayList<Horario> horarios = DatabaseConnection.getAllSchedules();    
                     for (Horario horario: horarios) {%>
-                        select.options.add(new Option('<%= horario.getFrequencia()%>', 'horario'. false, false));
+                        select.options.add(new Option('<%= horario.getFrequencia()%>', '<%= horario.getFrequencia()%>', false, false));
                     <% } %>
                     select.required = true;
                     div.appendChild(select);
@@ -88,10 +91,11 @@
                     div.appendChild(element2);
                     
                     var element3 = document.createElement("select");
+                    element3.name = "horario";
                     <%
                     ArrayList<Horario> horarios4 = DatabaseConnection.getAllSchedules();    
                     for (Horario horario: horarios4) {%>
-                        element3.options.add(new Option('<%= horario.getFrequencia()%>', 'horario'. false, false));
+                        element3.options.add(new Option('<%= horario.getFrequencia()%>', '<%= horario.getFrequencia()%>', false, false));
                     <% } %>
                     element3.required = true;
                     div.appendChild(element3);
@@ -105,10 +109,11 @@
                     div.appendChild(element2);
 
                     var element3 = document.createElement("select");
+                    element3.name = "horario";
                      <%
                     ArrayList<Horario> horarios5 = DatabaseConnection.getAllSchedules();    
                     for (Horario horario: horarios5) {%>
-                        element3.options.add(new Option('<%= horario.getFrequencia()%>', 'horario'. false, false));
+                        element3.options.add(new Option('<%= horario.getFrequencia()%>', '<%= horario.getFrequencia()%>'. false, false));
                     <% } %>
                     element3.required = true;
                     div.appendChild(element3);
@@ -122,9 +127,10 @@
                     div.appendChild(element0);
 
                     var element1 = document.createElement("select");
-                    element1.options.add(new Option("LuJu", "dia", false, false));
-                    element1.options.add(new Option("MaVi", "dia", false, false));
-                    element1.options.add(new Option("Mie", "dia", false, false));
+                    element1.name = "dia";
+                    element1.options.add(new Option("LuJu", "LuJu", false, false));
+                    element1.options.add(new Option("MaVi", "MaVi", false, false));
+                    element1.options.add(new Option("Mie", "Mie", false, false));
 
                     element1.required = true;
                     div.appendChild(element1);
@@ -134,10 +140,11 @@
                     div.appendChild(element2);
 
                     var element3 = document.createElement("select");
+                    element3.name = "salon";
                     <%
                     ArrayList<Salon> salones = DatabaseConnection.getAllClassrooms();    
                     for (Salon salon: salones) {%>
-                        element3.options.add(new Option('<%= salon.getNumero()%>' , 'salon', false, false));
+                        element3.options.add(new Option('<%= salon.getNumero()%>' , '<%= salon.getNumero()%>', false, false));
                     <% } %> 
                         
                     element3.required = true;

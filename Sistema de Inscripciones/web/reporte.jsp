@@ -87,15 +87,6 @@
                 out.write("</td>");
                 numCols--;
             }
-            out.write("<td>");
-            out.write("<form method='post' action='AdministrarServlet'>");
-            out.write("<input type='text' name=" + "'" +className + "'" + " value=" + "'" + className+  "'" + " hidden='true' value=>");
-            out.write("<button class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'>");
-            out.write("Agregar");
-            out.write("</button>");
-            //out.write("<input type='submit' value='+'>");
-            out.write("</form>");
-            out.write("</td>");
             out.write("</tr>");
             out.write("</tbody>");
             out.write(TABLE_END);
