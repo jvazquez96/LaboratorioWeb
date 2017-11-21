@@ -6,7 +6,6 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="welcome.jsp"%>
-<br><br><br><br><br><br><br><br><br>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,34 +21,34 @@
         function maestros()
         {
             var table = document.getElementById("MyTable");
-
+            
             //MAESTRO y registro
             var rowCount = table.rows.length;
             var row = table.insertRow(rowCount);
-
+            
             var cell1 = row.insertCell(0);
             var element1 = document.createElement("p");
             element1.innerHTML = "Maestro";
             cell1.appendChild(element1);
-
+            
             var cell2 = row.insertCell(1);
             var element2 = document.createElement("input");
             element2.type = "text";
             element2.name = "Maestro:";
             cell2.appendChild(element2);
-
+            
             var cell3 = row.insertCell(2);
             var element3 = document.createElement("p");
             element3.innerHTML = "Responsabilidad:";
             cell3.appendChild(element3);
-
+            
             var cell4 = row.insertCell(3);
             var element4 = document.createElement("input");
             element4.type = "text";
             element4.name = "Responsabilidad";
             cell4.appendChild(element4);
-
-
+            
+            
         }
     </script>
     <body>
@@ -64,11 +63,11 @@
                             Boolean isAddingGroupes
                                     = (Boolean) request.getAttribute("groupes") == null ? false : true;
                             String message = (String) request.getAttribute("mensaje");
-
+                            
                             if (isAddingTeachers) {
                                 if (message != null && !message.equals("")) {
                                     out.write(message);
-                                }else{
+                                } else {
                                     out.write("Nuevo Maestro");
                                 }
                         %>
@@ -98,29 +97,40 @@
                 </div>
             </div>
         </div>
-
     </body>
-    <% } else if (isAddingClassroom) {
-        if (message != null && !message.equals("")) {
-            out.write(message);
-        }%>
     <body>
-        <form action='AltaServlet' method='post'>
-            <table class='mdl-data-table mdl-js-data-table mdl-shadow--2dp'align='center' cellspacing ='5' border='0'>
-                <tr>
-                    <td align='left'>Número <input type='text' name='Numero' required> </td>
-                </tr>
-                <tr>
-                    <td align='left'>Capacidad <input type='number' name='Capacidad' required> </td>
-                </tr>
-                <tr>
-                    <td align='left'>Administrador <input type='text' name='Administrador' required></td>
-                </tr>
-                <tr>
-                    <td><br><input type='submit' value='submit'></td>
-                </tr>
-            </table>
-        </form>
+        <div>
+            <div class="demo-card-square mdl-card mdl-shadow--2dp center">
+                <div class="mdl-card__title mdl-card--expand">
+                    <h2 class="mdl-card__title-text">
+                        <% } else if (isAddingClassroom) {
+                            if (message != null && !message.equals("")) {
+                                out.write(message);
+                            } else {
+                                out.write("Nuevo Salon");
+                            }
+                        %>
+                    </h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                    <form action='AltaServlet' method='post'>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" name='Numero' type="text" id="numero" required="">
+                            <label class="mdl-textfield__label" for="numero">Número</label>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" name='Capacidad' type="number" id="capacidad" required>
+                            <label class="mdl-textfield__label" for="capacidad">Capacidad</label>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" name='Administrador' type="text" id="admin" required>
+                            <label class="mdl-textfield__label" for="admin">Administrador</label>
+                        </div>
+                        <input type="submit" value="Guardar" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                    </form>
+                </div>
+            </div>
+        </div>
     </body>
     <% } else if (isAddingGroupes) {
         if (message != null && !message.equals("")) {
