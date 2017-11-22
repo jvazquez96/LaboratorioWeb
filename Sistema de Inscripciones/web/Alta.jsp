@@ -42,7 +42,7 @@
 
 
             var element2 = document.createElement("select");
-            element2.name = "Maestro";
+            element2.name = "Nomina[]";
         <%                    ArrayList<Maestro> maestro1 = DatabaseConnection.getAllTeachers();
             for (Maestro maestro : maestro1) {%>
             element2.options.add(new Option('<%= maestro.getNomina()%>', '<%= maestro.getNomina()%>', false, false));
@@ -57,7 +57,7 @@
             var cell4 = row.insertCell(3);
             var element4 = document.createElement("input");
             element4.type = "text";
-            element4.name = "Responsabilidad";
+            element4.name = "Responsabilidad[]";
             cell4.appendChild(element4);
 
 
@@ -94,7 +94,7 @@
             <div class="mdl-card__supporting-text">
                 <form action='AltaServlet' method='post'>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" name='Nomina' type="text" id="nomina" required="">
+                        <input class="mdl-textfield__input" name='Nomina1' type="text" id="nomina" required="">
                         <label class="mdl-textfield__label" for="nomina">Nomina</label>
                     </div>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -138,7 +138,7 @@
             <div class="mdl-card__supporting-text">
                 <form action='AltaServlet' method='post'>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" name='Numero' type="text" id="numero" required="">
+                        <input class="mdl-textfield__input" name='Numero2' type="text" id="numero" required="">
                         <label class="mdl-textfield__label" for="numero">Número</label>                        </div>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" name='Capacidad' type="number" id="capacidad" required>
@@ -224,7 +224,7 @@
             <tr>
                 <td align='left'>Nomina de Profesor </td>
                 <td align='left'>
-                    <select name='Nomina' required>
+                    <select name='Nomina[]' required>
                         <%
                             ArrayList<Maestro> maestros1 = DatabaseConnection.getAllTeachers();
                             for (Maestro maestro : maestros1) {%>
@@ -233,7 +233,7 @@
                     </select>
                 </td>
                 <td align='left'>Responsabilidad </td>
-                <td align='left'><input type='numeric' name='Responsabilidad' required></td>
+                <td align='left'><input type='numeric' name='Responsabilidad[]' required></td>
                 <td align='left'><button type='button' onclick="maestros()">+</button></td>
             </tr>
         </table>

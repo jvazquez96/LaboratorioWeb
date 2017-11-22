@@ -42,6 +42,7 @@ public class AltaServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException {
         String nomina = request.getParameter("Nomina1");
+        System.out.println("Nomina1: " + nomina);
         String clave = request.getParameter("Clave");
         String numeroDeSalon = request.getParameter("Numero2");
         Boolean isAddingTeacher = nomina != null;
@@ -73,7 +74,7 @@ public class AltaServlet extends HttpServlet {
     }
     
     private String addTeacher(HttpServletRequest request) throws ClassNotFoundException {
-        String nomina = request.getParameter("Nomina");
+        String nomina = request.getParameter("Nomina1");
         String nombre = request.getParameter("Nombre");
         String numero = request.getParameter("Telefono");
         String correo = request.getParameter("Correo Electronico");
@@ -93,7 +94,7 @@ public class AltaServlet extends HttpServlet {
     
     private String addClassroom(HttpServletRequest request) throws ClassNotFoundException {
         String message = "";
-        String numeroDeSalon = request.getParameter("Numero");
+        String numeroDeSalon = request.getParameter("Numero2");
         int capacidad = Integer.valueOf(request.getParameter("Capacidad"));
         String administrador = request.getParameter("Administrador");
         Salon nuevoSalon = new Salon(numeroDeSalon, administrador, capacidad);
@@ -119,14 +120,14 @@ public class AltaServlet extends HttpServlet {
         Boolean honors = request.getParameter("Honors").equals("Si");
         Curso curso = new Curso(clave, horario, horarioLaboratorio, salon, numeroDeGrupo, ingles, honors);
         ArrayList<Maestro> maestros = new ArrayList<>();
-        String[] nominas = request.getParameterValues("Nomina");
+        String[] nominas = request.getParameterValues("Nomina[]");
         for (String nomina: nominas) {
             Maestro maestro = new Maestro();
             maestro.setNomina(nomina);
             maestros.add(maestro);
         }
         ArrayList<Responsabilidad> responsabilidades = new ArrayList<>();
-        String[] responsabilidadesEnString = request.getParameterValues("Responsabilidad");
+        String[] responsabilidadesEnString = request.getParameterValues("Responsabilidad[]");
         for (int i = 0; i < responsabilidadesEnString.length; ++i) {
             Responsabilidad responsabilidad = new Responsabilidad(maestros.get(i), Integer.valueOf(responsabilidadesEnString[i]), curso);
             responsabilidades.add(responsabilidad);
