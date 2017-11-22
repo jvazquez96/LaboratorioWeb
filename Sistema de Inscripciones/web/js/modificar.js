@@ -92,43 +92,101 @@ function editar(object, id) {
         }
     } else if (long == 11) {
         //Esto es un grupo
-        nomina = document.getElementsByClassName("Nomina" + iNomina)[0].innerHTML;
         var clave = document.getElementsByClassName("Clave" + iNomina)[0].innerHTML;
         var numero = document.getElementsByClassName("NumeroDeGrupo" + iNomina)[0].innerHTML;
         var select = document.createElement("select");
-        select.id = 'select;'
+        select.id = 'input';
 
 
         switch (columna) {
-            case "Horario":
-            case "HorarioLaboratorio":
             case "Ingles":
             case "Honors":
+                var selected;
+                if (object.innerText)
+                    selected = object.innerText;
+                else
+                    selected = object.textContent;
+
+                var option = document.createElement("option");
+                option.value = "Sí";
+                option.name = "Sí";
+                option.innerHTML = "Sí";
+                select.appendChild(option);
+                if (selected === "Sí")
+                    select.value = "Sí";
+
+                var option2 = document.createElement("option");
+                option2.value = "No";
+                option2.name = "No";
+                option2.innerHTML = "No";
+                select.appendChild(option2);
+                if (selected === "No")
+                    select.value = "No";
+
+                select.style.width = "100px";
+
+                object.replaceChild(select, object.firstChild);
+
+                document.getElementById('input').focus();
+
+                select.onchange = function cambio() {
+                    document.getElementById('input').blur();
+                    delete select;
+                };
+
+                select.onblur = function salir() {
+                    if (select.value == "Sí")
+                        var valor = 1;
+                    else
+                        var valor = 0;
+                    guardarGrupo(object, valor, columna, id, clave, numero);
+                    delete select;
+                }
+                break;
+            case "Horario":
+            case "HorarioLaboratorio":
+                var selected;
+                if (object.innerText)
+                    selected = object.innerText;
+                else
+                    selected = object.textContent;
+
                 var xhr = new XMLHttpRequest();
-                xhr.open("GET", "GetHorarios", false);
+                xhr.open("GET", "GetDatos", false);
                 xhr.onload = function validar() {
                     if (xhr.status == 200) {
                         var array = xhr.responseText.split(",");
-                        for(var i = 0; i < array.length; ++i){
+                        for (var i = 0; i < array.length; ++i) {
                             var option = document.createElement("option");
-                            option.value = array[0];
-                            option.name = array[0];
-                            option.innerHTML = array[0];
+                            option.value = array[i];
+                            option.name = array[i];
+                            option.innerHTML = array[i];
                             select.appendChild(option);
-                            console.log(option);
-                            console.log("WTF");
+                            if (selected == array[i])
+                                select.value = array[i];
                         }
                     }
                 }
                 xhr.send(null);
 
-                select.style.width = "30px";
+                select.style.width = "100px";
+
+                if (selected == "")
+                    object.innerText = "Dummy";
+
                 object.replaceChild(select, object.firstChild);
 
-                select.onchange = function salir() {
-                    //guardar(object, select.value, columna, id, nomina);
+                document.getElementById('input').focus();
+
+                select.onchange = function cambio() {
+                    guardarGrupo(object, select.value, columna, id, clave, numero);
                     delete select;
                 };
+
+                select.onblur = function salir() {
+                    guardarGrupo(object, select.value, columna, id, clave, numero);
+                    delete select;
+                }
                 break;
         }
     }
@@ -147,6 +205,33 @@ function guardar(obj, valor, columna, id, nomina) {
     xhr.onload = function validar() {
         if (xhr.status == 200) {
             obj.replaceChild(document.createTextNode(valor), obj.firstChild);
+        }
+    };
+
+    xhr.send(data);
+}
+
+function guardarGrupo(obj, valor, columna, id, clave, numero) {
+    obj.replaceChild(document.createTextNode("valor"), obj.firstChild);
+
+    xhr = new XMLHttpRequest();
+    xhr.open("POST", "ModificarServlet", true);
+
+    var data = new FormData();
+    data.append("id", clave);
+    data.append("numero", numero);
+    data.append("valor", valor);
+    data.append("columna", columna);
+    var stringValor = valor;
+    
+    if(valor == 1)
+        stringValor = "Sí";
+    else if(valor == 0)
+        stringValor = "No";
+        
+    xhr.onload = function validar() {
+        if (xhr.status == 200) {
+            obj.replaceChild(document.createTextNode(stringValor), obj.firstChild);
         }
     };
 

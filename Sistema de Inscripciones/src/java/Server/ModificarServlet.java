@@ -39,7 +39,7 @@ public class ModificarServlet extends HttpServlet {
             throws ServletException, IOException, SQLException, ClassNotFoundException {
         String id = request.getParameter("id");
         // Si la pk empieza con L entonces es un maestro
-        if (id.charAt(0) == 'L') {
+        if (id.charAt(0) == 'L' && request.getParameter("numero") == null) {
             // Maestro
             System.out.println("ID: " + request.getParameter("id"));
             System.out.println("Valor: " + request.getParameter("valor"));
@@ -47,7 +47,7 @@ public class ModificarServlet extends HttpServlet {
             String column = request.getParameter("columna");
             String valor = request.getParameter("valor");
             DatabaseConnection.updateTeachers(id, column, valor);
-        } else if (Character.isLetter(id.charAt(0))) {
+        } else if (Character.isLetter(id.charAt(0)) && request.getParameter("numero") == null) {
             // Esto es un salon
             System.out.println("ID: " + request.getParameter("id"));
             System.out.println("Valor: " + request.getParameter("valor"));
@@ -55,6 +55,16 @@ public class ModificarServlet extends HttpServlet {
             String column = request.getParameter("columna");
             String valor = request.getParameter("valor");
             DatabaseConnection.updateClassroom(id, column, valor);
+        }else{
+            System.out.println("Clave: " + request.getParameter("id"));
+            System.out.println("Numero: " + request.getParameter("numero"));
+            System.out.println("Valor: " + request.getParameter("valor"));
+            System.out.println("Columna: " + request.getParameter("columna"));
+            String clave = request.getParameter("id");
+            String numero = request.getParameter("numero");
+            String valor = request.getParameter("valor");
+            String columna = request.getParameter("columna");
+            DatabaseConnection.updateGroups(clave, numero, columna, valor);
         }
     }
 

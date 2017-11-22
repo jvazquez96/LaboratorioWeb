@@ -78,6 +78,10 @@
 
                     // Hacer el 'get' a la instancia del objeto específico
                     String valor = getterEspecifico.invoke(objeto).toString();
+                    if(valor == "false")
+                        valor = "No";
+                    else if(valor == "true")
+                        valor = "Sí";
                     out.write(valor);
                     out.write("</td>");
                     objectId++;

@@ -306,6 +306,18 @@ public class DatabaseConnection {
        preparedStatement.executeUpdate();
    }
    
+   public static void updateGroups(String clave, String numero, String column, String value) throws SQLException, ClassNotFoundException {
+       Connection connection = setupDBConnection();
+       String query = "UPDATE Curso SET "
+               + column
+               + " = ? WHERE Clave = ? AND NumeroDeGrupo = ?";
+       PreparedStatement preparedStatement = connection.prepareStatement(query);
+       preparedStatement.setString(1, value);
+       preparedStatement.setString(2, clave);
+       preparedStatement.setString(3, numero);
+       preparedStatement.executeUpdate();
+   }
+   
    public static ArrayList<Curso> getAllCoursesProfessor(String nomina) throws SQLException, ClassNotFoundException{
        Class.forName("com.mysql.jdbc.Driver");
        String url = "jdbc:mysql://localhost"+port+"/Proyecto";
