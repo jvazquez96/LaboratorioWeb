@@ -6,22 +6,30 @@
 
 var xhr;
 
-$('input').select(function(){
+$('input').select(function () {
     $(this).focus();
 });
 
 function editar(object, id) {
 
     var long = $(object).parent().children().length;
-    var col = object.id % long;
+    var col = object.id % (long - 1);
+    var columna = object.className;
+    var iNomina = columna[columna.length - 1];
+
+    //nomina (id) del objeto y la columna que se va a editar
+    var nomina;
+    columna = columna.substring(0, columna.length - 1);
 
 
     //Si el tamaño de datos es 5, es maestro
-    if (long == 5) {
+    if (long == 6) {
         //Esto es un maestro
-        switch (col) {
-            case 1:
-                var columna = "nombre";
+        nomina = document.getElementsByClassName("Nomina" + iNomina)[0].innerHTML;
+        switch (columna) {
+            case "Nombre":
+            case "Telefono":
+            case "CorreoElectronico":
                 var input = document.createElement("input");
                 input.className = "mdl-textfield__input";
                 input.id = 'input';
@@ -37,63 +45,7 @@ function editar(object, id) {
                 document.getElementById('input').select();
 
                 input.onblur = function salir() {
-                    guardar(object, input.value, columna, id);
-                    delete input;
-                };
-
-                input.onkeydown = function keyDown(event) {
-                    if (event.keyCode == 13) {
-                        document.getElementById('input').blur();
-                        delete input;
-                    }
-                };
-                break;
-            case 2:
-                var columna = "telefono";
-                var input = document.createElement("input");
-                input.className = "mdl-textfield__input";
-                input.id = 'input';
-
-                if (object.innerText)
-                    input.value = object.innerText;
-                else
-                    input.value = object.textContent;
-
-                input.style.width = getTextWidth(input.value) + 30 + "px";
-                object.replaceChild(input, object.firstChild);
-                document.getElementById('input').focus();
-                document.getElementById('input').select();
-
-                input.onblur = function salir() {
-                    guardar(object, input.value, columna, id);
-                    delete input;
-                };
-
-                input.onkeydown = function keyDown(event) {
-                    if (event.keyCode == 13) {
-                        document.getElementById('input').blur();
-                        delete input;
-                    }
-                };
-                break;
-            case 3:
-                var columna = "correoelectronico";
-                var input = document.createElement("input");
-                input.className = "mdl-textfield__input";
-                input.id = 'input';
-
-                if (object.innerText)
-                    input.value = object.innerText;
-                else
-                    input.value = object.textContent;
-
-                input.style.width = getTextWidth(input.value) + 30 + "px";
-                object.replaceChild(input, object.firstChild);
-                document.getElementById('input').focus();
-                document.getElementById('input').select();
-
-                input.onblur = function salir() {
-                    guardar(object, input.value, columna, id);
+                    guardar(object, input.value, columna, id, nomina);
                     delete input;
                 };
 
@@ -105,11 +57,12 @@ function editar(object, id) {
                 };
                 break;
         }
-    } else if (long == 3) {
+    } else if (long == 4) {
         //Esto es un salon
-        switch(col){
-            case 1:
-                var columna = "capacidad";
+        nomina = document.getElementsByClassName("Numero" + iNomina)[0].innerHTML;
+        switch (columna) {
+            case "Capacidad":
+            case "Administrador":
                 var input = document.createElement("input");
                 input.className = "mdl-textfield__input";
                 input.id = 'input';
@@ -125,7 +78,7 @@ function editar(object, id) {
                 document.getElementById('input').select();
 
                 input.onblur = function salir() {
-                    guardar(object, input.value, columna, id);
+                    guardar(object, input.value, columna, id, nomina);
                     delete input;
                 };
 
@@ -136,51 +89,63 @@ function editar(object, id) {
                     }
                 };
                 break;
-            case 2:
-                var columna = "administrador";
-                var input = document.createElement("input");
-                input.className = "mdl-textfield__input";
-                input.id = 'input';
+        }
+    } else if (long == 11) {
+        //Esto es un grupo
+        nomina = document.getElementsByClassName("Nomina" + iNomina)[0].innerHTML;
+        var clave = document.getElementsByClassName("Clave" + iNomina)[0].innerHTML;
+        var numero = document.getElementsByClassName("NumeroDeGrupo" + iNomina)[0].innerHTML;
+        var select = document.createElement("select");
+        select.id = 'select;'
 
-                if (object.innerText)
-                    input.value = object.innerText;
-                else
-                    input.value = object.textContent;
 
-                input.style.width = getTextWidth(input.value) + 30 + "px";
-                object.replaceChild(input, object.firstChild);
-                document.getElementById('input').focus();
-                document.getElementById('input').select();
-
-                input.onblur = function salir() {
-                    guardar(object, input.value, columna, id);
-                    delete input;
-                };
-
-                input.onkeydown = function keyDown(event) {
-                    if (event.keyCode == 13) {
-                        document.getElementById('input').blur();
-                        delete input;
+        switch (columna) {
+            case "Horario":
+            case "HorarioLaboratorio":
+            case "Ingles":
+            case "Honors":
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "GetHorarios", false);
+                xhr.onload = function validar() {
+                    if (xhr.status == 200) {
+                        var array = xhr.responseText.split(",");
+                        for(var i = 0; i < array.length; ++i){
+                            var option = document.createElement("option");
+                            option.value = array[0];
+                            option.name = array[0];
+                            option.innerHTML = array[0];
+                            select.appendChild(option);
+                            console.log(option);
+                            console.log("WTF");
+                        }
                     }
+                }
+                xhr.send(null);
+
+                select.style.width = "30px";
+                object.replaceChild(select, object.firstChild);
+
+                select.onchange = function salir() {
+                    //guardar(object, select.value, columna, id, nomina);
+                    delete select;
                 };
                 break;
         }
     }
 }
 
-function guardar(obj, valor, columna, id) {
+function guardar(obj, valor, columna, id, nomina) {
     obj.replaceChild(document.createTextNode(valor), obj.firstChild);
-    var clave = getId(obj);
 
     xhr = new XMLHttpRequest();
     xhr.open("POST", "ModificarServlet", true);
 
     var data = new FormData();
-    data.append("id", clave);
+    data.append("id", nomina);
     data.append("valor", valor);
     data.append("columna", columna);
-    xhr.onload = function validar(){
-        if(xhr.status == 200){
+    xhr.onload = function validar() {
+        if (xhr.status == 200) {
             obj.replaceChild(document.createTextNode(valor), obj.firstChild);
         }
     };
@@ -202,7 +167,7 @@ function eliminar(obj) {
             primaryKeyNames.push(header.innerText);
             primaryKeyIndexes.push(headerIdx);
         }
-        headerIdx ++;
+        headerIdx++;
     }
 
     // Get the values for the primary keys to delete
@@ -223,10 +188,10 @@ function eliminar(obj) {
     console.log(beanName)
     var deletionPlan = ""
     for (var key in primaryKeys) {
-        deletionPlan += " " + key + ": " + primaryKeys[key] ;
+        deletionPlan += " " + key + ": " + primaryKeys[key];
     }
     var userConfirmed = confirm("¿Está seguro que desea eliminar" + deletionPlan +
-                                " y sus elementos dependientes?");
+            " y sus elementos dependientes?");
     if (!userConfirmed) {
         return;
     }

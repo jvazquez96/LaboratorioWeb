@@ -41,8 +41,11 @@
             // Print the Table Header
             out.write("<thead>");
             out.write("<tr>");
+            ArrayList<String> headers = new ArrayList<>();
+            String headerName;
             for (Method getter: getters) {
-                final String headerName = getter.getName().replace("get","");
+                headerName = getter.getName().replace("get","");
+                headers.add(headerName);
                 if (primaryKeyNames.contains(headerName)) {
                     out.write("<th data-is-primary-key='True'>");
                 }
@@ -59,6 +62,8 @@
             out.write("</thead>");
 
             int objectId = 0;
+            int j = 0;
+            int rows = 0;
             // Print the table body
             out.write("<tbody>");
             for (Object objeto : objects) {
@@ -67,7 +72,7 @@
                 }
                 out.write("<tr>");
                 for (Method getter: getters) {
-                    out.write("<td ondblclick='editar(this, " +  objectId + ")' style='cursor: pointer' id='" + objectId +"'>");
+                    out.write("<td class='" + headers.get(j) + rows +"' ondblclick='editar(this, " +  objectId + ")' style='cursor: pointer' id='" + objectId +"'>");
                     // Tomar el getter del la instancia del objeto específico
                     Method getterEspecifico = objeto.getClass().getMethod(getter.getName());
 
@@ -76,9 +81,12 @@
                     out.write(valor);
                     out.write("</td>");
                     objectId++;
+                    j++;
                 }
                 out.write("<td><button onclick='eliminar(this)'>Eliminar</button></td>");
                 out.write("</tr>");
+                j = 0;
+                rows++;
 
             }
             out.write("<td>");

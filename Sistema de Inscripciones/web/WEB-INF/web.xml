@@ -24,6 +24,10 @@
         <servlet-name>ReportesServlet</servlet-name>
         <servlet-class>Server.ReportesServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetDatos</servlet-name>
+        <servlet-class>Server.GetDatos</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MenuServlet</servlet-name>
         <url-pattern>/MenuServlet</url-pattern>
@@ -51,6 +55,10 @@
     <servlet-mapping>
         <servlet-name>ReportesServlet</servlet-name>
         <url-pattern>/ReportesServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetDatos</servlet-name>
+        <url-pattern>/GetDatos</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
