@@ -6,9 +6,12 @@
 package Server;
 
 import DB.DatabaseConnection;
+import Data.Maestro;
+import Mail.SendMail;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -61,6 +64,10 @@ public class ModificarServlet extends HttpServlet {
             System.out.println("Valor: " + request.getParameter("valor"));
             System.out.println("Columna: " + request.getParameter("columna"));
             String clave = request.getParameter("id");
+            ArrayList<Maestro> maestros = DatabaseConnection.getAllTeachersFromCourse(clave, Integer.valueOf(request.getParameter("numero")));
+            for (Maestro maestro: maestros) {
+                    SendMail.sendMail(maestro.getCorreoElectronico(), "Se ha realizado un cambio en uno de tus grupos favor de verificarlo", "Cambio");
+            }
             String numero = request.getParameter("numero");
             String valor = request.getParameter("valor");
             String columna = request.getParameter("columna");

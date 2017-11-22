@@ -24,6 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  *
@@ -246,7 +247,7 @@ public class DatabaseConnection {
        return cursos;
    }
 
-   private static ArrayList<Maestro> getAllTeachersFromCourse(String clave, int numeroDeGrupo) throws SQLException, ClassNotFoundException {
+   public static ArrayList<Maestro> getAllTeachersFromCourse(String clave, int numeroDeGrupo) throws SQLException, ClassNotFoundException {
        Connection connection = setupDBConnection();
        ArrayList<Maestro> maestros = new ArrayList<>();
        String query = "SELECT * FROM Ensena WHERE Clave = ? AND NumerodeGrupo = ?";
@@ -258,9 +259,16 @@ public class DatabaseConnection {
            String nomina = myResult.getString("Nomina");
            String claveTabla = myResult.getString("Clave");
            int numeroDeGrupoTabla = (Integer) myResult.getObject("NumeroDeGrupo");
-           if (claveTabla.equals(clave) && numeroDeGrupoTabla == numeroDeGrupo) {
-               Maestro maestro = new Maestro();
-               maestro.setNomina(nomina);
+            Maestro maestro = new Maestro();
+            maestro.setNomina(nomina);  
+            maestros.add(maestro);
+       }
+       ArrayList<Maestro> maestros2 = DatabaseConnection.getAllTeachers();
+       for (Maestro maestro: maestros) {
+           for (Maestro maestro1: maestros2) {
+               if (maestro.getNomina().equals(maestro1.getNomina())) {
+                   maestro.setCorreoElectronico(maestro1.getCorreoElectronico());
+               }
            }
        }
        return maestros;
